@@ -2,7 +2,7 @@
 
 ## Snapshot schema
 
-Defined in `TenXShared/Sources/TenXShared/WidgetSnapshot.swift`:
+Defined in `Shared/Sources/TenXShared/WidgetSnapshot.swift`:
 
 - `state`: needsOnboarding | needsSetup | inProgress | complete
 - `dayKey`

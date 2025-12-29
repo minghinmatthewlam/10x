@@ -1,46 +1,27 @@
 name: TenX
 options:
   bundleIdPrefix: com.matthewlam
-  deploymentTarget:
-    iOS: "17.0"
-  xcodeVersion: "15.2"
-  generateEmptyDirectories: true
-  groupSortPosition: top
-
 settings:
   base:
     IPHONEOS_DEPLOYMENT_TARGET: 17.0
     DEVELOPMENT_TEAM: ""
-    SWIFT_VERSION: 5.9
-    SWIFT_STRICT_CONCURRENCY: complete
-    ENABLE_USER_SCRIPT_SANDBOXING: false
-
 packages:
   TenXShared:
-    path: TenXShared
+    path: Shared
 
 targets:
   TenX:
     type: application
     platform: iOS
     sources:
-      - TenXApp
+      - App
     resources:
-      - TenXApp/Resources
+      - App/Resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx
-        INFOPLIST_FILE: TenXApp/Resources/Info.plist
-        ENTITLEMENTS_FILE: TenXApp/TenX.entitlements
-    preBuildScripts:
-      - name: SwiftLint
-        script: |
-          if which swiftlint > /dev/null; then
-            swiftlint lint --config "${SRCROOT}/.swiftlint.yml"
-          else
-            echo "warning: SwiftLint not installed. Run 'brew install swiftlint'"
-          fi
-        basedOnDependencyAnalysis: false
+        INFOPLIST_FILE: App/Resources/Info.plist
+        ENTITLEMENTS_FILE: App/TenX.entitlements
     dependencies:
       - package: TenXShared
       - target: TenXWidgets
@@ -49,12 +30,12 @@ targets:
     type: app-extension
     platform: iOS
     sources:
-      - TenXWidgets
+      - Widgets
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx.widgets
-        INFOPLIST_FILE: TenXWidgets/Info.plist
-        ENTITLEMENTS_FILE: TenXWidgets/TenXWidgets.entitlements
+        INFOPLIST_FILE: Widgets/Info.plist
+        ENTITLEMENTS_FILE: Widgets/TenXWidgets.entitlements
     dependencies:
       - package: TenXShared
 
@@ -62,7 +43,7 @@ targets:
     type: bundle.unit-test
     platform: iOS
     sources:
-      - TenXTests
+      - Tests
     dependencies:
       - target: TenX
 
@@ -70,6 +51,6 @@ targets:
     type: bundle.ui-testing
     platform: iOS
     sources:
-      - TenXUITests
+      - UITests
     dependencies:
       - target: TenX

@@ -9,11 +9,11 @@
 
 ## Structure
 
-- `TenXApp/` — iOS app (SwiftUI + SwiftData)
-- `TenXWidgets/` — widget extension
-- `TenXShared/` — shared Swift package (deep links, widget snapshot)
-- `TenXTests/` — unit tests
-- `TenXUITests/` — UI tests
+- `App/` — iOS app (SwiftUI + SwiftData)
+- `Widgets/` — widget extension
+- `Shared/` — shared Swift package (deep links, widget snapshot)
+- `Tests/` — unit tests
+- `UITests/` — UI tests
 
 ## Setup
 
