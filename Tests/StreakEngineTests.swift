@@ -6,7 +6,7 @@ final class StreakEngineTests: XCTestCase {
         let todayKey = DayKey.make()
         let yesterdayKey = DayKey.previous(dayKey: todayKey)
 
-        let yesterday = makeEntry(dayKey: yesterdayKey, completedCount: 1)
+        let yesterday = makeEntry(dayKey: yesterdayKey, completedCount: 2)
         let today = makeEntry(dayKey: todayKey, completedCount: 0)
 
         let streak = StreakEngine.currentStreak(todayKey: todayKey, entries: [today, yesterday])
@@ -26,7 +26,7 @@ final class StreakEngineTests: XCTestCase {
         let todayKey = DayKey.make()
         let yesterdayKey = DayKey.previous(dayKey: todayKey)
 
-        let yesterday = makeEntry(dayKey: yesterdayKey, completedCount: 1)
+        let yesterday = makeEntry(dayKey: yesterdayKey, completedCount: 2)
         let today = makeEntry(dayKey: todayKey, completedCount: 1)
 
         let startKey = StreakEngine.streakStartDayKey(todayKey: todayKey, entries: [today, yesterday])

@@ -22,6 +22,9 @@ final class DayEntry {
         focuses.filter(\.isCompleted).count
     }
 
-    var maintainsStreak: Bool { completedCount >= 1 }
+    var maintainsStreak: Bool {
+        guard !focuses.isEmpty else { return false }
+        return completedCount >= min(2, focuses.count)
+    }
     var isFullyComplete: Bool { !focuses.isEmpty && completedCount == focuses.count }
 }
