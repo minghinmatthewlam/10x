@@ -26,6 +26,7 @@ TenX is a focused daily goal app for iOS. It enforces three daily focuses tied t
 
 - Build the TenX app target in Xcode.
 - Run unit tests via Xcode’s test navigator.
+- Regenerate the Xcode project (optional): `xcodegen generate`
 
 ## Notes
 
