@@ -54,3 +54,7 @@ coverage/
 
 # SwiftLint/SwiftFormat cache
 .swiftlint.cache
+
+# Local build overrides
+local.xcconfig
+*.local.xcconfig
