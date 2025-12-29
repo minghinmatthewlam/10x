@@ -5,7 +5,7 @@ struct NotificationTimePickerView: View {
     @Binding var minute: Int
 
     var body: some View {
-        DatePicker("Reminder Time", selection: Binding(get: {
+        DatePicker("Morning reminder", selection: Binding(get: {
             var components = DateComponents()
             components.hour = hour
             components.minute = minute

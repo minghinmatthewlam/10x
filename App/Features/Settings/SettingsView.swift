@@ -36,11 +36,10 @@ struct SettingsView: View {
                     }
                     .listRowBackground(theme.surface)
 
-                Text(statusText)
-                    .foregroundStyle(theme.textSecondary)
-                    .listRowBackground(theme.surface)
-
                 if viewModel.authorizationStatus == .denied {
+                    Text("Notifications are disabled. Enable them in Settings.")
+                        .foregroundStyle(theme.textSecondary)
+                        .listRowBackground(theme.surface)
                     Button("Open Settings") {
                         NotificationScheduler.shared.openSystemSettings()
                     }
@@ -124,18 +123,4 @@ struct SettingsView: View {
 #endif
     }
 
-    private var statusText: String {
-        switch viewModel.authorizationStatus {
-        case .authorized, .provisional:
-            return "Reminders enabled"
-        case .denied:
-            return "Reminders denied"
-        case .notDetermined:
-            return "Reminders not set"
-        case .ephemeral:
-            return "Reminders temporary"
-        @unknown default:
-            return "Reminders status unknown"
-        }
-    }
 }
