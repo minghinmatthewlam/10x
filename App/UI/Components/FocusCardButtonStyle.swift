@@ -3,12 +3,9 @@ import SwiftUI
 struct FocusCardButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .background(Color.tenxCard)
+            .background(Color.tenxSurface)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .stroke(Color.tenxCard.opacity(0.4), lineWidth: 1)
-            )
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
     }
 }

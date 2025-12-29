@@ -6,14 +6,15 @@ struct StreakBadgeView: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: "flame.fill")
-                .foregroundStyle(streak > 0 ? Color.tenxAccent : Color.tenxTextSecondary)
+                .font(.system(size: 14))
+                .foregroundStyle(streak > 0 ? Color.tenxTextPrimary : Color.tenxTextMuted)
             Text("\(streak)")
-                .font(.tenxBody)
-                .foregroundStyle(Color.tenxTextPrimary)
+                .font(.tenxBody.monospacedDigit())
+                .foregroundStyle(streak > 0 ? Color.tenxTextPrimary : Color.tenxTextMuted)
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(Color.tenxCard)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(Color.tenxSurface)
         .clipShape(Capsule())
     }
 }
