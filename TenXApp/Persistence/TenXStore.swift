@@ -65,10 +65,12 @@ final class TenXStore {
         return try context.fetch(descriptor).first
     }
 
-    func fetchRecentDayEntries(limit: Int = 120) throws -> [DayEntry] {
+    func fetchRecentDayEntries(limit: Int? = nil) throws -> [DayEntry] {
         var descriptor = FetchDescriptor<DayEntry>()
         descriptor.sortBy = [SortDescriptor(\.dayKey, order: .reverse)]
-        descriptor.fetchLimit = limit
+        if let limit {
+            descriptor.fetchLimit = limit
+        }
         return try context.fetch(descriptor)
     }
 
