@@ -34,8 +34,12 @@ enum ModelContainerFactory {
             } catch {
                 let memoryConfig = ModelConfiguration(schema: schema,
                                                       isStoredInMemoryOnly: true)
-                return try ModelContainer(for: schema,
-                                          configurations: [memoryConfig])
+                do {
+                    return try ModelContainer(for: schema,
+                                              configurations: [memoryConfig])
+                } catch {
+                    fatalError("Failed to create SwiftData container: \(error)")
+                }
             }
         }
     }
