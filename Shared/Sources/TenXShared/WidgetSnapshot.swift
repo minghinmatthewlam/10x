@@ -23,6 +23,7 @@ public struct WidgetSnapshot: Codable, Equatable {
     public let streak: Int
     public let completedCount: Int
     public let focuses: [Focus]
+    public let theme: String?
     public let generatedAt: Date
 
     public init(state: State,
@@ -30,12 +31,14 @@ public struct WidgetSnapshot: Codable, Equatable {
                 streak: Int,
                 completedCount: Int,
                 focuses: [Focus],
+                theme: String? = nil,
                 generatedAt: Date) {
         self.state = state
         self.dayKey = dayKey
         self.streak = streak
         self.completedCount = completedCount
         self.focuses = focuses
+        self.theme = theme
         self.generatedAt = generatedAt
     }
 }

@@ -4,7 +4,13 @@ import TenXShared
 
 struct HomeWidgetView: View {
     let snapshot: WidgetSnapshot?
-    private var theme: ThemePalette { ThemeStore.currentTheme().palette }
+    private var theme: ThemePalette {
+        if let raw = snapshot?.theme,
+           let theme = Theme(rawValue: raw) {
+            return theme.palette
+        }
+        return ThemeStore.currentTheme().palette
+    }
 
     var body: some View {
         content
@@ -54,7 +60,8 @@ struct HomeWidgetView: View {
             Spacer()
 
             HStack {
-                ProgressRing(progress: Double(snapshot.completedCount) / Double(total))
+                ProgressRing(progress: Double(snapshot.completedCount) / Double(total),
+                             theme: theme)
                     .frame(width: 36, height: 36)
             Text("\(snapshot.completedCount)/\(total) complete")
                 .font(.caption2)

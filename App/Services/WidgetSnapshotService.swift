@@ -21,6 +21,9 @@ final class WidgetSnapshotService {
         let hasCompletedOnboarding = userDefaults.bool(forKey: UserDefaultsKeys.hasCompletedOnboarding)
         let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
         let recentEntries = (try? store.fetchRecentDayEntries()) ?? []
+        let sharedTheme = UserDefaults(suiteName: SharedConstants.appGroupID)?
+            .string(forKey: UserDefaultsKeys.theme)
+        let theme = sharedTheme ?? userDefaults.string(forKey: UserDefaultsKeys.theme)
 
         let state: WidgetSnapshot.State
         if !hasCompletedOnboarding {
@@ -49,6 +52,7 @@ final class WidgetSnapshotService {
                                       streak: StreakEngine.currentStreak(todayKey: todayKey, entries: recentEntries),
                                       completedCount: todayEntry?.completedCount ?? 0,
                                       focuses: focuses,
+                                      theme: theme,
                                       generatedAt: .now)
 
         do {

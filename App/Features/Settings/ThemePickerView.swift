@@ -3,7 +3,7 @@ import TenXShared
 
 struct ThemePickerView: View {
     @EnvironmentObject private var themeManager: ThemeManager
-    @Environment(\.tenxTheme) private var theme
+    private var palette: ThemePalette { themeManager.theme.palette }
 
     var body: some View {
         List {
@@ -13,21 +13,21 @@ struct ThemePickerView: View {
                 } label: {
                     HStack {
                         Text(option.label)
-                            .foregroundStyle(theme.textPrimary)
+                            .foregroundStyle(palette.textPrimary)
                         Spacer()
                         if option == themeManager.theme {
                             Image(systemName: "checkmark")
-                                .foregroundStyle(theme.accent)
+                                .foregroundStyle(palette.accent)
                         }
                     }
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(palette.surface)
             }
         }
         .navigationTitle("Style")
         .scrollContentBackground(.hidden)
-        .background(theme.background)
-        .toolbarBackground(theme.background, for: .navigationBar)
-        .tint(theme.accent)
+        .background(palette.background)
+        .toolbarBackground(palette.background, for: .navigationBar)
+        .tint(palette.accent)
     }
 }

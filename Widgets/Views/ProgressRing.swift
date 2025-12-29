@@ -3,7 +3,7 @@ import TenXShared
 
 struct ProgressRing: View {
     let progress: Double
-    private var theme: ThemePalette { ThemeStore.currentTheme().palette }
+    let theme: ThemePalette
 
     var body: some View {
         ZStack {
