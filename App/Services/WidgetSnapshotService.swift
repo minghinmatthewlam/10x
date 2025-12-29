@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 import TenXShared
+import WidgetKit
 
 @MainActor
 final class WidgetSnapshotService {
@@ -46,6 +47,7 @@ final class WidgetSnapshotService {
 
         do {
             try snapshotStore.save(snapshot)
+            WidgetCenter.shared.reloadAllTimelines()
         } catch {
             // Widgets can fall back to empty state if write fails.
         }
