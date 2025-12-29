@@ -15,9 +15,6 @@ final class AppState: ObservableObject {
         case .setup:
             selectedTab = .home
             showDailySetup = true
-        case .goals:
-            selectedTab = .goals
-            showDailySetup = false
         case .settings:
             selectedTab = .settings
             showDailySetup = false
@@ -27,6 +24,5 @@ final class AppState: ObservableObject {
 
 enum AppTab: Hashable {
     case home
-    case goals
     case settings
 }

@@ -4,7 +4,6 @@ import TenXShared
 enum AppRoute {
     case home
     case setup
-    case goals
     case settings
 }
 
@@ -15,7 +14,7 @@ enum AppRouter {
         switch routeHost {
         case .home: return .home
         case .setup: return .setup
-        case .goals: return .goals
+        case .goals: return .home  // Redirect legacy goals deep link to home
         case .settings: return .settings
         }
     }

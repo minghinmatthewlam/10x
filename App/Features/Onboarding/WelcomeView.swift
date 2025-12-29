@@ -1,27 +1,44 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    let onBegin: () -> Void
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            Text("10x")
-                .font(.tenxTitle)
-                .foregroundStyle(Color.tenxAccent)
+        VStack(spacing: 0) {
+            Spacer()
+            Spacer()
 
-            Text("Pick three goals. Every day, choose three focuses aligned to those goals.")
-                .font(.tenxBody)
-                .foregroundStyle(Color.tenxTextPrimary)
+            VStack(alignment: .leading, spacing: 32) {
+                Text("10x")
+                    .font(.system(size: 48, weight: .semibold))
+                    .foregroundStyle(Color.tenxTextPrimary)
 
-            VStack(alignment: .leading, spacing: 12) {
-                Label("Exactly three focuses per day", systemImage: "checkmark.circle.fill")
-                Label("Streak stays alive if you complete at least one", systemImage: "flame.fill")
-                Label("No noise. Just progress.", systemImage: "moon.stars.fill")
+                Text("What would make\ntoday extraordinary?")
+                    .font(.tenxHero)
+                    .foregroundStyle(Color.tenxTextPrimary)
+                    .lineSpacing(4)
+
+                Text("Each day, choose up to three focuses.\nComplete one to keep your streak alive.")
+                    .font(.tenxBody)
+                    .foregroundStyle(Color.tenxTextSecondary)
+                    .lineSpacing(4)
             }
-            .font(.tenxBody)
-            .foregroundStyle(Color.tenxTextSecondary)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
             Spacer()
+            Spacer()
+            Spacer()
+
+            Button("Begin") {
+                onBegin()
+            }
+            .buttonStyle(PrimaryButtonStyle())
+            .frame(maxWidth: .infinity)
+
+            Spacer()
+                .frame(height: 48)
         }
-        .padding(32)
+        .padding(.horizontal, 32)
         .background(Color.tenxBackground)
     }
 }

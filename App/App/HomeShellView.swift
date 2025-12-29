@@ -12,12 +12,6 @@ struct HomeShellView: View {
             .tag(AppTab.home)
 
             NavigationStack {
-                GoalsView()
-            }
-            .tabItem { Label("Goals", systemImage: "target") }
-            .tag(AppTab.goals)
-
-            NavigationStack {
                 SettingsView()
             }
             .tabItem { Label("Settings", systemImage: "gearshape.fill") }
