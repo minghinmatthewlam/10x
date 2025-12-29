@@ -10,6 +10,8 @@ struct TenXWidgetsEntryView: View {
         switch family {
         case .accessoryCircular:
             LockWidgetView(snapshot: entry.snapshot)
+        case .systemSmall:
+            SmallHomeWidgetView(snapshot: entry.snapshot)
         default:
             HomeWidgetView(snapshot: entry.snapshot)
         }
@@ -26,7 +28,7 @@ struct TenXWidgets: Widget {
         }
         .configurationDisplayName("10x")
         .description("Track today’s focuses and streak.")
-        .supportedFamilies([.systemMedium, .systemLarge, .accessoryCircular])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryCircular])
     }
 }
 

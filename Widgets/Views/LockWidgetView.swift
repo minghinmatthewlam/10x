@@ -27,7 +27,7 @@ struct LockWidgetView: View {
         guard let snapshot else { return DeepLinks.url(for: .home) }
         switch snapshot.state {
         case .needsOnboarding:
-            return DeepLinks.url(for: .goals)
+            return DeepLinks.url(for: .home)
         case .needsSetup:
             return DeepLinks.url(for: .setup)
         case .inProgress, .complete:

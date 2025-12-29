@@ -2,14 +2,14 @@ import SwiftUI
 import WidgetKit
 import TenXShared
 
-struct HomeWidgetView: View {
+struct SmallHomeWidgetView: View {
     let snapshot: WidgetSnapshot?
 
     var body: some View {
         ZStack {
             Color.black
             content
-                .padding(16)
+                .padding(12)
         }
         .widgetURL(defaultURL)
     }
@@ -19,10 +19,10 @@ struct HomeWidgetView: View {
         if let snapshot {
             switch snapshot.state {
             case .needsOnboarding:
-                emptyState(text: "Open 10x to get started")
+                emptyState(text: "Open 10x to start")
             case .needsSetup:
                 if snapshot.focuses.isEmpty {
-                    emptyState(text: "Set today’s focuses")
+                    emptyState(text: "Set today's focuses")
                 } else {
                     setupState(snapshot)
                 }
@@ -30,33 +30,43 @@ struct HomeWidgetView: View {
                 progressState(snapshot)
             }
         } else {
-            emptyState(text: "Open TenX to get started")
+            emptyState(text: "Open TenX")
         }
     }
 
     private func emptyState(text: String) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             Text("10x")
-                .font(.headline)
+                .font(.caption)
                 .foregroundStyle(.white)
             Text(text)
-                .font(.caption)
+                .font(.caption2)
                 .foregroundStyle(.white.opacity(0.8))
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
-    private func progressState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+    private func setupState(_ snapshot: WidgetSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
             header(snapshot)
             focusList(snapshot)
-
             Spacer()
+            Text("Tap to set focuses")
+                .font(.caption2)
+                .foregroundStyle(.white.opacity(0.7))
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
 
-            HStack {
+    private func progressState(_ snapshot: WidgetSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            header(snapshot)
+            focusList(snapshot)
+            Spacer()
+            HStack(spacing: 6) {
                 ProgressRing(progress: Double(snapshot.completedCount) / 3)
-                    .frame(width: 36, height: 36)
-                Text("\(snapshot.completedCount)/3 complete")
+                    .frame(width: 22, height: 22)
+                Text("\(snapshot.completedCount)/3")
                     .font(.caption2)
                     .foregroundStyle(.white.opacity(0.8))
             }
@@ -64,30 +74,16 @@ struct HomeWidgetView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
-    private func setupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            header(snapshot)
-            focusList(snapshot)
-
-            Spacer()
-
-            Text("Tap to set today’s focuses")
-                .font(.caption2)
-                .foregroundStyle(.white.opacity(0.8))
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
             Text("Today")
-                .font(.headline)
+                .font(.caption)
                 .foregroundStyle(.white)
             Spacer()
             Text("\(snapshot.streak)")
-                .font(.caption)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .font(.caption2)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 3)
                 .background(Color.white.opacity(0.15))
                 .clipShape(Capsule())
                 .foregroundStyle(.white)
@@ -95,10 +91,11 @@ struct HomeWidgetView: View {
     }
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 4) {
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
-                HStack(spacing: 6) {
+                HStack(spacing: 4) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .imageScale(.small)
                     Text(focus.title)
                         .lineLimit(1)
                 }
