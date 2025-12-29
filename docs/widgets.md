@@ -15,6 +15,7 @@ Defined in `Shared/Sources/TenXShared/WidgetSnapshot.swift`:
 
 - File name: `widget_snapshot.json`
 - Location: App Group container (`SharedConstants.appGroupID`)
+- Theme stored in App Group defaults (`SharedConstants.themeKey`)
 
 ## Refresh policy
 

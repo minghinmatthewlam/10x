@@ -8,13 +8,17 @@
 ## Data model
 
 - `DayEntry` — one per `dayKey`, contains 1-3 `DailyFocus`.
-- `DailyFocus` — focus title, completion state, optional carryover metadata.
+- `DailyFocus` — focus title, completion state, optional carryover metadata, optional tag.
 
 ## Streak rules
 
 - A day counts if it has an entry and at least one completed focus.
 - If today exists with 0 completed focuses, streak displays yesterday’s streak (pending).
 - Missing a day entry breaks streak.
+
+## Weekly insights
+
+- Weekly summary is computed from the last 7 `dayKey`s, aggregating focus completion by tag.
 
 ## Carryover
 
@@ -26,6 +30,7 @@
 - Widgets never open SwiftData.
 - App writes `widget_snapshot.json` to App Group on state changes.
 - Widget reads JSON in timeline provider.
+- Theme selection is stored in App Group defaults for widget styling.
 
 ## Persistence fallback
 
