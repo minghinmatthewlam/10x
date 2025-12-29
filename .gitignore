@@ -1,23 +1,31 @@
 # macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
 # Xcode
-DerivedData/
 build/
+DerivedData/
 *.xcuserstate
 *.xcuserdata/
+*.xcuserdatad/
 *.moved-aside
-*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
+*.xcscmblueprint
+*.xccheckout
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
 
-# SwiftPM
+# Swift Package Manager
 .build/
 .swiftpm/
 
-# CocoaPods
-Pods/
+# Instruments
+*.trace
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
 
 # Carthage
 Carthage/Build/
@@ -25,5 +33,16 @@ Carthage/Build/
 # Fastlane
 fastlane/report.xml
 fastlane/Preview.html
-fastlane/screenshots
+fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# AppCode
+.idea/
+
+# Coverage
+*.gcno
+*.gcda
+*.gcov
+
+# Logs
+*.log
