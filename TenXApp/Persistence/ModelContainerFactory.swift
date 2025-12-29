@@ -9,9 +9,10 @@ enum ModelContainerFactory {
         let migrationPlan = TenXMigrationPlan.self
 
         do {
+            let groupContainer: ModelConfiguration.GroupContainer = inMemory ? .none : .identifier(SharedConstants.appGroupID)
             let config = ModelConfiguration(schema: schema,
                                             isStoredInMemoryOnly: inMemory,
-                                            groupContainer: inMemory ? nil : SharedConstants.appGroupID)
+                                            groupContainer: groupContainer)
 
             return try ModelContainer(for: schema,
                                       migrationPlan: migrationPlan,
