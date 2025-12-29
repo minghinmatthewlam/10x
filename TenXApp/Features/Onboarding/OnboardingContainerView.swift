@@ -60,6 +60,8 @@ struct OnboardingContainerView: View {
         let store = TenXStore(context: modelContext)
         do {
             try viewModel.complete(store: store)
+            UserDefaults.standard.set(true, forKey: UserDefaultsKeys.hasCompletedOnboarding)
+            WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
             onComplete()
         } catch {
             errorMessage = error.localizedDescription
