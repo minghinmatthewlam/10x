@@ -35,9 +35,11 @@ struct HomeView: View {
                 if let todayEntry = viewModel.todayEntry {
                     VStack(spacing: 12) {
                         ForEach(todayEntry.sortedFocuses) { focus in
-                            FocusCardView(focus: focus) {
-                                toggleFocus(focus)
-                            }
+                            FocusCardView(focus: focus,
+                                          onToggle: { toggleFocus(focus) },
+                                          onTagChange: { tag in
+                                              updateTag(for: focus, tag: tag)
+                                          })
                             .contextMenu {
                                 Button("Edit") {
                                     editingFocus = focus
@@ -146,6 +148,16 @@ struct HomeView: View {
             }
             viewModel.load(store: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
+        } catch {
+            viewModel.errorMessage = error.localizedDescription
+        }
+    }
+
+    private func updateTag(for focus: DailyFocus, tag: FocusTag?) {
+        let store = TenXStore(context: modelContext)
+        do {
+            try store.updateFocusTag(focus, tag: tag)
+            viewModel.load(store: store, todayKey: DayKey.make())
         } catch {
             viewModel.errorMessage = error.localizedDescription
         }

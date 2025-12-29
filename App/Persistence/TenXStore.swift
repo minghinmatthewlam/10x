@@ -99,6 +99,11 @@ final class TenXStore {
         focus.tag = tag
         try context.save()
     }
+
+    func updateFocusTag(_ focus: DailyFocus, tag: FocusTag?) throws {
+        focus.tag = tag
+        try context.save()
+    }
 }
 
 enum StoreError: Error, LocalizedError {

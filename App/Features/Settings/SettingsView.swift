@@ -16,7 +16,7 @@ struct SettingsView: View {
 
     var body: some View {
         Form {
-            Section("Notifications") {
+            Section {
                 NotificationTimePickerView(hour: $notificationHour, minute: $notificationMinute)
                     .onChange(of: notificationHour) { _, _ in
                         viewModel.requestAndSchedule(store: TenXStore(context: modelContext),
@@ -34,14 +34,17 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
+                    .listRowBackground(theme.surface)
 
                 Text(statusText)
                     .foregroundStyle(theme.textSecondary)
+                    .listRowBackground(theme.surface)
 
                 if viewModel.authorizationStatus == .denied {
                     Button("Open Settings") {
                         NotificationScheduler.shared.openSystemSettings()
                     }
+                    .listRowBackground(theme.surface)
                 }
 
                 Toggle("Midday check-in", isOn: $middayReminderEnabled)
@@ -53,6 +56,7 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
+                    .listRowBackground(theme.surface)
 
                 Toggle("Evening reflection", isOn: $eveningReminderEnabled)
                     .onChange(of: eveningReminderEnabled) { _, _ in
@@ -63,33 +67,50 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
+                    .listRowBackground(theme.surface)
 
                 #if DEBUG
                 Button("Send Test Notification") {
                     viewModel.scheduleTest()
                 }
+                .listRowBackground(theme.surface)
                 #endif
+            } header: {
+                Text("Notifications")
+                    .foregroundStyle(theme.textSecondary)
             }
 
-            Section("Theme") {
+            Section {
                 Picker("Style", selection: $themeManager.theme) {
                     ForEach(Theme.allCases) { theme in
                         Text(theme.label).tag(theme)
                     }
                 }
                 .pickerStyle(.navigationLink)
+                .listRowBackground(theme.surface)
+            } header: {
+                Text("Theme")
+                    .foregroundStyle(theme.textSecondary)
             }
 
-            Section("Appearance") {
+            Section {
                 Picker("Mode", selection: $appearanceMode) {
                     ForEach(AppearanceMode.allCases) { mode in
                         Text(mode.label).tag(mode.rawValue)
                     }
                 }
                 .pickerStyle(.segmented)
+                .listRowBackground(theme.surface)
+            } header: {
+                Text("Appearance")
+                    .foregroundStyle(theme.textSecondary)
             }
         }
         .navigationTitle("Settings")
+        .scrollContentBackground(.hidden)
+        .background(theme.background)
+        .toolbarBackground(theme.background, for: .navigationBar)
+        .tint(theme.accent)
         .onAppear {
             viewModel.refreshStatus()
         }

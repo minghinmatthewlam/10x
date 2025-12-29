@@ -3,6 +3,7 @@ import SwiftUI
 struct FocusCardView: View {
     let focus: DailyFocus
     let onToggle: () -> Void
+    let onTagChange: (FocusTag?) -> Void
 
     @Environment(\.tenxTheme) private var theme
 
@@ -29,18 +30,18 @@ struct FocusCardView: View {
                         }
                     }
 
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 6) {
                     Text(focus.title)
                         .font(.tenxLargeBody)
                         .foregroundStyle(focus.isCompleted ? theme.textSecondary : theme.textPrimary)
                         .strikethrough(focus.isCompleted, color: theme.textSecondary)
                         .multilineTextAlignment(.leading)
 
-                    if let tag = focus.tag {
-                        Text(tag.label)
-                            .font(.tenxSmall)
-                            .foregroundStyle(theme.textSecondary)
-                    }
+                    FocusTagPickerView(tag: Binding(get: {
+                        focus.tag
+                    }, set: { newTag in
+                        onTagChange(newTag)
+                    }))
                 }
 
                 Spacer()
