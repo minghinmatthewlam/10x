@@ -8,7 +8,7 @@ struct SmallHomeWidgetView: View {
 
     var body: some View {
         content
-            .padding(12)
+            .padding(14)
             .containerBackground(theme.background, for: .widget)
             .widgetURL(defaultURL)
     }
@@ -34,31 +34,31 @@ struct SmallHomeWidgetView: View {
     }
 
     private func emptyState(text: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("10x")
-                .font(.caption)
+                .font(.callout.weight(.semibold))
                 .foregroundStyle(theme.textPrimary)
             Text(text)
-                .font(.caption2)
+                .font(.footnote)
                 .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
             focusList(snapshot)
             Spacer()
             Text("Tap to set focuses")
-                .font(.caption2)
+                .font(.footnote)
                 .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
             focusList(snapshot)
             Spacer()
@@ -69,11 +69,11 @@ struct SmallHomeWidgetView: View {
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
             Text("Today")
-                .font(.caption)
+                .font(.callout.weight(.semibold))
                 .foregroundStyle(theme.textPrimary)
             Spacer()
             Text("\(snapshot.streak)")
-                .font(.caption2)
+                .font(.footnote)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
                 .background(theme.textPrimary.opacity(0.15))
@@ -83,7 +83,7 @@ struct SmallHomeWidgetView: View {
     }
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 8) {
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
                 HStack(spacing: 4) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
@@ -91,7 +91,7 @@ struct SmallHomeWidgetView: View {
                     Text(focus.title)
                         .lineLimit(1)
                 }
-                .font(.caption2)
+                .font(.footnote)
                 .foregroundStyle(theme.textPrimary)
             }
         }
