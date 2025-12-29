@@ -2,17 +2,20 @@ import SwiftUI
 
 struct FocusEditView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.tenxTheme) private var theme
 
     let focus: DailyFocus
-    let onSave: (String) throws -> Void
+    let onSave: (String, FocusTag?) throws -> Void
 
     @State private var title: String
+    @State private var tag: FocusTag?
     @State private var errorMessage: String?
 
-    init(focus: DailyFocus, onSave: @escaping (String) throws -> Void) {
+    init(focus: DailyFocus, onSave: @escaping (String, FocusTag?) throws -> Void) {
         self.focus = focus
         self.onSave = onSave
         _title = State(initialValue: focus.title)
+        _tag = State(initialValue: focus.tag)
     }
 
     var body: some View {
@@ -20,19 +23,21 @@ struct FocusEditView: View {
             VStack(alignment: .leading, spacing: 24) {
                 Text("Edit focus")
                     .font(.tenxTitle)
-                    .foregroundStyle(Color.tenxTextPrimary)
+                    .foregroundStyle(theme.textPrimary)
 
                 TextField("What matters most?", text: $title, axis: .vertical)
                     .font(.tenxLargeBody)
-                    .foregroundStyle(Color.tenxTextPrimary)
+                    .foregroundStyle(theme.textPrimary)
                     .textInputAutocapitalization(.sentences)
                     .lineLimit(1...4)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 18)
                     .background(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(Color.tenxSurface)
+                            .fill(theme.surface)
                     )
+
+                FocusTagPickerView(tag: $tag)
 
                 Spacer()
 
@@ -45,7 +50,7 @@ struct FocusEditView: View {
                 .opacity(canSave ? 1 : 0.4)
             }
             .padding(24)
-            .background(Color.tenxBackground)
+            .background(theme.background)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -53,11 +58,11 @@ struct FocusEditView: View {
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(Color.tenxTextSecondary)
+                            .foregroundStyle(theme.textSecondary)
                     }
                 }
             }
-            .toolbarBackground(Color.tenxBackground, for: .navigationBar)
+            .toolbarBackground(theme.background, for: .navigationBar)
         }
         .alert("Oops", isPresented: Binding(get: {
             errorMessage != nil
@@ -76,7 +81,7 @@ struct FocusEditView: View {
 
     private func save() {
         do {
-            try onSave(title)
+            try onSave(title, tag)
             Haptics.mediumImpact()
             dismiss()
         } catch {

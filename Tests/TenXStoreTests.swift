@@ -4,28 +4,20 @@ import SwiftData
 
 final class TenXStoreTests: XCTestCase {
     @MainActor
-    func testCreateDayEntryRequiresThreeFocuses() throws {
+    func testCreateDayEntryAllowsOneToThreeFocuses() throws {
         let context = TestContainerFactory.makeContext()
         let store = TenXStore(context: context)
         let todayKey = DayKey.make()
 
-        let incompleteDrafts = [
-            TenXStore.FocusDraft(title: "One", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "", carriedFromDayKey: nil)
+        let drafts = [
+            TenXStore.FocusDraft(title: "One", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "", carriedFromDayKey: nil, tag: nil)
         ]
 
-        XCTAssertThrowsError(try store.createDayEntry(todayKey: todayKey, drafts: incompleteDrafts))
-
-        let completeDrafts = [
-            TenXStore.FocusDraft(title: "One", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Three", carriedFromDayKey: nil)
-        ]
-
-        XCTAssertNoThrow(try store.createDayEntry(todayKey: todayKey, drafts: completeDrafts))
+        XCTAssertNoThrow(try store.createDayEntry(todayKey: todayKey, drafts: drafts))
         let entry = try store.fetchDayEntry(dayKey: todayKey)
-        XCTAssertEqual(entry?.sortedFocuses.count, 3)
+        XCTAssertEqual(entry?.sortedFocuses.count, 2)
     }
 
     @MainActor
@@ -35,8 +27,8 @@ final class TenXStoreTests: XCTestCase {
         let todayKey = DayKey.make()
 
         let drafts = [
-            TenXStore.FocusDraft(title: " ", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "", carriedFromDayKey: nil)
+            TenXStore.FocusDraft(title: " ", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "", carriedFromDayKey: nil, tag: nil)
         ]
 
         XCTAssertThrowsError(try store.createDayEntry(todayKey: todayKey, drafts: drafts))
@@ -51,9 +43,9 @@ final class TenXStoreTests: XCTestCase {
         let yesterdayKey = DayKey.previous(dayKey: todayKey)
 
         let drafts = [
-            TenXStore.FocusDraft(title: "One", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Three", carriedFromDayKey: nil)
+            TenXStore.FocusDraft(title: "One", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "Three", carriedFromDayKey: nil, tag: nil)
         ]
 
         try store.createDayEntry(todayKey: yesterdayKey, drafts: drafts)
@@ -80,9 +72,9 @@ final class TenXStoreTests: XCTestCase {
 
         let longTitle = String(repeating: "B", count: AppConstants.maxFocusTitleLength + 1)
         let drafts = [
-            TenXStore.FocusDraft(title: longTitle, carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Three", carriedFromDayKey: nil)
+            TenXStore.FocusDraft(title: longTitle, carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "Two", carriedFromDayKey: nil, tag: nil),
+            TenXStore.FocusDraft(title: "Three", carriedFromDayKey: nil, tag: nil)
         ]
 
         XCTAssertThrowsError(try store.createDayEntry(todayKey: DayKey.make(), drafts: drafts))

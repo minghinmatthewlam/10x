@@ -4,11 +4,12 @@ import TenXShared
 
 struct HomeWidgetView: View {
     let snapshot: WidgetSnapshot?
+    private var theme: ThemePalette { ThemeStore.currentTheme().palette }
 
     var body: some View {
         content
             .padding(16)
-            .containerBackground(Color.black, for: .widget)
+            .containerBackground(theme.background, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -36,10 +37,10 @@ struct HomeWidgetView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("10x")
                 .font(.headline)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             Text(text)
                 .font(.caption)
-                .foregroundStyle(.white.opacity(0.8))
+                .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -55,10 +56,10 @@ struct HomeWidgetView: View {
             HStack {
                 ProgressRing(progress: Double(snapshot.completedCount) / Double(total))
                     .frame(width: 36, height: 36)
-                Text("\(snapshot.completedCount)/\(total) complete")
-                    .font(.caption2)
-                    .foregroundStyle(.white.opacity(0.8))
-            }
+            Text("\(snapshot.completedCount)/\(total) complete")
+                .font(.caption2)
+                .foregroundStyle(theme.textSecondary)
+        }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -72,7 +73,7 @@ struct HomeWidgetView: View {
 
             Text("Tap to set today’s focuses")
                 .font(.caption2)
-                .foregroundStyle(.white.opacity(0.8))
+                .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -81,15 +82,15 @@ struct HomeWidgetView: View {
         HStack {
             Text("Today")
                 .font(.headline)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             Spacer()
             Text("\(snapshot.streak)")
                 .font(.caption)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(Color.white.opacity(0.15))
+                .background(theme.textPrimary.opacity(0.15))
                 .clipShape(Capsule())
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
         }
     }
 
@@ -102,7 +103,7 @@ struct HomeWidgetView: View {
                         .lineLimit(1)
                 }
                 .font(.caption2)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             }
         }
     }

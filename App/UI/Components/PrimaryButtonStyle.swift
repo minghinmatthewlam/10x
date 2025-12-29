@@ -1,33 +1,39 @@
 import SwiftUI
 
 struct PrimaryButtonStyle: ButtonStyle {
+    @Environment(\.tenxTheme) private var theme
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.tenxBody.weight(.medium))
-            .foregroundStyle(Color.tenxBackground)
+            .foregroundStyle(theme.background)
             .padding(.horizontal, 24)
             .padding(.vertical, 14)
-            .background(Color.tenxAccent.opacity(configuration.isPressed ? 0.8 : 1))
+            .background(theme.accent.opacity(configuration.isPressed ? 0.8 : 1))
             .clipShape(Capsule())
     }
 }
 
 struct SecondaryButtonStyle: ButtonStyle {
+    @Environment(\.tenxTheme) private var theme
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.tenxBody.weight(.medium))
-            .foregroundStyle(Color.tenxTextSecondary.opacity(configuration.isPressed ? 0.6 : 1))
+            .foregroundStyle(theme.textSecondary.opacity(configuration.isPressed ? 0.6 : 1))
     }
 }
 
 struct GhostButtonStyle: ButtonStyle {
+    @Environment(\.tenxTheme) private var theme
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.tenxSmall)
-            .foregroundStyle(Color.tenxTextMuted.opacity(configuration.isPressed ? 0.5 : 1))
+            .foregroundStyle(theme.textMuted.opacity(configuration.isPressed ? 0.5 : 1))
             .padding(.horizontal, 16)
             .padding(.vertical, 10)
-            .background(Color.tenxSurface.opacity(configuration.isPressed ? 0.5 : 1))
+            .background(theme.surface.opacity(configuration.isPressed ? 0.5 : 1))
             .clipShape(Capsule())
     }
 }

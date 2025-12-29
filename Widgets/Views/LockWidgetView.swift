@@ -4,6 +4,7 @@ import TenXShared
 
 struct LockWidgetView: View {
     let snapshot: WidgetSnapshot?
+    private var theme: ThemePalette { ThemeStore.currentTheme().palette }
 
     var body: some View {
         ZStack {
@@ -16,7 +17,7 @@ struct LockWidgetView: View {
                         .font(.caption2)
                 }
                 .gaugeStyle(.accessoryCircular)
-                .tint(snapshot.completedCount >= total ? .green : .orange)
+                .tint(snapshot.completedCount >= total ? theme.complete : theme.accent)
             } else {
                 Image(systemName: "target")
             }

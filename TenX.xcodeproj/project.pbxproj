@@ -16,6 +16,7 @@
 		20F1F632FB1276A783F9B843 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */; };
 		22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */; };
 		24DAE9EAF8EF31E2F4204D41 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */; };
+		2932F40C6DAB87691A120ADB /* FocusTagPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C159ABFF5DDDC897144D0DB /* FocusTagPickerView.swift */; };
 		297B5033539813EE52B262F7 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = 71FCB568A50E5A2BB243E6FE /* TenXShared */; };
 		332DCF5758C5CACAA0C9B1F8 /* TestContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCC743D503723BB68C5E80 /* TestContainerFactory.swift */; };
 		39CC757426CDF68E4618FE03 /* DayKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA27161AD0848A5BD034279 /* DayKey.swift */; };
@@ -24,9 +25,11 @@
 		40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */; };
 		48C8A344C6FE8FEA661AE5C0 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = CA46EFC70D62016D07BE0742 /* TenXShared */; };
 		4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */; };
+		4DE0C8B2D7DCF8075F440E93 /* ThemeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */; };
 		521752C7AC39D17FF7EF99D7 /* TenXWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		58E60858273E2F0256FD7C13 /* ModelContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */; };
 		5EE3C769DC90D04361060CB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */; };
+		63E0C8B7B75E882D7801A41A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B1466669EF643E81DEC5D /* ThemeManager.swift */; };
 		687C1846A3328212AFE483C4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A197A1ED012336720E95C9E /* HomeView.swift */; };
 		71301D945F826E65826578D5 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */; };
 		724C956231513266F15E63F2 /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */; };
@@ -38,6 +41,8 @@
 		8DFCAF94FF2D9B388B55B516 /* SnapshotTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E718A6BE3F4B249B394CF63 /* SnapshotTimelineProvider.swift */; };
 		96FE66B2DB21DCEAEEF2E0C9 /* LockWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */; };
 		9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D2263C6E158C710703930B /* FocusInputRow.swift */; };
+		9F85651D675BF99531345768 /* ShareItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490DCB3391BFF36DB308908A /* ShareItem.swift */; };
+		A0EB97CDCF3BC15C23A72667 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7758DABC2046933731E1C /* ShareSheet.swift */; };
 		A4F3B155A28701D87A8BEF17 /* TenXStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236CB66E5CEE6520EBC5D764 /* TenXStoreTests.swift */; };
 		AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB3AD633CF6A4467EF207D /* TenXApp.swift */; };
 		AD2AE404B72E22A733F7B280 /* IncompleteDayPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */; };
@@ -46,6 +51,9 @@
 		B4907BA1205351D4BA2C3E05 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */; };
 		B50CD1ECEF4C625917B7706B /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */; };
 		B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413908A98A84837AF1265B1 /* Font+TenX.swift */; };
+		B7DF000566FC5050B57CDFF7 /* FocusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708DD174FC806075C63C70F7 /* FocusTag.swift */; };
+		BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */; };
+		CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */; };
 		D13DDE23413098001F7D4AF9 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */; };
 		D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */; };
 		D3528F6838FC9FE67F4BD10E /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04580BDDF026D8EECA933EFC /* AppRouter.swift */; };
@@ -54,6 +62,7 @@
 		DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */; };
 		EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */; };
 		EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */; };
+		EC2C5A9982531AF8BBAC7789 /* StreakShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */; };
 		EDA702254D53DC022D6EEC7B /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */; };
 		F0C480A6AECE92085A36B938 /* TenXWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E97FF760C25F89EF45F5D15 /* TenXWidgets.swift */; };
 		F0CC5E93A754105400330B29 /* DailySetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDC76E7A57AF8EB8BB8EA76 /* DailySetupView.swift */; };
@@ -119,9 +128,12 @@
 		297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerFactory.swift; sourceTree = "<group>"; };
 		30256E82C2DD56A612FB96A5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		3F373D31230C91E3FE326BAB /* DailyFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFocus.swift; sourceTree = "<group>"; };
+		42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReviewCardView.swift; sourceTree = "<group>"; };
 		46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimePickerView.swift; sourceTree = "<group>"; };
+		490DCB3391BFF36DB308908A /* ShareItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareItem.swift; sourceTree = "<group>"; };
 		4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXStore.swift; sourceTree = "<group>"; };
 		4E64DCF54BDFEA24B8483822 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummary.swift; sourceTree = "<group>"; };
 		55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompleteDayPromptView.swift; sourceTree = "<group>"; };
 		5A197A1ED012336720E95C9E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Theme.swift"; sourceTree = "<group>"; };
@@ -129,9 +141,13 @@
 		60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardView.swift; sourceTree = "<group>"; };
 		6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotService.swift; sourceTree = "<group>"; };
 		701289363DB16CD7DDB81E42 /* FocusEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEditView.swift; sourceTree = "<group>"; };
+		708DD174FC806075C63C70F7 /* FocusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTag.swift; sourceTree = "<group>"; };
 		728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		7C159ABFF5DDDC897144D0DB /* FocusTagPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTagPickerView.swift; sourceTree = "<group>"; };
+		803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakShareCardView.swift; sourceTree = "<group>"; };
 		81D1A6D7805D56D46CC0F0F2 /* HomeShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShellView.swift; sourceTree = "<group>"; };
+		98E7758DABC2046933731E1C /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		990D2718E4798B9875A4E1BD /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantTimeChangeListener.swift; sourceTree = "<group>"; };
 		9BDC76E7A57AF8EB8BB8EA76 /* DailySetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySetupView.swift; sourceTree = "<group>"; };
@@ -142,7 +158,9 @@
 		A4BB3AD633CF6A4467EF207D /* TenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXApp.swift; sourceTree = "<group>"; };
 		AC9FF32722CF545FC309C493 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
+		B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEnvironment.swift; sourceTree = "<group>"; };
 		B3E1D974669AF89C03FEE247 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
+		B94B1466669EF643E81DEC5D /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TenXWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
@@ -199,6 +217,7 @@
 				A2287003E003AB5DAB9FF693 /* Home */,
 				BAAE3D4CD58B23E3273AD227 /* Onboarding */,
 				AFD0F9317039B7C5A29069DA /* Settings */,
+				8B0BE101B80F477DEC86E80D /* Sharing */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -266,12 +285,22 @@
 			path = DailySetup;
 			sourceTree = "<group>";
 		};
+		8B0BE101B80F477DEC86E80D /* Sharing */ = {
+			isa = PBXGroup;
+			children = (
+				490DCB3391BFF36DB308908A /* ShareItem.swift */,
+				803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */,
+			);
+			path = Sharing;
+			sourceTree = "<group>";
+		};
 		932ABC22D80793DC8D36E53C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */,
 				3F373D31230C91E3FE326BAB /* DailyFocus.swift */,
 				BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */,
+				708DD174FC806075C63C70F7 /* FocusTag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -291,6 +320,8 @@
 				728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */,
 				5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */,
 				E413908A98A84837AF1265B1 /* Font+TenX.swift */,
+				B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */,
+				B94B1466669EF643E81DEC5D /* ThemeManager.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -323,6 +354,8 @@
 				1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */,
 				55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */,
 				20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */,
+				42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */,
+				53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -357,8 +390,10 @@
 			isa = PBXGroup;
 			children = (
 				E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */,
+				7C159ABFF5DDDC897144D0DB /* FocusTagPickerView.swift */,
 				AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */,
 				9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */,
+				98E7758DABC2046933731E1C /* ShareSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -602,6 +637,8 @@
 				4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */,
 				F0F011F19ECB4246DEC398B9 /* FocusEditView.swift in Sources */,
 				9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */,
+				B7DF000566FC5050B57CDFF7 /* FocusTag.swift in Sources */,
+				2932F40C6DAB87691A120ADB /* FocusTagPickerView.swift in Sources */,
 				B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */,
 				780CAA926474BC64CEA2B894 /* Haptics.swift in Sources */,
 				1B28AFD78D0E2E659092F096 /* HomeShellView.swift in Sources */,
@@ -617,12 +654,19 @@
 				75900800D0F183C5019940C6 /* RootView.swift in Sources */,
 				14509CECE26C3C9051BE1E71 /* SettingsView.swift in Sources */,
 				B4907BA1205351D4BA2C3E05 /* SettingsViewModel.swift in Sources */,
+				9F85651D675BF99531345768 /* ShareItem.swift in Sources */,
+				A0EB97CDCF3BC15C23A72667 /* ShareSheet.swift in Sources */,
 				EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */,
 				22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */,
 				796739A9F7554CF233251E79 /* StreakEngine.swift in Sources */,
+				EC2C5A9982531AF8BBAC7789 /* StreakShareCardView.swift in Sources */,
 				AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */,
 				D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */,
+				4DE0C8B2D7DCF8075F440E93 /* ThemeEnvironment.swift in Sources */,
+				63E0C8B7B75E882D7801A41A /* ThemeManager.swift in Sources */,
 				FC80F66562052CB386E12B82 /* UserDefaultsKeys.swift in Sources */,
+				BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */,
+				CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */,
 				D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */,
 				DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */,
 			);

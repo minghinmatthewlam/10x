@@ -4,11 +4,12 @@ import TenXShared
 
 struct SmallHomeWidgetView: View {
     let snapshot: WidgetSnapshot?
+    private var theme: ThemePalette { ThemeStore.currentTheme().palette }
 
     var body: some View {
         content
             .padding(12)
-            .containerBackground(Color.black, for: .widget)
+            .containerBackground(theme.background, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -36,10 +37,10 @@ struct SmallHomeWidgetView: View {
         VStack(alignment: .leading, spacing: 6) {
             Text("10x")
                 .font(.caption)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             Text(text)
                 .font(.caption2)
-                .foregroundStyle(.white.opacity(0.8))
+                .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -51,7 +52,7 @@ struct SmallHomeWidgetView: View {
             Spacer()
             Text("Tap to set focuses")
                 .font(.caption2)
-                .foregroundStyle(.white.opacity(0.7))
+                .foregroundStyle(theme.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -69,15 +70,15 @@ struct SmallHomeWidgetView: View {
         HStack {
             Text("Today")
                 .font(.caption)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             Spacer()
             Text("\(snapshot.streak)")
                 .font(.caption2)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
-                .background(Color.white.opacity(0.15))
+                .background(theme.textPrimary.opacity(0.15))
                 .clipShape(Capsule())
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
         }
     }
 
@@ -91,7 +92,7 @@ struct SmallHomeWidgetView: View {
                         .lineLimit(1)
                 }
                 .font(.caption2)
-                .foregroundStyle(.white)
+                .foregroundStyle(theme.textPrimary)
             }
         }
     }

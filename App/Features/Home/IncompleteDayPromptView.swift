@@ -4,22 +4,23 @@ struct IncompleteDayPromptView: View {
     let unfinished: [TenXStore.FocusDraft]
     let onContinue: () -> Void
     let onFreshStart: () -> Void
+    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Yesterday wasn’t finished.")
                 .font(.tenxTitle)
-                .foregroundStyle(Color.tenxTextPrimary)
+                .foregroundStyle(theme.textPrimary)
 
             Text("Pick up where you left off or start fresh.")
                 .font(.tenxBody)
-                .foregroundStyle(Color.tenxTextSecondary)
+                .foregroundStyle(theme.textSecondary)
 
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(Array(unfinished.enumerated()), id: \.offset) { _, draft in
                     Text("• \(draft.title)")
                         .font(.tenxBody)
-                        .foregroundStyle(Color.tenxTextPrimary)
+                        .foregroundStyle(theme.textPrimary)
                 }
             }
 
@@ -32,7 +33,7 @@ struct IncompleteDayPromptView: View {
             }
         }
         .padding(20)
-        .background(Color.tenxCard)
+        .background(theme.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 }

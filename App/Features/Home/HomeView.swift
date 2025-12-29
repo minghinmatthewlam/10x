@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
@@ -7,6 +8,8 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @State private var timeChangeListener: SignificantTimeChangeListener?
     @State private var editingFocus: DailyFocus?
+    @State private var shareItem: ShareItem?
+    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         let todayKey = DayKey.make()
@@ -17,12 +20,12 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 6) {
                         Text(formattedDate)
                             .font(.tenxCaption)
-                            .foregroundStyle(Color.tenxTextSecondary)
+                            .foregroundStyle(theme.textSecondary)
                             .textCase(.uppercase)
                             .tracking(1)
                         Text("Today")
                             .font(.tenxHero)
-                            .foregroundStyle(Color.tenxTextPrimary)
+                            .foregroundStyle(theme.textPrimary)
                     }
                     Spacer()
                     StreakBadgeView(streak: viewModel.streak)
@@ -55,12 +58,16 @@ struct HomeView: View {
                 } else {
                     emptyStateView
                 }
+
+                if let summary = viewModel.weeklySummary {
+                    WeeklyReviewCardView(summary: summary)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.top, 24)
             .padding(.bottom, 48)
         }
-        .background(Color.tenxBackground)
+        .background(theme.background)
         .navigationTitle("")
         .navigationBarHidden(true)
         .onAppear {
@@ -77,6 +84,9 @@ struct HomeView: View {
                 appState.showDailySetup = false
             }
         }
+        .onChange(of: viewModel.streak) { _, streak in
+            handleStreakShare(streak)
+        }
         .sheet(isPresented: $viewModel.showDailySetup) {
             DailySetupView(initialDrafts: viewModel.setupDrafts) {
                 let store = TenXStore(context: modelContext)
@@ -84,12 +94,15 @@ struct HomeView: View {
             }
         }
         .sheet(item: $editingFocus) { focus in
-            FocusEditView(focus: focus) { title in
+            FocusEditView(focus: focus) { title, tag in
                 let store = TenXStore(context: modelContext)
-                try store.updateFocus(focus, title: title)
+                try store.updateFocus(focus, title: title, tag: tag)
                 WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
                 viewModel.load(store: store, todayKey: DayKey.make())
             }
+        }
+        .sheet(item: $shareItem) { item in
+            ShareSheet(items: [item.image])
         }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil
@@ -112,7 +125,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 24) {
             Text("What would make\ntoday extraordinary?")
                 .font(.tenxTitle)
-                .foregroundStyle(Color.tenxTextSecondary)
+                .foregroundStyle(theme.textSecondary)
                 .lineSpacing(4)
 
             Button("Set your focuses") {
@@ -128,10 +141,47 @@ struct HomeView: View {
         do {
             try store.toggleCompletion(focus)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
+            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
+                rescheduleReminders(for: todayEntry)
+            }
             viewModel.load(store: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
         } catch {
             viewModel.errorMessage = error.localizedDescription
         }
+    }
+
+    private func rescheduleReminders(for entry: DayEntry) {
+        let defaults = UserDefaults.standard
+        let hour = defaults.object(forKey: UserDefaultsKeys.notificationHour) as? Int ?? AppConstants.defaultNotificationHour
+        let minute = defaults.object(forKey: UserDefaultsKeys.notificationMinute) as? Int ?? AppConstants.defaultNotificationMinute
+        let middayEnabled = defaults.object(forKey: UserDefaultsKeys.middayReminderEnabled) as? Bool ?? AppConstants.defaultMiddayReminderEnabled
+        let eveningEnabled = defaults.object(forKey: UserDefaultsKeys.eveningReminderEnabled) as? Bool ?? AppConstants.defaultEveningReminderEnabled
+
+        Task {
+            await NotificationScheduler.shared.scheduleReminders(
+                focuses: entry.sortedFocuses,
+                morningHour: hour,
+                morningMinute: minute,
+                middayEnabled: middayEnabled,
+                eveningEnabled: eveningEnabled
+            )
+        }
+    }
+
+    private func handleStreakShare(_ streak: Int) {
+        guard AppConstants.streakMilestones.contains(streak) else { return }
+        let defaults = UserDefaults.standard
+        let lastShared = defaults.integer(forKey: UserDefaultsKeys.lastSharedStreak)
+        guard streak > lastShared else { return }
+        guard let image = renderShareImage(streak: streak) else { return }
+        shareItem = ShareItem(image: image)
+        defaults.set(streak, forKey: UserDefaultsKeys.lastSharedStreak)
+    }
+
+    private func renderShareImage(streak: Int) -> UIImage? {
+        let renderer = ImageRenderer(content: StreakShareCardView(streak: streak, theme: theme))
+        renderer.scale = UIScreen.main.scale
+        return renderer.uiImage
     }
 }

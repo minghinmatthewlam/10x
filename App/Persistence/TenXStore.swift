@@ -12,6 +12,7 @@ final class TenXStore {
     struct FocusDraft: Equatable {
         var title: String
         var carriedFromDayKey: String?
+        var tag: FocusTag?
     }
 
     func fetchDayEntry(dayKey: String) throws -> DayEntry? {
@@ -37,7 +38,8 @@ final class TenXStore {
 
         return unfinished.prefix(AppConstants.dailyFocusMax).map { focus in
             FocusDraft(title: focus.title,
-                       carriedFromDayKey: yesterdayKey)
+                       carriedFromDayKey: yesterdayKey,
+                       tag: focus.tag)
         }
     }
 
@@ -68,7 +70,8 @@ final class TenXStore {
 
             let focus = DailyFocus(title: trimmed,
                                    sortOrder: index,
-                                   carriedFromDayKey: draft.carriedFromDayKey)
+                                   carriedFromDayKey: draft.carriedFromDayKey,
+                                   tagRawValue: draft.tag?.rawValue)
             focus.day = entry
 
             entry.focuses.append(focus)
@@ -83,7 +86,7 @@ final class TenXStore {
         try context.save()
     }
 
-    func updateFocus(_ focus: DailyFocus, title: String) throws {
+    func updateFocus(_ focus: DailyFocus, title: String, tag: FocusTag?) throws {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             throw StoreError.validation("Focus title is empty.")
@@ -93,6 +96,7 @@ final class TenXStore {
         }
 
         focus.title = trimmed
+        focus.tag = tag
         try context.save()
     }
 }

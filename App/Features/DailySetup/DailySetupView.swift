@@ -5,6 +5,7 @@ struct DailySetupView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: Int?
+    @Environment(\.tenxTheme) private var theme
 
     @StateObject private var viewModel: DailySetupViewModel
 
@@ -22,7 +23,7 @@ struct DailySetupView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("What would make\ntoday a 10x day?")
                             .font(.tenxHero)
-                            .foregroundStyle(Color.tenxTextPrimary)
+                            .foregroundStyle(theme.textPrimary)
                             .lineSpacing(4)
                     }
 
@@ -51,20 +52,20 @@ struct DailySetupView: View {
                 .padding(.top, 32)
                 .padding(.bottom, 48)
             }
-            .background(Color.tenxBackground)
+            .background(theme.background)
             .scrollDismissesKeyboard(.interactively)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(Color.tenxTextSecondary)
+                            Image(systemName: "xmark")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundStyle(theme.textSecondary)
                     }
                 }
             }
-            .toolbarBackground(Color.tenxBackground, for: .navigationBar)
+            .toolbarBackground(theme.background, for: .navigationBar)
         }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil
