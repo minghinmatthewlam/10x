@@ -3,13 +3,10 @@
 ## Core invariants
 
 - Exactly 3 focuses per day entry (`AppConstants.dailyFocusCount`).
-- 1–3 active goals at any time (`AppConstants.maxActiveGoals`).
-- Each focus must link to an active goal at creation/update time.
 - Day identity uses `dayKey` (`yyyy-MM-dd`) instead of raw dates.
 
 ## Data model
 
-- `TenXGoal` — active/archived goals.
 - `DayEntry` — one per `dayKey`, contains 3 `DailyFocus`.
 - `DailyFocus` — focus title, completion state, optional carryover metadata.
 
@@ -38,4 +35,4 @@
 ## Error handling
 
 - `TenXStore` throws validation errors for UI to surface via alerts.
-- UI surfaces errors via alerts (see `HomeView`, `DailySetupView`, `OnboardingContainerView`).
+- UI surfaces errors via alerts (see `HomeView`, `DailySetupView`).

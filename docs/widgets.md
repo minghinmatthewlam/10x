@@ -25,6 +25,6 @@ Timeline provider refreshes at the earlier of:
 ## Deep links
 
 Widget taps use `tenx://` URLs:
-- needsOnboarding → `tenx://goals`
+- needsOnboarding → `tenx://home`
 - needsSetup → `tenx://setup`
 - inProgress/complete → `tenx://home`
