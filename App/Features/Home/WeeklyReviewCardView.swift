@@ -16,7 +16,7 @@ struct WeeklyReviewCardView: View {
                     .foregroundStyle(theme.textSecondary)
             }
 
-            Text("\(summary.daysWithCompletion) of 7 days kept your streak alive")
+            Text("\(summary.daysWithCompletion) of 7 days met your streak goal")
                 .font(.tenxSmall)
                 .foregroundStyle(theme.textSecondary)
 

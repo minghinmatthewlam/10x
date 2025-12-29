@@ -19,7 +19,7 @@ struct WelcomeView: View {
                     .foregroundStyle(theme.textPrimary)
                     .lineSpacing(4)
 
-                Text("Each day, choose 1-3 focuses.\nComplete one to keep your streak alive.")
+                Text("Each day, choose 1-3 focuses.\nComplete two to keep your streak alive.")
                     .font(.tenxBody)
                     .foregroundStyle(theme.textSecondary)
                     .lineSpacing(4)

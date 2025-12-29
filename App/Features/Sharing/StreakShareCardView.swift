@@ -20,7 +20,7 @@ struct StreakShareCardView: View {
                     .font(.system(size: 46, weight: .semibold))
                     .foregroundStyle(theme.accent)
 
-                Text("1-3 focuses a day. One completed keeps it alive.")
+                Text("1-3 focuses a day. Complete two to keep it alive.")
                     .font(.system(size: 26, weight: .regular))
                     .foregroundStyle(theme.textSecondary)
             }
