@@ -17,10 +17,24 @@ final class DailySetupViewModel: ObservableObject {
         do {
             try store.createDayEntry(todayKey: todayKey, drafts: drafts)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: todayKey)
+            scheduleReminderIfNeeded()
             return true
         } catch {
             errorMessage = error.localizedDescription
             return false
+        }
+    }
+
+    private func scheduleReminderIfNeeded() {
+        let defaults = UserDefaults.standard
+        let hour = defaults.object(forKey: UserDefaultsKeys.notificationHour) as? Int ?? AppConstants.defaultNotificationHour
+        let minute = defaults.object(forKey: UserDefaultsKeys.notificationMinute) as? Int ?? AppConstants.defaultNotificationMinute
+
+        Task {
+            let granted = await NotificationScheduler.shared.requestAuthorization()
+            if granted {
+                await NotificationScheduler.shared.scheduleDailyReminder(hour: hour, minute: minute)
+            }
         }
     }
 }
