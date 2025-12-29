@@ -1,6 +1,6 @@
 name: TenX
 options:
-  bundleIdPrefix: com.yourname
+  bundleIdPrefix: com.matthewlam
 settings:
   base:
     IPHONEOS_DEPLOYMENT_TARGET: 17.0
@@ -19,7 +19,7 @@ targets:
       - TenXApp/Resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.tenx
+        PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx
         INFOPLIST_FILE: TenXApp/Resources/Info.plist
         ENTITLEMENTS_FILE: TenXApp/TenX.entitlements
     dependencies:
@@ -33,7 +33,7 @@ targets:
       - TenXWidgets
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.tenx.widgets
+        PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx.widgets
         INFOPLIST_FILE: TenXWidgets/Info.plist
         ENTITLEMENTS_FILE: TenXWidgets/TenXWidgets.entitlements
     dependencies:
