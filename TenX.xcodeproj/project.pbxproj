@@ -519,17 +519,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
-					33F57D334BAB50FCCD5BEDF0 = {
-						DevelopmentTeam = "";
-					};
-					4F1762BF4154863C139BD26E = {
-						DevelopmentTeam = "";
-					};
-					9AA6A14B822845154F52A982 = {
-						DevelopmentTeam = "";
-					};
 					F0F770CB30BC9B1A3654FBFE = {
-						DevelopmentTeam = "";
 						TestTargetID = 9AA6A14B822845154F52A982;
 					};
 				};
@@ -694,7 +684,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -736,7 +725,7 @@
 		409B546D2E0CFE70DDF38561 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENTITLEMENTS_FILE = Widgets/TenXWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widgets/TenXWidgets.entitlements;
 				INFOPLIST_FILE = Widgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -770,8 +759,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/TenX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENTITLEMENTS_FILE = App/TenX.entitlements;
 				INFOPLIST_FILE = App/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -835,7 +824,6 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -884,7 +872,7 @@
 		F44F194FF9CEE35E05011F1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ENTITLEMENTS_FILE = Widgets/TenXWidgets.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Widgets/TenXWidgets.entitlements;
 				INFOPLIST_FILE = Widgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -901,8 +889,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/TenX.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENTITLEMENTS_FILE = App/TenX.entitlements;
 				INFOPLIST_FILE = App/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -4,7 +4,6 @@ options:
 settings:
   base:
     IPHONEOS_DEPLOYMENT_TARGET: 17.0
-    DEVELOPMENT_TEAM: ""
 packages:
   TenXShared:
     path: Shared
@@ -21,7 +20,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx
         INFOPLIST_FILE: App/Resources/Info.plist
-        ENTITLEMENTS_FILE: App/TenX.entitlements
+        CODE_SIGN_ENTITLEMENTS: App/TenX.entitlements
     dependencies:
       - package: TenXShared
       - target: TenXWidgets
@@ -35,7 +34,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx.widgets
         INFOPLIST_FILE: Widgets/Info.plist
-        ENTITLEMENTS_FILE: Widgets/TenXWidgets.entitlements
+        CODE_SIGN_ENTITLEMENTS: Widgets/TenXWidgets.entitlements
     dependencies:
       - package: TenXShared
 
