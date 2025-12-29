@@ -1,6 +1,6 @@
-# TenX
+# 10x
 
-TenX is a focused daily goal app for iOS. It enforces three daily focuses tied to up to three active goals, tracks streaks with a “pending today doesn’t break” rule, and ships a widget that reads a small App Group snapshot instead of SwiftData directly.
+10x is a focused daily goal app for iOS. It enforces three daily focuses tied to up to three active goals, tracks streaks with a “pending today doesn’t break” rule, and ships a widget that reads a small App Group snapshot instead of SwiftData directly.
 
 ## Requirements
 

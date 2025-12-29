@@ -9,7 +9,15 @@ enum ModelContainerFactory {
         let migrationPlan = TenXMigrationPlan.self
 
         do {
-            let groupContainer: ModelConfiguration.GroupContainer = inMemory ? .none : .identifier(SharedConstants.appGroupID)
+            let groupContainer: ModelConfiguration.GroupContainer
+            if inMemory {
+                groupContainer = .none
+            } else if FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: SharedConstants.appGroupID) != nil {
+                groupContainer = .identifier(SharedConstants.appGroupID)
+            } else {
+                groupContainer = .none
+            }
+
             let config = ModelConfiguration(schema: schema,
                                             isStoredInMemoryOnly: inMemory,
                                             groupContainer: groupContainer)
@@ -24,17 +32,10 @@ enum ModelContainerFactory {
                 return try ModelContainer(for: schema,
                                           configurations: [fallbackConfig])
             } catch {
-                do {
-                    let memoryConfig = ModelConfiguration(schema: schema,
-                                                          isStoredInMemoryOnly: true)
-                    return try ModelContainer(for: schema,
-                                              configurations: [memoryConfig])
-                } catch {
-                    assertionFailure("Failed to create SwiftData container: \(error)")
-                    return try! ModelContainer(for: schema,
-                                               configurations: [ModelConfiguration(schema: schema,
-                                                                                   isStoredInMemoryOnly: true)])
-                }
+                let memoryConfig = ModelConfiguration(schema: schema,
+                                                      isStoredInMemoryOnly: true)
+                return try ModelContainer(for: schema,
+                                          configurations: [memoryConfig])
             }
         }
     }
