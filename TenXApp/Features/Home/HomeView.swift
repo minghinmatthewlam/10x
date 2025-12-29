@@ -6,6 +6,11 @@ struct HomeView: View {
     @EnvironmentObject private var appState: AppState
     @StateObject private var viewModel = HomeViewModel()
     @State private var timeChangeListener: SignificantTimeChangeListener?
+    @State private var editingFocus: DailyFocus?
+
+    @Query(filter: #Predicate<TenXGoal> { $0.archivedAt == nil },
+           sort: [SortDescriptor(\.createdAt, order: .forward)])
+    private var activeGoals: [TenXGoal]
 
     var body: some View {
         let todayKey = DayKey.make()
@@ -30,6 +35,11 @@ struct HomeView: View {
                             FocusCardView(focus: focus,
                                           goalTitle: focus.goal?.title) {
                                 toggleFocus(focus)
+                            }
+                            .contextMenu {
+                                Button("Edit Focus") {
+                                    editingFocus = focus
+                                }
                             }
                         }
                     }
@@ -77,6 +87,14 @@ struct HomeView: View {
         .sheet(isPresented: $viewModel.showDailySetup) {
             DailySetupView(initialDrafts: viewModel.setupDrafts) {
                 let store = TenXStore(context: modelContext)
+                viewModel.load(store: store, todayKey: DayKey.make())
+            }
+        }
+        .sheet(item: $editingFocus) { focus in
+            FocusEditView(focus: focus, goals: activeGoals) { title, goalUUID in
+                let store = TenXStore(context: modelContext)
+                try store.updateFocus(focus, title: title, goalUUID: goalUUID)
+                WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
                 viewModel.load(store: store, todayKey: DayKey.make())
             }
         }

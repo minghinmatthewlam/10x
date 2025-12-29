@@ -6,4 +6,6 @@ enum AppConstants {
     static let defaultNotificationHour = 8
     static let defaultNotificationMinute = 0
     static let widgetRefreshMinutes = 30
+    static let maxGoalTitleLength = 80
+    static let maxFocusTitleLength = 80
 }

@@ -32,6 +32,9 @@ final class TenXStore {
         guard !trimmed.isEmpty else {
             throw StoreError.validation("Goal title is empty.")
         }
+        guard trimmed.count <= AppConstants.maxGoalTitleLength else {
+            throw StoreError.validation("Goal title is too long.")
+        }
 
         let activeCount = try fetchActiveGoals().count
         guard activeCount < AppConstants.maxActiveGoals else {
@@ -107,6 +110,9 @@ final class TenXStore {
             guard !trimmed.isEmpty else {
                 throw StoreError.validation("Focus \(index + 1) is empty.")
             }
+            guard trimmed.count <= AppConstants.maxFocusTitleLength else {
+                throw StoreError.validation("Focus \(index + 1) is too long.")
+            }
             guard let goalUUID = draft.goalUUID else {
                 throw StoreError.validation("Focus \(index + 1) must be linked to a goal.")
             }
@@ -129,6 +135,26 @@ final class TenXStore {
 
     func toggleCompletion(_ focus: DailyFocus) throws {
         focus.setCompleted(!focus.isCompleted)
+        try context.save()
+    }
+
+    func updateFocus(_ focus: DailyFocus, title: String, goalUUID: UUID) throws {
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            throw StoreError.validation("Focus title is empty.")
+        }
+        guard trimmed.count <= AppConstants.maxFocusTitleLength else {
+            throw StoreError.validation("Focus title is too long.")
+        }
+
+        let activeGoals = try fetchActiveGoals()
+        let activeByUUID = Dictionary(uniqueKeysWithValues: activeGoals.map { ($0.uuid, $0) })
+        guard let goal = activeByUUID[goalUUID] else {
+            throw StoreError.validation("Selected goal is not active.")
+        }
+
+        focus.title = trimmed
+        focus.goal = goal
         try context.save()
     }
 }

@@ -45,6 +45,15 @@ final class TenXStoreTests: XCTestCase {
     }
 
     @MainActor
+    func testGoalTitleLengthLimit() throws {
+        let context = TestContainerFactory.makeContext()
+        let store = TenXStore(context: context)
+
+        let longTitle = String(repeating: "A", count: AppConstants.maxGoalTitleLength + 1)
+        XCTAssertThrowsError(try store.createGoal(title: longTitle))
+    }
+
+    @MainActor
     func testCannotArchiveLastActiveGoal() throws {
         let context = TestContainerFactory.makeContext()
         let store = TenXStore(context: context)
@@ -88,5 +97,23 @@ final class TenXStoreTests: XCTestCase {
         let carryover = try store.carryoverDraftsIfNeeded(todayKey: todayKey)
         XCTAssertEqual(carryover.count, 3)
         XCTAssertTrue(carryover.allSatisfy { !$0.title.isEmpty })
+    }
+
+    @MainActor
+    func testFocusTitleLengthLimit() throws {
+        let context = TestContainerFactory.makeContext()
+        let store = TenXStore(context: context)
+
+        try store.createGoal(title: "Goal")
+        let goal = try store.fetchActiveGoals().first!
+
+        let longTitle = String(repeating: "B", count: AppConstants.maxFocusTitleLength + 1)
+        let drafts = [
+            TenXStore.FocusDraft(title: longTitle, goalUUID: goal.uuid, carriedFromDayKey: nil),
+            TenXStore.FocusDraft(title: "Two", goalUUID: goal.uuid, carriedFromDayKey: nil),
+            TenXStore.FocusDraft(title: "Three", goalUUID: goal.uuid, carriedFromDayKey: nil)
+        ]
+
+        XCTAssertThrowsError(try store.createDayEntry(todayKey: DayKey.make(), drafts: drafts))
     }
 }
