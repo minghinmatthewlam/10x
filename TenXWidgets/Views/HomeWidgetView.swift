@@ -16,18 +16,17 @@ struct HomeWidgetView: View {
 
     @ViewBuilder
     private var content: some View {
-        guard let snapshot else {
+        if let snapshot {
+            switch snapshot.state {
+            case .needsOnboarding:
+                emptyState(text: "Set your goals in TenX")
+            case .needsSetup:
+                emptyState(text: "Set today’s focuses")
+            case .inProgress, .complete:
+                progressState(snapshot)
+            }
+        } else {
             emptyState(text: "Open TenX to get started")
-            return
-        }
-
-        switch snapshot.state {
-        case .needsOnboarding:
-            emptyState(text: "Set your goals in TenX")
-        case .needsSetup:
-            emptyState(text: "Set today’s focuses")
-        case .inProgress, .complete:
-            progressState(snapshot)
         }
     }
 
