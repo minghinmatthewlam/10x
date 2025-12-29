@@ -61,13 +61,6 @@ struct SmallHomeWidgetView: View {
             header(snapshot)
             focusList(snapshot)
             Spacer()
-            HStack(spacing: 6) {
-                ProgressRing(progress: Double(snapshot.completedCount) / 3)
-                    .frame(width: 22, height: 22)
-                Text("\(snapshot.completedCount)/3")
-                    .font(.caption2)
-                    .foregroundStyle(.white.opacity(0.8))
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

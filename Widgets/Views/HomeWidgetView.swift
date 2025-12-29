@@ -45,16 +45,17 @@ struct HomeWidgetView: View {
     }
 
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        let total = max(snapshot.focuses.count, 1)
+        return VStack(alignment: .leading, spacing: 12) {
             header(snapshot)
             focusList(snapshot)
 
             Spacer()
 
             HStack {
-                ProgressRing(progress: Double(snapshot.completedCount) / 3)
+                ProgressRing(progress: Double(snapshot.completedCount) / Double(total))
                     .frame(width: 36, height: 36)
-                Text("\(snapshot.completedCount)/3 complete")
+                Text("\(snapshot.completedCount)/\(total) complete")
                     .font(.caption2)
                     .foregroundStyle(.white.opacity(0.8))
             }

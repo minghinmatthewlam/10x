@@ -8,14 +8,15 @@ struct LockWidgetView: View {
     var body: some View {
         ZStack {
             if let snapshot {
-                Gauge(value: Double(snapshot.completedCount), in: 0...3) {
+                let total = max(snapshot.focuses.count, 1)
+                Gauge(value: Double(snapshot.completedCount), in: 0...Double(total)) {
                     Image(systemName: "target")
                 } currentValueLabel: {
                     Text("\(snapshot.completedCount)")
                         .font(.caption2)
                 }
                 .gaugeStyle(.accessoryCircular)
-                .tint(snapshot.completedCount == 3 ? .green : .orange)
+                .tint(snapshot.completedCount >= total ? .green : .orange)
             } else {
                 Image(systemName: "target")
             }
