@@ -53,6 +53,7 @@
 		B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413908A98A84837AF1265B1 /* Font+TenX.swift */; };
 		B7DF000566FC5050B57CDFF7 /* FocusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708DD174FC806075C63C70F7 /* FocusTag.swift */; };
 		BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */; };
+		C2D3DE4EFCC908BFF711B99F /* ThemePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */; };
 		CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */; };
 		D13DDE23413098001F7D4AF9 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */; };
 		D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */; };
@@ -177,6 +178,7 @@
 		F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		F2D7CC8CFB5DCAE3AABFB857 /* DailySetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySetupViewModel.swift; sourceTree = "<group>"; };
 		F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerView.swift; sourceTree = "<group>"; };
 		F9D2263C6E158C710703930B /* FocusInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusInputRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -382,6 +384,7 @@
 				46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */,
 				AC9FF32722CF545FC309C493 /* SettingsView.swift */,
 				F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */,
+				F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */,
 				4DE0C8B2D7DCF8075F440E93 /* ThemeEnvironment.swift in Sources */,
 				63E0C8B7B75E882D7801A41A /* ThemeManager.swift in Sources */,
+				C2D3DE4EFCC908BFF711B99F /* ThemePickerView.swift in Sources */,
 				FC80F66562052CB386E12B82 /* UserDefaultsKeys.swift in Sources */,
 				BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */,
 				CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */,

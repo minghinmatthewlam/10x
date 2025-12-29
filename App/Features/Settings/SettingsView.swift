@@ -81,12 +81,9 @@ struct SettingsView: View {
             }
 
             Section {
-                Picker("Style", selection: $themeManager.theme) {
-                    ForEach(Theme.allCases) { theme in
-                        Text(theme.label).tag(theme)
-                    }
+                NavigationLink("Style") {
+                    ThemePickerView()
                 }
-                .pickerStyle(.navigationLink)
                 .listRowBackground(theme.surface)
             } header: {
                 Text("Theme")
