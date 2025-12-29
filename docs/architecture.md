@@ -30,6 +30,11 @@
 - App writes `widget_snapshot.json` to App Group on state changes.
 - Widget reads JSON in timeline provider.
 
+## Persistence fallback
+
+- SwiftData uses the App Group container when available.
+- If the App Group container is unavailable (e.g., not configured on simulator), the app falls back to the default store, then in-memory.
+
 ## Error handling
 
 - `TenXStore` throws validation errors for UI to surface via alerts.

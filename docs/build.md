@@ -31,3 +31,7 @@ xcodebuild -project TenX.xcodeproj -scheme TenXTests -sdk iphonesimulator -desti
 - App Group: `group.com.matthewlam.tenx`
 
 Update these in `project.yml`, entitlements, and `SharedConstants` if they change.
+
+## App Group note
+
+If the App Group container is not available (e.g., simulator without entitlement), the app will fall back to a local SwiftData store. Widgets will not receive snapshots until the App Group is configured.
