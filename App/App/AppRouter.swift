@@ -14,7 +14,6 @@ enum AppRouter {
         switch routeHost {
         case .home: return .home
         case .setup: return .setup
-        case .goals: return .home  // Redirect legacy goals deep link to home
         case .settings: return .settings
         }
     }

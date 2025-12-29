@@ -19,12 +19,11 @@ final class WidgetSnapshotService {
 
     func refreshSnapshot(todayKey: String) {
         let hasCompletedOnboarding = userDefaults.bool(forKey: UserDefaultsKeys.hasCompletedOnboarding)
-        let activeGoals = (try? store.fetchActiveGoals()) ?? []
         let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
         let recentEntries = (try? store.fetchRecentDayEntries()) ?? []
 
         let state: WidgetSnapshot.State
-        if !hasCompletedOnboarding || activeGoals.isEmpty {
+        if !hasCompletedOnboarding {
             state = .needsOnboarding
         } else if todayEntry == nil {
             state = .needsSetup
@@ -34,9 +33,16 @@ final class WidgetSnapshotService {
             state = .inProgress
         }
 
-        let focuses: [WidgetSnapshot.Focus] = todayEntry?.sortedFocuses.map {
-            WidgetSnapshot.Focus(title: $0.title, isCompleted: $0.isCompleted)
-        } ?? []
+        let focuses: [WidgetSnapshot.Focus]
+        if let todayEntry {
+            focuses = todayEntry.sortedFocuses.map {
+                WidgetSnapshot.Focus(title: $0.title, isCompleted: $0.isCompleted)
+            }
+        } else if hasCompletedOnboarding {
+            focuses = []
+        } else {
+            focuses = []
+        }
 
         let snapshot = WidgetSnapshot(state: state,
                                       dayKey: todayKey,

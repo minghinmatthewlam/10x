@@ -11,56 +11,7 @@ final class TenXStore {
 
     struct FocusDraft: Equatable {
         var title: String
-        var goalUUID: UUID?
         var carriedFromDayKey: String?
-    }
-
-    func fetchActiveGoals() throws -> [TenXGoal] {
-        var descriptor = FetchDescriptor<TenXGoal>(predicate: #Predicate { $0.archivedAt == nil })
-        descriptor.sortBy = [SortDescriptor(\.createdAt, order: .forward)]
-        return try context.fetch(descriptor)
-    }
-
-    func fetchAllGoals() throws -> [TenXGoal] {
-        var descriptor = FetchDescriptor<TenXGoal>()
-        descriptor.sortBy = [SortDescriptor(\.createdAt, order: .forward)]
-        return try context.fetch(descriptor)
-    }
-
-    func createGoal(title: String) throws {
-        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
-            throw StoreError.validation("Goal title is empty.")
-        }
-        guard trimmed.count <= AppConstants.maxGoalTitleLength else {
-            throw StoreError.validation("Goal title is too long.")
-        }
-
-        let activeCount = try fetchActiveGoals().count
-        guard activeCount < AppConstants.maxActiveGoals else {
-            throw StoreError.validation("You can only have \(AppConstants.maxActiveGoals) active goals.")
-        }
-
-        context.insert(TenXGoal(title: trimmed))
-        try context.save()
-    }
-
-    func archiveGoal(_ goal: TenXGoal) throws {
-        let activeCount = try fetchActiveGoals().count
-        guard activeCount > 1 else {
-            throw StoreError.validation("You need at least 1 active goal.")
-        }
-        goal.archive()
-        try context.save()
-    }
-
-    func unarchiveGoal(_ goal: TenXGoal) throws {
-        let activeCount = try fetchActiveGoals().count
-        guard activeCount < AppConstants.maxActiveGoals else {
-            throw StoreError.validation("You already have \(AppConstants.maxActiveGoals) active goals.")
-        }
-        goal.unarchive()
-        try context.save()
     }
 
     func fetchDayEntry(dayKey: String) throws -> DayEntry? {
@@ -86,19 +37,18 @@ final class TenXStore {
 
         return unfinished.prefix(AppConstants.dailyFocusCount).map { focus in
             FocusDraft(title: focus.title,
-                       goalUUID: focus.goal?.uuid,
                        carriedFromDayKey: yesterdayKey)
         }
     }
 
     func createDayEntry(todayKey: String, drafts: [FocusDraft]) throws {
-        // Filter to only non-empty drafts (user can set 1-3 focuses)
+        // Filter to only non-empty drafts (must set 3 focuses)
         let validDrafts = drafts.filter {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
 
-        guard !validDrafts.isEmpty else {
-            throw StoreError.validation("Add at least one focus to begin.")
+        guard validDrafts.count == AppConstants.dailyFocusCount else {
+            throw StoreError.validation("Add \(AppConstants.dailyFocusCount) focuses to begin.")
         }
         guard (try fetchDayEntry(dayKey: todayKey)) == nil else {
             throw StoreError.validation("Today is already set.")

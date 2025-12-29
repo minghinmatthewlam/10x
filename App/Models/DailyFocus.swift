@@ -15,7 +15,6 @@ final class DailyFocus {
     var createdAt: Date
 
     @Relationship var day: DayEntry?
-    @Relationship var goal: TenXGoal?
 
     init(uuid: UUID = UUID(),
          title: String,

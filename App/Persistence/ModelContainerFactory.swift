@@ -4,9 +4,7 @@ import TenXShared
 
 enum ModelContainerFactory {
     static func make(inMemory: Bool = false) -> ModelContainer {
-        let schema = Schema([TenXGoal.self, DayEntry.self, DailyFocus.self])
-
-        let migrationPlan = TenXMigrationPlan.self
+        let schema = Schema([DayEntry.self, DailyFocus.self])
 
         do {
             let groupContainer: ModelConfiguration.GroupContainer
@@ -23,7 +21,6 @@ enum ModelContainerFactory {
                                             groupContainer: groupContainer)
 
             return try ModelContainer(for: schema,
-                                      migrationPlan: migrationPlan,
                                       configurations: [config])
         } catch {
             do {

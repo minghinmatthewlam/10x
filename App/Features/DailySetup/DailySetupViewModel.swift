@@ -6,13 +6,13 @@ final class DailySetupViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     var hasValidFocus: Bool {
-        drafts.contains { !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        drafts.allSatisfy { !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
     }
 
     init(initialDrafts: [TenXStore.FocusDraft] = []) {
         var seeded = initialDrafts
         while seeded.count < AppConstants.dailyFocusCount {
-            seeded.append(TenXStore.FocusDraft(title: "", goalUUID: nil, carriedFromDayKey: nil))
+            seeded.append(TenXStore.FocusDraft(title: "", carriedFromDayKey: nil))
         }
         drafts = Array(seeded.prefix(AppConstants.dailyFocusCount))
     }

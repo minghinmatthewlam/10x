@@ -3,16 +3,14 @@ import SwiftData
 
 struct RootView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var appState: AppState
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
-    @Query(filter: #Predicate<TenXGoal> { $0.archivedAt == nil },
-           sort: [SortDescriptor(\.createdAt, order: .forward)])
-    private var activeGoals: [TenXGoal]
 
     var body: some View {
         Group {
-            if !hasCompletedOnboarding || activeGoals.isEmpty {
+            if !hasCompletedOnboarding {
                 OnboardingContainerView {
-                    hasCompletedOnboarding = true
+                    completeOnboarding()
                 }
             } else {
                 HomeShellView()
@@ -22,5 +20,13 @@ struct RootView: View {
             let store = TenXStore(context: modelContext)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
         }
+    }
+
+    private func completeOnboarding() {
+        hasCompletedOnboarding = true
+        appState.showDailySetup = true
+
+        let store = TenXStore(context: modelContext)
+        WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
     }
 }

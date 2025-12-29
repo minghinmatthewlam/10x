@@ -7,31 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04C161671F07B00ACCD93848 /* GoalEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F3C360651D6761057111C5 /* GoalEditorView.swift */; };
 		0757D5BF3642F38E98CBC390 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64DCF54BDFEA24B8483822 /* AppGroup.swift */; };
 		0D8C75BAC2C6CA9833667DA4 /* NotificationTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */; };
 		0FE73F5529A8AE5C1D94C7EA /* FocusCardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */; };
 		14509CECE26C3C9051BE1E71 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9FF32722CF545FC309C493 /* SettingsView.swift */; };
-		17228A816C71D514DBEB341E /* TenXMigrationPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12123FB129C7634807B229B /* TenXMigrationPlan.swift */; };
 		1B28AFD78D0E2E659092F096 /* HomeShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D1A6D7805D56D46CC0F0F2 /* HomeShellView.swift */; };
-		1D738D2DBE38A5C59FD6044C /* TenXGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6F5E7D8AA0176A12DD983B /* TenXGoal.swift */; };
 		1E7CAE3BD30803A728731905 /* DayKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202A4F9F5292213D738F06F4 /* DayKeyTests.swift */; };
 		20F1F632FB1276A783F9B843 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */; };
 		22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */; };
 		24DAE9EAF8EF31E2F4204D41 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */; };
-		251F70A7CBFCE92883245CCE /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C5D7970AFA90E8A23D4C36 /* GoalsView.swift */; };
 		297B5033539813EE52B262F7 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = 71FCB568A50E5A2BB243E6FE /* TenXShared */; };
 		332DCF5758C5CACAA0C9B1F8 /* TestContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCC743D503723BB68C5E80 /* TestContainerFactory.swift */; };
 		39CC757426CDF68E4618FE03 /* DayKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA27161AD0848A5BD034279 /* DayKey.swift */; };
 		3A6E0C07D9C8EC0712CE06CB /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */; };
 		3ADC3366983661FBCC841439 /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5218DB11B4AEAE02DECE9 /* StreakEngineTests.swift */; };
-		3DF209B0EEA0D4BEAF7C8A64 /* GoalSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F9E10A01AD85F0D93145E8 /* GoalSetupView.swift */; };
 		40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */; };
 		48C8A344C6FE8FEA661AE5C0 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = CA46EFC70D62016D07BE0742 /* TenXShared */; };
 		4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */; };
 		521752C7AC39D17FF7EF99D7 /* TenXWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		58E60858273E2F0256FD7C13 /* ModelContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */; };
-		5D7E4E0E90EB5E3716399926 /* ArchivedGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6BEE8B4F84D439F161BD18 /* ArchivedGoalsView.swift */; };
 		5EE3C769DC90D04361060CB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */; };
 		687C1846A3328212AFE483C4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A197A1ED012336720E95C9E /* HomeView.swift */; };
 		71301D945F826E65826578D5 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */; };
@@ -43,7 +37,6 @@
 		881E128A78B3F5A5C08CF4E3 /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D2718E4798B9875A4E1BD /* LaunchTests.swift */; };
 		8DFCAF94FF2D9B388B55B516 /* SnapshotTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E718A6BE3F4B249B394CF63 /* SnapshotTimelineProvider.swift */; };
 		96FE66B2DB21DCEAEEF2E0C9 /* LockWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */; };
-		993F9EE445315DBFEF80D756 /* GoalsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EE21CE8E7B9AD4949C2E53 /* GoalsViewModel.swift */; };
 		9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D2263C6E158C710703930B /* FocusInputRow.swift */; };
 		A4F3B155A28701D87A8BEF17 /* TenXStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236CB66E5CEE6520EBC5D764 /* TenXStoreTests.swift */; };
 		AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB3AD633CF6A4467EF207D /* TenXApp.swift */; };
@@ -59,7 +52,6 @@
 		D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */; };
 		DAE7691B34686E71FC2DC922 /* HomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50683C9D834BB93CC3EAD9 /* HomeWidgetView.swift */; };
 		DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */; };
-		E5373F37AC764EC1A14A1C4B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C72850BE64059F5F186470 /* OnboardingViewModel.swift */; };
 		EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */; };
 		EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */; };
 		EDA702254D53DC022D6EEC7B /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */; };
@@ -136,12 +128,10 @@
 		5E97FF760C25F89EF45F5D15 /* TenXWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXWidgets.swift; sourceTree = "<group>"; };
 		60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardView.swift; sourceTree = "<group>"; };
 		6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotService.swift; sourceTree = "<group>"; };
-		6F6F5E7D8AA0176A12DD983B /* TenXGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXGoal.swift; sourceTree = "<group>"; };
 		701289363DB16CD7DDB81E42 /* FocusEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEditView.swift; sourceTree = "<group>"; };
 		728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		81D1A6D7805D56D46CC0F0F2 /* HomeShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShellView.swift; sourceTree = "<group>"; };
-		91EE21CE8E7B9AD4949C2E53 /* GoalsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsViewModel.swift; sourceTree = "<group>"; };
 		990D2718E4798B9875A4E1BD /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantTimeChangeListener.swift; sourceTree = "<group>"; };
 		9BDC76E7A57AF8EB8BB8EA76 /* DailySetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySetupView.swift; sourceTree = "<group>"; };
@@ -150,20 +140,15 @@
 		9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		A16C92806FE2659B574B0057 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		A4BB3AD633CF6A4467EF207D /* TenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXApp.swift; sourceTree = "<group>"; };
-		A7C72850BE64059F5F186470 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		AC9FF32722CF545FC309C493 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
-		AF6BEE8B4F84D439F161BD18 /* ArchivedGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedGoalsView.swift; sourceTree = "<group>"; };
 		B3E1D974669AF89C03FEE247 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
 		BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TenXWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
-		C7C5D7970AFA90E8A23D4C36 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
 		D14D1C3E251F3E976370B01F /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		D3E4EC2B436728AAEF780FB4 /* TenXWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenXWidgets.entitlements; sourceTree = "<group>"; };
 		DCFCC743D503723BB68C5E80 /* TestContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainerFactory.swift; sourceTree = "<group>"; };
-		E12123FB129C7634807B229B /* TenXMigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXMigrationPlan.swift; sourceTree = "<group>"; };
-		E2F3C360651D6761057111C5 /* GoalEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalEditorView.swift; sourceTree = "<group>"; };
 		E413908A98A84837AF1265B1 /* Font+TenX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+TenX.swift"; sourceTree = "<group>"; };
 		E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardButtonStyle.swift; sourceTree = "<group>"; };
 		EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockWidgetView.swift; sourceTree = "<group>"; };
@@ -171,7 +156,6 @@
 		EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerView.swift; sourceTree = "<group>"; };
 		EC9DF5A3E793AEAF0581E062 /* TenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenX.entitlements; sourceTree = "<group>"; };
 		F05036377D56E3E68CAB463C /* TenXUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TenXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0F9E10A01AD85F0D93145E8 /* GoalSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSetupView.swift; sourceTree = "<group>"; };
 		F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		F2D7CC8CFB5DCAE3AABFB857 /* DailySetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySetupViewModel.swift; sourceTree = "<group>"; };
 		F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -208,22 +192,10 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		1EA6C0990E1F3AF5E5263A6A /* Goals */ = {
-			isa = PBXGroup;
-			children = (
-				AF6BEE8B4F84D439F161BD18 /* ArchivedGoalsView.swift */,
-				E2F3C360651D6761057111C5 /* GoalEditorView.swift */,
-				C7C5D7970AFA90E8A23D4C36 /* GoalsView.swift */,
-				91EE21CE8E7B9AD4949C2E53 /* GoalsViewModel.swift */,
-			);
-			path = Goals;
-			sourceTree = "<group>";
-		};
 		3F5B51E9A5029136D513DEB3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				874387313684425D27C1FA48 /* DailySetup */,
-				1EA6C0990E1F3AF5E5263A6A /* Goals */,
 				A2287003E003AB5DAB9FF693 /* Home */,
 				BAAE3D4CD58B23E3273AD227 /* Onboarding */,
 				AFD0F9317039B7C5A29069DA /* Settings */,
@@ -249,14 +221,6 @@
 				9A2D938E62B9EE1246CE7641 /* Theme */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		538002FD4BC8AEF483E4E066 /* Migrations */ = {
-			isa = PBXGroup;
-			children = (
-				E12123FB129C7634807B229B /* TenXMigrationPlan.swift */,
-			);
-			path = Migrations;
 			sourceTree = "<group>";
 		};
 		60D61E55FAD3EB775DBCB76B /* Helpers */ = {
@@ -308,7 +272,6 @@
 				26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */,
 				3F373D31230C91E3FE326BAB /* DailyFocus.swift */,
 				BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */,
-				6F6F5E7D8AA0176A12DD983B /* TenXGoal.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -318,7 +281,6 @@
 			children = (
 				297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */,
 				4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */,
-				538002FD4BC8AEF483E4E066 /* Migrations */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -416,9 +378,7 @@
 		BAAE3D4CD58B23E3273AD227 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				F0F9E10A01AD85F0D93145E8 /* GoalSetupView.swift */,
 				EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */,
-				A7C72850BE64059F5F186470 /* OnboardingViewModel.swift */,
 				F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */,
 			);
 			path = Onboarding;
@@ -641,7 +601,6 @@
 				D3528F6838FC9FE67F4BD10E /* AppRouter.swift in Sources */,
 				7C2993986641F7ECEDAA4318 /* AppState.swift in Sources */,
 				B1A8757D4F597250F882ED00 /* AppearanceMode.swift in Sources */,
-				5D7E4E0E90EB5E3716399926 /* ArchivedGoalsView.swift in Sources */,
 				B50CD1ECEF4C625917B7706B /* Color+Hex.swift in Sources */,
 				20F1F632FB1276A783F9B843 /* Color+Theme.swift in Sources */,
 				FD77E939877143E221E4B962 /* DailyFocus.swift in Sources */,
@@ -654,10 +613,6 @@
 				F0F011F19ECB4246DEC398B9 /* FocusEditView.swift in Sources */,
 				9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */,
 				B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */,
-				04C161671F07B00ACCD93848 /* GoalEditorView.swift in Sources */,
-				3DF209B0EEA0D4BEAF7C8A64 /* GoalSetupView.swift in Sources */,
-				251F70A7CBFCE92883245CCE /* GoalsView.swift in Sources */,
-				993F9EE445315DBFEF80D756 /* GoalsViewModel.swift in Sources */,
 				780CAA926474BC64CEA2B894 /* Haptics.swift in Sources */,
 				1B28AFD78D0E2E659092F096 /* HomeShellView.swift in Sources */,
 				687C1846A3328212AFE483C4 /* HomeView.swift in Sources */,
@@ -667,7 +622,6 @@
 				D13DDE23413098001F7D4AF9 /* NotificationScheduler.swift in Sources */,
 				0D8C75BAC2C6CA9833667DA4 /* NotificationTimePickerView.swift in Sources */,
 				724C956231513266F15E63F2 /* OnboardingContainerView.swift in Sources */,
-				E5373F37AC764EC1A14A1C4B /* OnboardingViewModel.swift in Sources */,
 				24DAE9EAF8EF31E2F4204D41 /* PrimaryButtonStyle.swift in Sources */,
 				EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */,
 				75900800D0F183C5019940C6 /* RootView.swift in Sources */,
@@ -677,8 +631,6 @@
 				22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */,
 				796739A9F7554CF233251E79 /* StreakEngine.swift in Sources */,
 				AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */,
-				1D738D2DBE38A5C59FD6044C /* TenXGoal.swift in Sources */,
-				17228A816C71D514DBEB341E /* TenXMigrationPlan.swift in Sources */,
 				D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */,
 				FC80F66562052CB386E12B82 /* UserDefaultsKeys.swift in Sources */,
 				D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */,

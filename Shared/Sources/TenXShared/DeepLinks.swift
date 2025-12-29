@@ -6,7 +6,6 @@ public enum DeepLinks {
     public enum Host: String, CaseIterable {
         case home
         case setup
-        case goals
         case settings
     }
 
