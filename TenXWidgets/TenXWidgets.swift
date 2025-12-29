@@ -24,7 +24,7 @@ struct TenXWidgets: Widget {
                             provider: SnapshotTimelineProvider()) { entry in
             TenXWidgetsEntryView(entry: entry)
         }
-        .configurationDisplayName("TenX")
+        .configurationDisplayName("10x")
         .description("Track today’s focuses and streak.")
         .supportedFamilies([.systemMedium, .systemLarge, .accessoryCircular])
     }

@@ -22,10 +22,19 @@ enum ModelContainerFactory {
                 let fallbackConfig = ModelConfiguration(schema: schema,
                                                        isStoredInMemoryOnly: inMemory)
                 return try ModelContainer(for: schema,
-                                          migrationPlan: migrationPlan,
                                           configurations: [fallbackConfig])
             } catch {
-                fatalError("Failed to create SwiftData container: \(error)")
+                do {
+                    let memoryConfig = ModelConfiguration(schema: schema,
+                                                          isStoredInMemoryOnly: true)
+                    return try ModelContainer(for: schema,
+                                              configurations: [memoryConfig])
+                } catch {
+                    assertionFailure("Failed to create SwiftData container: \(error)")
+                    return try! ModelContainer(for: schema,
+                                               configurations: [ModelConfiguration(schema: schema,
+                                                                                   isStoredInMemoryOnly: true)])
+                }
             }
         }
     }

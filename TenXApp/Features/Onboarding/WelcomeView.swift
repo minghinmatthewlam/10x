@@ -3,7 +3,7 @@ import SwiftUI
 struct WelcomeView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
-            Text("TenX")
+            Text("10x")
                 .font(.tenxTitle)
                 .foregroundStyle(Color.tenxAccent)
 

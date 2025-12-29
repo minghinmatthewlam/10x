@@ -26,7 +26,7 @@ final class NotificationScheduler {
 
     func scheduleDailyReminder(hour: Int, minute: Int) async {
         let content = UNMutableNotificationContent()
-        content.title = "TenX"
+        content.title = "10x"
         content.body = "Set today’s three focuses."
         content.sound = nil
 
@@ -50,7 +50,7 @@ final class NotificationScheduler {
     #if DEBUG
     func scheduleTestNotification() async {
         let content = UNMutableNotificationContent()
-        content.title = "TenX Test"
+        content.title = "10x Test"
         content.body = "This is a test notification."
         content.sound = nil
 

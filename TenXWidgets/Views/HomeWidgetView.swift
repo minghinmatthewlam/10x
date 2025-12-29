@@ -32,7 +32,7 @@ struct HomeWidgetView: View {
 
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("TenX")
+            Text("10x")
                 .font(.headline)
                 .foregroundStyle(.white)
             Text(text)
