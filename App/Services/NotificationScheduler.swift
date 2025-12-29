@@ -27,7 +27,7 @@ final class NotificationScheduler {
     func scheduleDailyReminder(hour: Int, minute: Int) async {
         let content = UNMutableNotificationContent()
         content.title = "10x"
-        content.body = "Set today’s three focuses."
+        content.body = "Set today’s focuses."
         content.sound = nil
 
         var components = DateComponents()

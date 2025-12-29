@@ -4,15 +4,9 @@ struct FocusCardView: View {
     let focus: DailyFocus
     let onToggle: () -> Void
 
-    @State private var showConfirm = false
-
     var body: some View {
         Button {
-            if focus.isCompleted {
-                showConfirm = true
-            } else {
-                onToggle()
-            }
+            onToggle()
         } label: {
             HStack(spacing: 16) {
                 Circle()
@@ -45,11 +39,5 @@ struct FocusCardView: View {
             .padding(.vertical, 20)
         }
         .buttonStyle(FocusCardButtonStyle())
-        .confirmationDialog("Mark as incomplete?", isPresented: $showConfirm) {
-            Button("Mark Incomplete", role: .destructive) {
-                onToggle()
-            }
-            Button("Cancel", role: .cancel) {}
-        }
     }
 }

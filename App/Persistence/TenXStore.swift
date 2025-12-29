@@ -35,20 +35,23 @@ final class TenXStore {
         let unfinished = yesterday.sortedFocuses.filter { !$0.isCompleted }
         guard !unfinished.isEmpty else { return [] }
 
-        return unfinished.prefix(AppConstants.dailyFocusCount).map { focus in
+        return unfinished.prefix(AppConstants.dailyFocusMax).map { focus in
             FocusDraft(title: focus.title,
                        carriedFromDayKey: yesterdayKey)
         }
     }
 
     func createDayEntry(todayKey: String, drafts: [FocusDraft]) throws {
-        // Filter to only non-empty drafts (must set 3 focuses)
+        // Filter to only non-empty drafts (1 to 3 focuses).
         let validDrafts = drafts.filter {
             !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         }
 
-        guard validDrafts.count == AppConstants.dailyFocusCount else {
-            throw StoreError.validation("Add \(AppConstants.dailyFocusCount) focuses to begin.")
+        guard validDrafts.count >= AppConstants.dailyFocusMin else {
+            throw StoreError.validation("Add at least one focus to begin.")
+        }
+        guard validDrafts.count <= AppConstants.dailyFocusMax else {
+            throw StoreError.validation("Limit to \(AppConstants.dailyFocusMax) focuses.")
         }
         guard (try fetchDayEntry(dayKey: todayKey)) == nil else {
             throw StoreError.validation("Today is already set.")

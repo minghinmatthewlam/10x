@@ -18,7 +18,7 @@ struct WelcomeView: View {
                     .foregroundStyle(Color.tenxTextPrimary)
                     .lineSpacing(4)
 
-                Text("Each day, choose three focuses.\nComplete one to keep your streak alive.")
+                Text("Each day, choose 1-3 focuses.\nComplete one to keep your streak alive.")
                     .font(.tenxBody)
                     .foregroundStyle(Color.tenxTextSecondary)
                     .lineSpacing(4)

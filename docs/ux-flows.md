@@ -9,13 +9,13 @@
 
 - If no entry for today, present setup.
 - If yesterday had unfinished focuses, show Continue/Fresh prompt.
-- Must create exactly 3 focuses.
+- Must create 1-3 focuses.
 
 ## Home
 
 - Shows current day focuses with completion state.
-- Tapping a focus toggles completion (with confirmation for un-complete).
-- Context menu allows editing focus title + goal.
+- Tapping a focus toggles completion.
+- Context menu allows editing focus title.
 
 ## Settings
 

@@ -2,12 +2,12 @@
 
 ## Core invariants
 
-- Exactly 3 focuses per day entry (`AppConstants.dailyFocusCount`).
+- 1-3 focuses per day entry (`AppConstants.dailyFocusMin`/`AppConstants.dailyFocusMax`).
 - Day identity uses `dayKey` (`yyyy-MM-dd`) instead of raw dates.
 
 ## Data model
 
-- `DayEntry` — one per `dayKey`, contains 3 `DailyFocus`.
+- `DayEntry` — one per `dayKey`, contains 1-3 `DailyFocus`.
 - `DailyFocus` — focus title, completion state, optional carryover metadata.
 
 ## Streak rules

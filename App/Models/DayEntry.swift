@@ -23,5 +23,5 @@ final class DayEntry {
     }
 
     var maintainsStreak: Bool { completedCount >= 1 }
-    var isFullyComplete: Bool { completedCount == AppConstants.dailyFocusCount }
+    var isFullyComplete: Bool { !focuses.isEmpty && completedCount == focuses.count }
 }

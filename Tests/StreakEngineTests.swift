@@ -35,7 +35,7 @@ final class StreakEngineTests: XCTestCase {
 
     private func makeEntry(dayKey: String, completedCount: Int) -> DayEntry {
         let entry = DayEntry(dayKey: dayKey)
-        for index in 0..<AppConstants.dailyFocusCount {
+        for index in 0..<AppConstants.dailyFocusMax {
             let focus = DailyFocus(title: "Focus \(index)", sortOrder: index)
             focus.isCompleted = index < completedCount
             entry.focuses.append(focus)

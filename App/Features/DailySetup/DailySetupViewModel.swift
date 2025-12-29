@@ -6,15 +6,16 @@ final class DailySetupViewModel: ObservableObject {
     @Published var errorMessage: String?
 
     var hasValidFocus: Bool {
-        drafts.allSatisfy { !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        let filled = drafts.filter { !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+        return filled.count >= AppConstants.dailyFocusMin
     }
 
     init(initialDrafts: [TenXStore.FocusDraft] = []) {
         var seeded = initialDrafts
-        while seeded.count < AppConstants.dailyFocusCount {
+        while seeded.count < AppConstants.dailyFocusMax {
             seeded.append(TenXStore.FocusDraft(title: "", carriedFromDayKey: nil))
         }
-        drafts = Array(seeded.prefix(AppConstants.dailyFocusCount))
+        drafts = Array(seeded.prefix(AppConstants.dailyFocusMax))
     }
 
     func startDay(store: TenXStore, todayKey: String) -> Bool {
