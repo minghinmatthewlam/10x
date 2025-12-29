@@ -1,0 +1,56 @@
+name: TenX
+options:
+  bundleIdPrefix: com.yourname
+settings:
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 17.0
+    DEVELOPMENT_TEAM: ""
+packages:
+  TenXShared:
+    path: TenXShared
+
+targets:
+  TenX:
+    type: application
+    platform: iOS
+    sources:
+      - TenXApp
+    resources:
+      - TenXApp/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.tenx
+        INFOPLIST_FILE: TenXApp/Resources/Info.plist
+        ENTITLEMENTS_FILE: TenXApp/TenX.entitlements
+    dependencies:
+      - package: TenXShared
+      - target: TenXWidgets
+
+  TenXWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - TenXWidgets
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.yourname.tenx.widgets
+        INFOPLIST_FILE: TenXWidgets/Info.plist
+        ENTITLEMENTS_FILE: TenXWidgets/TenXWidgets.entitlements
+    dependencies:
+      - package: TenXShared
+
+  TenXTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - TenXTests
+    dependencies:
+      - target: TenX
+
+  TenXUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - TenXUITests
+    dependencies:
+      - target: TenX
