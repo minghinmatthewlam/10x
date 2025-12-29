@@ -48,6 +48,17 @@ struct SettingsView: View {
         .onAppear {
             viewModel.refreshStatus()
         }
+#if DEBUG
+        .alert("Test Notification", isPresented: Binding(get: {
+            viewModel.testNotificationMessage != nil
+        }, set: { isPresented in
+            if !isPresented { viewModel.testNotificationMessage = nil }
+        })) {
+            Button("OK") { viewModel.testNotificationMessage = nil }
+        } message: {
+            Text(viewModel.testNotificationMessage ?? "")
+        }
+#endif
     }
 
     private var statusText: String {
