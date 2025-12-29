@@ -26,7 +26,7 @@ final class ThemeManager: ObservableObject {
         defaults.set(theme.rawValue, forKey: UserDefaultsKeys.theme)
         sharedDefaults?.set(theme.rawValue, forKey: UserDefaultsKeys.theme)
         refreshSnapshotTheme()
-        WidgetCenter.shared.reloadAllTimelines()
+        WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
     }
 
     private func refreshSnapshotTheme() {

@@ -5,9 +5,12 @@ import TenXShared
 struct HomeWidgetView: View {
     let snapshot: WidgetSnapshot?
     private var theme: ThemePalette {
+        if let live = ThemeStore.storedTheme() {
+            return live.palette
+        }
         if let raw = snapshot?.theme,
-           let theme = Theme(rawValue: raw) {
-            return theme.palette
+           let snapshotTheme = Theme(rawValue: raw) {
+            return snapshotTheme.palette
         }
         return ThemeStore.currentTheme().palette
     }

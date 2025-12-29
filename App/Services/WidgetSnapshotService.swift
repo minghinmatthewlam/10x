@@ -57,7 +57,7 @@ final class WidgetSnapshotService {
 
         do {
             try snapshotStore.save(snapshot)
-            WidgetCenter.shared.reloadAllTimelines()
+            WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
         } catch {
             // Widgets can fall back to empty state if write fails.
         }

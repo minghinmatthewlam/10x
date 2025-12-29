@@ -124,6 +124,14 @@ public enum Theme: String, CaseIterable, Identifiable {
 }
 
 public enum ThemeStore {
+    public static func storedTheme(userDefaults: UserDefaults? = UserDefaults(suiteName: SharedConstants.appGroupID)) -> Theme? {
+        guard let raw = userDefaults?.string(forKey: SharedConstants.themeKey),
+              let theme = Theme(rawValue: raw) else {
+            return nil
+        }
+        return theme
+    }
+
     public static func currentTheme(userDefaults: UserDefaults? = UserDefaults(suiteName: SharedConstants.appGroupID),
                                     fallback: Theme = .midnight) -> Theme {
         guard let raw = userDefaults?.string(forKey: SharedConstants.themeKey),

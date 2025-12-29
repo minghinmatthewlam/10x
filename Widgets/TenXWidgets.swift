@@ -19,7 +19,7 @@ struct TenXWidgetsEntryView: View {
 }
 
 struct TenXWidgets: Widget {
-    let kind: String = "TenXWidgets"
+    let kind: String = SharedConstants.widgetKind
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind,
