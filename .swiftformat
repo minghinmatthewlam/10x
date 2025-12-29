@@ -1,0 +1,81 @@
+# SwiftFormat Configuration for TenX
+# https://github.com/nicklockwood/SwiftFormat
+
+# Swift version
+--swiftversion 5.9
+
+# File options
+--exclude .build,DerivedData,Pods,Carthage,TenX.xcodeproj
+
+# Indentation
+--indent 4
+--tabwidth 4
+--smarttabs disabled
+--indentcase true
+--ifdef no-indent
+
+# Wrapping
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions preserve
+--wraptypealiases before-first
+--maxwidth 120
+--assetliterals visual-width
+--wrapternary default
+
+# Spacing
+--operatorfunc spaced
+--ranges spaced
+--trimwhitespace always
+--linebreaks lf
+
+# Braces
+--allman false
+--elseposition same-line
+--guardelse next-line
+
+# Types
+--self remove
+--selfrequired
+--importgrouping alpha
+--typeattributes prev-line
+--funcattributes prev-line
+--varattributes prev-line
+--storedvarattrs same-line
+--computedvarattrs same-line
+
+# Other
+--semicolons inline
+--voidtype void
+--emptybraces no-space
+--redundanttype inferred
+--patternlet hoist-all
+--stripunusedargs closure-only
+--marktypes if-not-empty
+--markextensions if-not-empty
+--extensionacl on-declarations
+--modifierorder
+
+# Organize declarations
+--organizetypes class,actor,struct,enum
+--organizationmode visibility
+
+# Header
+--header strip
+
+# Enabled rules (default + explicit)
+--enable blankLinesBetweenImports
+--enable blockComments
+--enable docComments
+--enable isEmpty
+--enable markTypes
+--enable organizeDeclarations
+--enable sortImports
+--enable wrapConditionalBodies
+--enable wrapEnumCases
+--enable wrapSwitchCases
+
+# Disabled rules
+--disable acronyms
+--disable wrapMultilineStatementBraces

@@ -24,9 +24,44 @@ TenX is a focused daily goal app for iOS. It enforces three daily focuses tied t
 
 ## Development
 
-- Build the TenX app target in Xcode.
-- Run unit tests via Xcode’s test navigator.
-- Regenerate the Xcode project (optional): `xcodegen generate`
+### Quick Start
+
+```bash
+# Install tools and generate project
+make setup
+
+# Open in Xcode
+make open
+```
+
+### Available Commands
+
+```bash
+make setup        # Install XcodeGen, SwiftLint, SwiftFormat
+make generate     # Regenerate Xcode project
+make build        # Build for iOS Simulator
+make test         # Run unit tests
+make lint         # Run SwiftLint
+make format       # Auto-format code
+make format-check # Check formatting without changes
+make clean        # Clean build artifacts
+make ci           # Run full CI checks locally
+make install-hooks # Install pre-commit hook
+```
+
+### Code Quality
+
+- **SwiftLint**: Static analysis (`.swiftlint.yml`)
+- **SwiftFormat**: Code formatting (`.swiftformat`)
+- **Pre-commit hook**: Run `make install-hooks` to lint before each commit
+
+### CI
+
+GitHub Actions runs on every push/PR:
+- SwiftLint (strict mode)
+- SwiftFormat check
+- Build app + widgets
+- Run tests
 
 ## Notes
 

@@ -46,3 +46,11 @@ fastlane/test_output
 
 # Logs
 *.log
+
+# CI/Test artifacts
+test-results.xml
+format-output.txt
+coverage/
+
+# SwiftLint/SwiftFormat cache
+.swiftlint.cache
