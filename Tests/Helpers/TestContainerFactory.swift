@@ -1,6 +1,6 @@
 import Foundation
 import SwiftData
-@testable import TenXApp
+@testable import TenX
 
 enum TestContainerFactory {
     static func makeContext() -> ModelContext {

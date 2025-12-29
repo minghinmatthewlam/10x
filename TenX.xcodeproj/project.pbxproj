@@ -26,6 +26,7 @@
 		3A6E0C07D9C8EC0712CE06CB /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */; };
 		3ADC3366983661FBCC841439 /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5218DB11B4AEAE02DECE9 /* StreakEngineTests.swift */; };
 		3DF209B0EEA0D4BEAF7C8A64 /* GoalSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0F9E10A01AD85F0D93145E8 /* GoalSetupView.swift */; };
+		40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */; };
 		48C8A344C6FE8FEA661AE5C0 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = CA46EFC70D62016D07BE0742 /* TenXShared */; };
 		4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */; };
 		521752C7AC39D17FF7EF99D7 /* TenXWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -61,6 +62,7 @@
 		E5373F37AC764EC1A14A1C4B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C72850BE64059F5F186470 /* OnboardingViewModel.swift */; };
 		EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */; };
 		EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */; };
+		EDA702254D53DC022D6EEC7B /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */; };
 		F0C480A6AECE92085A36B938 /* TenXWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E97FF760C25F89EF45F5D15 /* TenXWidgets.swift */; };
 		F0CC5E93A754105400330B29 /* DailySetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDC76E7A57AF8EB8BB8EA76 /* DailySetupView.swift */; };
 		F0F011F19ECB4246DEC398B9 /* FocusEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701289363DB16CD7DDB81E42 /* FocusEditView.swift */; };
@@ -155,6 +157,7 @@
 		B3E1D974669AF89C03FEE247 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
 		BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TenXWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
+		C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		C7C5D7970AFA90E8A23D4C36 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
 		D14D1C3E251F3E976370B01F /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		D3E4EC2B436728AAEF780FB4 /* TenXWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenXWidgets.entitlements; sourceTree = "<group>"; };
@@ -164,6 +167,7 @@
 		E413908A98A84837AF1265B1 /* Font+TenX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+TenX.swift"; sourceTree = "<group>"; };
 		E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardButtonStyle.swift; sourceTree = "<group>"; };
 		EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockWidgetView.swift; sourceTree = "<group>"; };
+		EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallHomeWidgetView.swift; sourceTree = "<group>"; };
 		EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerView.swift; sourceTree = "<group>"; };
 		EC9DF5A3E793AEAF0581E062 /* TenX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenX.entitlements; sourceTree = "<group>"; };
 		F05036377D56E3E68CAB463C /* TenXUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TenXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -342,6 +346,8 @@
 			children = (
 				9E50683C9D834BB93CC3EAD9 /* HomeWidgetView.swift */,
 				EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */,
+				C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */,
+				EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -600,6 +606,8 @@
 			files = (
 				DAE7691B34686E71FC2DC922 /* HomeWidgetView.swift in Sources */,
 				96FE66B2DB21DCEAEEF2E0C9 /* LockWidgetView.swift in Sources */,
+				EDA702254D53DC022D6EEC7B /* ProgressRing.swift in Sources */,
+				40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */,
 				8DFCAF94FF2D9B388B55B516 /* SnapshotTimelineProvider.swift in Sources */,
 				F0C480A6AECE92085A36B938 /* TenXWidgets.swift in Sources */,
 			);
@@ -760,12 +768,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.TenXUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TenX;
@@ -792,12 +801,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.TenXTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TenX.app/TenX";
@@ -825,12 +835,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.TenXTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TenX.app/TenX";
@@ -905,12 +916,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.TenXUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.uitests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TenX;

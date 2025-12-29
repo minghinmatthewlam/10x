@@ -1,35 +1,33 @@
 import XCTest
 import SwiftData
-@testable import TenXApp
+@testable import TenX
 
 final class TenXStoreTests: XCTestCase {
     @MainActor
-    func testCannotCreateDayEntryWithLessThanThreeDrafts() throws {
+    func testAllowsCreateDayEntryWithSingleDraft() throws {
         let context = TestContainerFactory.makeContext()
         let store = TenXStore(context: context)
+        let todayKey = DayKey.make()
 
-        try store.createGoal(title: "Goal")
-        let goal = try store.fetchActiveGoals().first
+        let drafts = [TenXStore.FocusDraft(title: "One", goalUUID: nil, carriedFromDayKey: nil)]
 
-        let drafts = [TenXStore.FocusDraft(title: "One", goalUUID: goal?.uuid, carriedFromDayKey: nil)]
-
-        XCTAssertThrowsError(try store.createDayEntry(todayKey: DayKey.make(), drafts: drafts))
+        XCTAssertNoThrow(try store.createDayEntry(todayKey: todayKey, drafts: drafts))
+        let entry = try store.fetchDayEntry(dayKey: todayKey)
+        XCTAssertEqual(entry?.sortedFocuses.count, 1)
     }
 
     @MainActor
-    func testCannotCreateDayEntryWithMissingGoalLink() throws {
+    func testRejectsEmptyDrafts() throws {
         let context = TestContainerFactory.makeContext()
         let store = TenXStore(context: context)
-
-        try store.createGoal(title: "Goal")
+        let todayKey = DayKey.make()
 
         let drafts = [
-            TenXStore.FocusDraft(title: "One", goalUUID: nil, carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Two", goalUUID: nil, carriedFromDayKey: nil),
-            TenXStore.FocusDraft(title: "Three", goalUUID: nil, carriedFromDayKey: nil)
+            TenXStore.FocusDraft(title: " ", goalUUID: nil, carriedFromDayKey: nil),
+            TenXStore.FocusDraft(title: "", goalUUID: nil, carriedFromDayKey: nil)
         ]
 
-        XCTAssertThrowsError(try store.createDayEntry(todayKey: DayKey.make(), drafts: drafts))
+        XCTAssertThrowsError(try store.createDayEntry(todayKey: todayKey, drafts: drafts))
     }
 
     @MainActor

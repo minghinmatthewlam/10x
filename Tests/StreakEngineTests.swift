@@ -1,5 +1,5 @@
 import XCTest
-@testable import TenXApp
+@testable import TenX
 
 final class StreakEngineTests: XCTestCase {
     func testPendingTodayDoesNotBreakStreak() {
