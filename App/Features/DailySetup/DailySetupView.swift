@@ -4,9 +4,7 @@ import SwiftData
 struct DailySetupView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-
-    @Query(filter: #Predicate<TenXGoal> { $0.archivedAt == nil }, sort: [SortDescriptor(\.createdAt)])
-    private var activeGoals: [TenXGoal]
+    @FocusState private var focusedField: Int?
 
     @StateObject private var viewModel: DailySetupViewModel
 
@@ -20,30 +18,53 @@ struct DailySetupView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    Text("Set Today’s Focus")
-                        .font(.tenxTitle)
-                        .foregroundStyle(Color.tenxTextPrimary)
-
-                    ForEach(Array(viewModel.drafts.enumerated()), id: \.offset) { index, _ in
-                        FocusInputRow(draft: $viewModel.drafts[index],
-                                      goals: activeGoals,
-                                      index: index)
+                VStack(alignment: .leading, spacing: 40) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("What would make\ntoday a 10x day?")
+                            .font(.tenxHero)
+                            .foregroundStyle(Color.tenxTextPrimary)
+                            .lineSpacing(4)
                     }
 
-                    Button("Start Day") {
+                    VStack(spacing: 16) {
+                        ForEach(Array(viewModel.drafts.enumerated()), id: \.offset) { index, _ in
+                            FocusInputRow(
+                                draft: $viewModel.drafts[index],
+                                placeholder: placeholder(for: index),
+                                isFocused: focusedField == index
+                            )
+                            .focused($focusedField, equals: index)
+                        }
+                    }
+
+                    Spacer(minLength: 32)
+
+                    Button("Begin") {
                         startDay()
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .frame(maxWidth: .infinity)
+                    .opacity(viewModel.hasValidFocus ? 1 : 0.4)
+                    .disabled(!viewModel.hasValidFocus)
                 }
-                .padding(24)
+                .padding(.horizontal, 28)
+                .padding(.top, 32)
+                .padding(.bottom, 48)
             }
             .background(Color.tenxBackground)
+            .scrollDismissesKeyboard(.interactively)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") { dismiss() }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.tenxTextSecondary)
+                    }
                 }
             }
+            .toolbarBackground(Color.tenxBackground, for: .navigationBar)
         }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil
@@ -54,12 +75,24 @@ struct DailySetupView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+        .onAppear {
+            focusedField = 0
+        }
+    }
+
+    private func placeholder(for index: Int) -> String {
+        switch index {
+        case 0: return "Your most important focus..."
+        case 1: return "What else matters today?"
+        default: return "One more thing..."
+        }
     }
 
     private func startDay() {
         let store = TenXStore(context: modelContext)
         let todayKey = DayKey.make()
         if viewModel.startDay(store: store, todayKey: todayKey) {
+            Haptics.mediumImpact()
             onComplete()
             dismiss()
         }

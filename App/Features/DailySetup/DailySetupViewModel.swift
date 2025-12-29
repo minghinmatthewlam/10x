@@ -5,6 +5,10 @@ final class DailySetupViewModel: ObservableObject {
     @Published var drafts: [TenXStore.FocusDraft]
     @Published var errorMessage: String?
 
+    var hasValidFocus: Bool {
+        drafts.contains { !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+    }
+
     init(initialDrafts: [TenXStore.FocusDraft] = []) {
         var seeded = initialDrafts
         while seeded.count < AppConstants.dailyFocusCount {

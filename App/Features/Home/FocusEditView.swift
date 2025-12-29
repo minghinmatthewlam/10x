@@ -4,49 +4,60 @@ struct FocusEditView: View {
     @Environment(\.dismiss) private var dismiss
 
     let focus: DailyFocus
-    let goals: [TenXGoal]
-    let onSave: (String, UUID) throws -> Void
+    let onSave: (String) throws -> Void
 
     @State private var title: String
-    @State private var selectedGoalUUID: UUID?
     @State private var errorMessage: String?
 
-    init(focus: DailyFocus, goals: [TenXGoal], onSave: @escaping (String, UUID) throws -> Void) {
+    init(focus: DailyFocus, onSave: @escaping (String) throws -> Void) {
         self.focus = focus
-        self.goals = goals
         self.onSave = onSave
         _title = State(initialValue: focus.title)
-        _selectedGoalUUID = State(initialValue: focus.goal?.uuid ?? goals.first?.uuid)
     }
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section("Focus") {
-                    TextField("Focus title", text: $title)
-                        .textInputAutocapitalization(.sentences)
-                }
+            VStack(alignment: .leading, spacing: 24) {
+                Text("Edit focus")
+                    .font(.tenxTitle)
+                    .foregroundStyle(Color.tenxTextPrimary)
 
-                Section("Goal") {
-                    Picker("Goal", selection: $selectedGoalUUID) {
-                        ForEach(goals, id: \.uuid) { goal in
-                            Text(goal.title).tag(Optional(goal.uuid))
-                        }
-                    }
+                TextField("What matters most?", text: $title, axis: .vertical)
+                    .font(.tenxLargeBody)
+                    .foregroundStyle(Color.tenxTextPrimary)
+                    .textInputAutocapitalization(.sentences)
+                    .lineLimit(1...4)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .fill(Color.tenxSurface)
+                    )
+
+                Spacer()
+
+                Button("Save") {
+                    save()
                 }
+                .buttonStyle(PrimaryButtonStyle())
+                .frame(maxWidth: .infinity)
+                .disabled(!canSave)
+                .opacity(canSave ? 1 : 0.4)
             }
-            .navigationTitle("Edit Focus")
+            .padding(24)
+            .background(Color.tenxBackground)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
-                }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save") {
-                        save()
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(Color.tenxTextSecondary)
                     }
-                    .disabled(!canSave)
                 }
             }
+            .toolbarBackground(Color.tenxBackground, for: .navigationBar)
         }
         .alert("Oops", isPresented: Binding(get: {
             errorMessage != nil
@@ -60,14 +71,13 @@ struct FocusEditView: View {
     }
 
     private var canSave: Bool {
-        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
-        return !trimmed.isEmpty && selectedGoalUUID != nil
+        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     private func save() {
-        guard let goalUUID = selectedGoalUUID else { return }
         do {
-            try onSave(title, goalUUID)
+            try onSave(title)
+            Haptics.mediumImpact()
             dismiss()
         } catch {
             errorMessage = error.localizedDescription

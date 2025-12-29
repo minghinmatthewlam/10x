@@ -92,39 +92,31 @@ final class TenXStore {
     }
 
     func createDayEntry(todayKey: String, drafts: [FocusDraft]) throws {
-        guard drafts.count == AppConstants.dailyFocusCount else {
-            throw StoreError.validation("You must set exactly \(AppConstants.dailyFocusCount) focuses.")
+        // Filter to only non-empty drafts (user can set 1-3 focuses)
+        let validDrafts = drafts.filter {
+            !$0.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        }
+
+        guard !validDrafts.isEmpty else {
+            throw StoreError.validation("Add at least one focus to begin.")
         }
         guard (try fetchDayEntry(dayKey: todayKey)) == nil else {
             throw StoreError.validation("Today is already set.")
         }
 
-        let activeGoals = try fetchActiveGoals()
-        let activeByUUID = Dictionary(uniqueKeysWithValues: activeGoals.map { ($0.uuid, $0) })
-
         let entry = DayEntry(dayKey: todayKey)
         context.insert(entry)
 
-        for (index, draft) in drafts.enumerated() {
+        for (index, draft) in validDrafts.enumerated() {
             let trimmed = draft.title.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !trimmed.isEmpty else {
-                throw StoreError.validation("Focus \(index + 1) is empty.")
-            }
             guard trimmed.count <= AppConstants.maxFocusTitleLength else {
-                throw StoreError.validation("Focus \(index + 1) is too long.")
-            }
-            guard let goalUUID = draft.goalUUID else {
-                throw StoreError.validation("Focus \(index + 1) must be linked to a goal.")
-            }
-            guard let goal = activeByUUID[goalUUID] else {
-                throw StoreError.validation("Selected goal is not active.")
+                throw StoreError.validation("Focus is too long.")
             }
 
             let focus = DailyFocus(title: trimmed,
                                    sortOrder: index,
                                    carriedFromDayKey: draft.carriedFromDayKey)
             focus.day = entry
-            focus.goal = goal
 
             entry.focuses.append(focus)
             context.insert(focus)
@@ -138,7 +130,7 @@ final class TenXStore {
         try context.save()
     }
 
-    func updateFocus(_ focus: DailyFocus, title: String, goalUUID: UUID) throws {
+    func updateFocus(_ focus: DailyFocus, title: String) throws {
         let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
             throw StoreError.validation("Focus title is empty.")
@@ -147,14 +139,7 @@ final class TenXStore {
             throw StoreError.validation("Focus title is too long.")
         }
 
-        let activeGoals = try fetchActiveGoals()
-        let activeByUUID = Dictionary(uniqueKeysWithValues: activeGoals.map { ($0.uuid, $0) })
-        guard let goal = activeByUUID[goalUUID] else {
-            throw StoreError.validation("Selected goal is not active.")
-        }
-
         focus.title = trimmed
-        focus.goal = goal
         try context.save()
     }
 }
