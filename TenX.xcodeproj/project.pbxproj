@@ -63,6 +63,7 @@
 		D05A67ED94F7E69234297BDA /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AC20103F1DF20D4C5E30E4 /* Color+Hex.swift */; };
 		D3E08257AA6F1F93D11EB897 /* TestContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CD6E7F2D619D309D58D3C5 /* TestContainerFactory.swift */; };
 		DA9FC84C9437F3F0F7B6A882 /* FocusCardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3566BEC3ED62EAA07B0FD809 /* FocusCardButtonStyle.swift */; };
+		E6FE72E4EEAFB36C6769DEAF /* FocusEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174047E238073B2184BDB6A7 /* FocusEditView.swift */; };
 		FB878985752FD213F6483C62 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C35F4F68D39E285DD97CD6E /* AppRouter.swift */; };
 		FE120EFF483C2CECFEFF7B17 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD48CBEE11E5C90E7C17D49D /* OnboardingViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -116,6 +117,7 @@
 		0EB0F400E7C333898A6E7A77 /* TenXMigrationPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXMigrationPlan.swift; sourceTree = "<group>"; };
 		10D5F08B59C7191BE817B9AE /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
 		128527F88FEED30DE17BAAF7 /* Color+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Theme.swift"; sourceTree = "<group>"; };
+		174047E238073B2184BDB6A7 /* FocusEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEditView.swift; sourceTree = "<group>"; };
 		18870D899CB15DB543493557 /* DayKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyTests.swift; sourceTree = "<group>"; };
 		1C35F4F68D39E285DD97CD6E /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		1CC1C0B075EDC02E16B61A3F /* Font+TenX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+TenX.swift"; sourceTree = "<group>"; };
@@ -195,9 +197,9 @@
 		005B46380772813E992A9484 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				4378CA9926A8D035D580B5C9 /* Migrations */,
 				0E4681950441730829835DBB /* ModelContainerFactory.swift */,
 				A7048361EFC31639C3A23469 /* TenXStore.swift */,
-				4378CA9926A8D035D580B5C9 /* Migrations */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				A6ED8EAD39400F5DCCAB426B /* FocusCardView.swift */,
+				174047E238073B2184BDB6A7 /* FocusEditView.swift */,
 				80268EB0F1EEDDB2B07D1DF4 /* HomeView.swift */,
 				D34783C1BB1B0D27DA740F7C /* HomeViewModel.swift */,
 				69AC5D88A1DDDC19CFA30BB1 /* IncompleteDayPromptView.swift */,
@@ -235,7 +238,6 @@
 		0DC17F7AE3A6C918C6211CCB /* TenXApp */ = {
 			isa = PBXGroup;
 			children = (
-				65E0D9E59DB0C96CFD8BF228 /* TenX.entitlements */,
 				E68E4B0A7E6C9BA534DBB57F /* App */,
 				E49D2FD29AD8BB282656F61A /* Features */,
 				15F19DF977F3E8C35B4FB618 /* Models */,
@@ -244,6 +246,7 @@
 				3613507C2AEFEA931CC0EED5 /* Services */,
 				532D69F130DB1A6E49136917 /* UI */,
 				645F5B0DC0C362E64F62411E /* Utilities */,
+				65E0D9E59DB0C96CFD8BF228 /* TenX.entitlements */,
 			);
 			path = TenXApp;
 			sourceTree = "<group>";
@@ -323,11 +326,11 @@
 		51B6DED45C8992644586B7C5 /* TenXWidgets */ = {
 			isa = PBXGroup;
 			children = (
+				44668C67F7CFB98290F0BD85 /* Providers */,
+				EDF4BB4DF467A239E0F938FF /* Views */,
 				EC32DD39933B8778CF4AA9C7 /* Info.plist */,
 				4517D6FAB85D3A24E99E89A5 /* TenXWidgets.entitlements */,
 				0B9DFBB34AA11705E5BD0A5E /* TenXWidgets.swift */,
-				44668C67F7CFB98290F0BD85 /* Providers */,
-				EDF4BB4DF467A239E0F938FF /* Views */,
 			);
 			path = TenXWidgets;
 			sourceTree = "<group>";
@@ -354,10 +357,10 @@
 		773BA0C16BDC165DD9C96FE8 /* TenXTests */ = {
 			isa = PBXGroup;
 			children = (
+				F4EA6BAF764F47573A32B02F /* Helpers */,
 				18870D899CB15DB543493557 /* DayKeyTests.swift */,
 				625CA96D44325F065F6B69BB /* StreakEngineTests.swift */,
 				8FBEC7B5FCBAA07296F2496F /* TenXStoreTests.swift */,
-				F4EA6BAF764F47573A32B02F /* Helpers */,
 			);
 			path = TenXTests;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2EF9EC1B763ED7C4AD0E0A0E /* Build configuration list for PBXNativeTarget "TenX" */;
 			buildPhases = (
+				E732CA5F460877ECB82902EA /* SwiftLint */,
 				A051A44088E997959EB950CF /* Sources */,
 				4135104EA20B832A40FF8BD1 /* Frameworks */,
 				B1C36A13C63E069C4B285799 /* Embed Foundation Extensions */,
@@ -548,7 +552,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					33F57D334BAB50FCCD5BEDF0 = {
 						DevelopmentTeam = "";
@@ -589,6 +593,28 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E732CA5F460877ECB82902EA /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\nelse\n  echo \"warning: SwiftLint not installed. Run 'brew install swiftlint'\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0E9C160E89F46CA1A2ADE881 /* Sources */ = {
@@ -640,6 +666,7 @@
 				2478FC55456B5348190D23ED /* DayKey.swift in Sources */,
 				DA9FC84C9437F3F0F7B6A882 /* FocusCardButtonStyle.swift in Sources */,
 				5B7B853C10119D63C2E0309A /* FocusCardView.swift in Sources */,
+				E6FE72E4EEAFB36C6769DEAF /* FocusEditView.swift in Sources */,
 				4F9F1A176253DB2703D204EA /* FocusInputRow.swift in Sources */,
 				63D00B004D3511106521E886 /* Font+TenX.swift in Sources */,
 				2C428CF75D5A9A16C688D1AC /* GoalEditorView.swift in Sources */,
@@ -733,6 +760,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -748,7 +776,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.9;
 			};
 			name = Release;
 		};
@@ -871,6 +900,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -893,7 +923,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.9;
 			};
 			name = Debug;
 		};
