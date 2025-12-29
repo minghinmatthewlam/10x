@@ -14,8 +14,8 @@ final class DailyFocus {
     var carriedFromDayKey: String?
     var createdAt: Date
 
-    @Relationship(inverse: \DayEntry.focuses) var day: DayEntry?
-    @Relationship(inverse: \TenXGoal.focuses) var goal: TenXGoal?
+    @Relationship var day: DayEntry?
+    @Relationship var goal: TenXGoal?
 
     init(uuid: UUID = UUID(),
          title: String,
