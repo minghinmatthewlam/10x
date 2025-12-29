@@ -6,12 +6,10 @@ struct SmallHomeWidgetView: View {
     let snapshot: WidgetSnapshot?
 
     var body: some View {
-        ZStack {
-            Color.black
-            content
-                .padding(12)
-        }
-        .widgetURL(defaultURL)
+        content
+            .padding(12)
+            .containerBackground(Color.black, for: .widget)
+            .widgetURL(defaultURL)
     }
 
     @ViewBuilder

@@ -20,6 +20,7 @@ struct LockWidgetView: View {
                 Image(systemName: "target")
             }
         }
+        .containerBackground(Color.clear, for: .widget)
         .widgetURL(defaultURL)
     }
 
