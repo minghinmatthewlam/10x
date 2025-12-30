@@ -68,6 +68,10 @@ struct SettingsView: View {
                     }
                     .listRowBackground(theme.surface)
 
+                Text(weeklyReminderText)
+                    .foregroundStyle(theme.textSecondary)
+                    .listRowBackground(theme.surface)
+
                 #if DEBUG
                 Button("Send Test Notification") {
                     viewModel.scheduleTest()
@@ -133,6 +137,20 @@ struct SettingsView: View {
             Text(viewModel.testNotificationMessage ?? "")
         }
 #endif
+    }
+
+    private var weeklyReminderText: String {
+        let weekdaySymbols = Calendar.current.weekdaySymbols
+        let weekdayIndex = max(0, min(AppConstants.weeklyReminderWeekday - 1, weekdaySymbols.count - 1))
+        let weekday = weekdaySymbols.isEmpty ? "Sunday" : weekdaySymbols[weekdayIndex]
+        var components = DateComponents()
+        components.hour = AppConstants.weeklyReminderHour
+        components.minute = AppConstants.weeklyReminderMinute
+        let date = Calendar.current.date(from: components) ?? Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let time = formatter.string(from: date)
+        return "Weekly review reminder: \(weekday)s at \(time)"
     }
 
 }
