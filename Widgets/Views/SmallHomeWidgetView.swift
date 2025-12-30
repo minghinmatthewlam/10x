@@ -38,7 +38,7 @@ struct SmallHomeWidgetView: View {
 
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("10x Goals")
+            Text("10x")
                 .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Text(text)
@@ -71,7 +71,7 @@ struct SmallHomeWidgetView: View {
 
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
-            Text("10x Goals")
+            Text("10x")
                 .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Spacer()
