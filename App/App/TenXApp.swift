@@ -10,13 +10,22 @@ struct TenXApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ThemedRootView()
-                .environmentObject(appState)
-                .modelContainer(container)
-                .preferredColorScheme(AppAppearance.colorScheme(for: appearanceMode))
-                .onOpenURL { url in
-                    appState.handle(url: url)
-                }
+            rootView
+        }
+    }
+
+    @ViewBuilder
+    private var rootView: some View {
+        let baseView = ThemedRootView()
+            .environmentObject(appState)
+            .modelContainer(container)
+            .onOpenURL { url in
+                appState.handle(url: url)
+            }
+        if let scheme = AppAppearance.colorScheme(for: appearanceMode) {
+            baseView.preferredColorScheme(scheme)
+        } else {
+            baseView
         }
     }
 }
