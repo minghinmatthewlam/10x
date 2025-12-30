@@ -11,10 +11,9 @@ struct TenXApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            ThemedRootView()
                 .environmentObject(appState)
                 .environmentObject(themeManager)
-                .environment(\.tenxTheme, themeManager.theme.palette)
                 .modelContainer(container)
                 .preferredColorScheme(AppAppearance.colorScheme(for: appearanceMode))
                 .onOpenURL { url in

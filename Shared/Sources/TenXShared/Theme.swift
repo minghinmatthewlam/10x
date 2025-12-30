@@ -121,6 +121,24 @@ public enum Theme: String, CaseIterable, Identifiable {
             )
         }
     }
+
+    public var lightPalette: ThemePalette {
+        let accent = palette.textMuted
+        return ThemePalette(
+            background: Color(hex: "F7F5F1"),
+            surface: Color(hex: "FFFFFF"),
+            accent: accent,
+            complete: accent,
+            textPrimary: Color(hex: "1C1C1E"),
+            textSecondary: Color(hex: "3A3A3C"),
+            textMuted: Color(hex: "6C6C70"),
+            card: Color(hex: "FFFFFF")
+        )
+    }
+
+    public func palette(for colorScheme: ColorScheme) -> ThemePalette {
+        colorScheme == .light ? lightPalette : palette
+    }
 }
 
 public enum ThemeStore {
