@@ -14,7 +14,6 @@ struct SnapshotTimelineProvider: TimelineProvider {
                                                                  streak: 0,
                                                                  completedCount: 0,
                                                                  focuses: [],
-                                                                 theme: Theme.midnight.rawValue,
                                                                  generatedAt: .now))
     }
 

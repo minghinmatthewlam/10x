@@ -25,20 +25,6 @@ final class ThemeManager: ObservableObject {
     private func persistTheme() {
         defaults.set(theme.rawValue, forKey: UserDefaultsKeys.theme)
         sharedDefaults?.set(theme.rawValue, forKey: UserDefaultsKeys.theme)
-        refreshSnapshotTheme()
         WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
-    }
-
-    private func refreshSnapshotTheme() {
-        let store = WidgetSnapshotStore()
-        guard let snapshot = store.load() else { return }
-        let updated = WidgetSnapshot(state: snapshot.state,
-                                     dayKey: snapshot.dayKey,
-                                     streak: snapshot.streak,
-                                     completedCount: snapshot.completedCount,
-                                     focuses: snapshot.focuses,
-                                     theme: theme.rawValue,
-                                     generatedAt: .now)
-        try? store.save(updated)
     }
 }

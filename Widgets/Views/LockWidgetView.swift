@@ -5,14 +5,7 @@ import TenXShared
 struct LockWidgetView: View {
     let snapshot: WidgetSnapshot?
     private var theme: ThemePalette {
-        if let live = ThemeStore.storedTheme() {
-            return live.palette
-        }
-        if let raw = snapshot?.theme,
-           let snapshotTheme = Theme(rawValue: raw) {
-            return snapshotTheme.palette
-        }
-        return ThemeStore.currentTheme().palette
+        ThemeStore.storedTheme()?.palette ?? ThemeStore.currentTheme().palette
     }
 
     var body: some View {
