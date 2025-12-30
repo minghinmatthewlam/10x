@@ -104,6 +104,28 @@ final class TenXStore {
         focus.tag = tag
         try context.save()
     }
+
+    func addFocus(to entry: DayEntry, title: String, tag: FocusTag?) throws {
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else {
+            throw StoreError.validation("Focus title is empty.")
+        }
+        guard trimmed.count <= AppConstants.maxFocusTitleLength else {
+            throw StoreError.validation("Focus is too long.")
+        }
+        guard entry.focuses.count < AppConstants.dailyFocusMax else {
+            throw StoreError.validation("Limit to \(AppConstants.dailyFocusMax) focuses.")
+        }
+
+        let sortOrder = entry.sortedFocuses.count
+        let focus = DailyFocus(title: trimmed,
+                               sortOrder: sortOrder,
+                               tagRawValue: tag?.rawValue)
+        focus.day = entry
+        entry.focuses.append(focus)
+        context.insert(focus)
+        try context.save()
+    }
 }
 
 enum StoreError: Error, LocalizedError {

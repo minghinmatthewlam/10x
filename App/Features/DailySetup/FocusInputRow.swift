@@ -4,8 +4,19 @@ struct FocusInputRow: View {
     @Binding var draft: TenXStore.FocusDraft
     let placeholder: String
     let isFocused: Bool
+    let onCommit: (() -> Void)?
 
     @Environment(\.tenxTheme) private var theme
+
+    init(draft: Binding<TenXStore.FocusDraft>,
+         placeholder: String,
+         isFocused: Bool,
+         onCommit: (() -> Void)? = nil) {
+        _draft = draft
+        self.placeholder = placeholder
+        self.isFocused = isFocused
+        self.onCommit = onCommit
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -14,6 +25,14 @@ struct FocusInputRow: View {
                 .foregroundStyle(theme.textPrimary)
                 .textInputAutocapitalization(.sentences)
                 .lineLimit(1...3)
+                .onSubmit {
+                    onCommit?()
+                }
+                .onChange(of: isFocused) { _, focused in
+                    if !focused {
+                        onCommit?()
+                    }
+                }
 
             FocusTagPickerView(tag: $draft.tag)
         }

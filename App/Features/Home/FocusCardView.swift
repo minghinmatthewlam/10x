@@ -48,6 +48,10 @@ struct FocusCardView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
         .background(theme.surface)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(theme.textMuted.opacity(0.15), lineWidth: 1)
+        )
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
