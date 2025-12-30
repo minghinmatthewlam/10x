@@ -1,5 +1,7 @@
 import SwiftUI
 import SwiftData
+import TenXShared
+import WidgetKit
 
 @main
 struct TenXApp: App {
@@ -22,10 +24,21 @@ struct TenXApp: App {
             .onOpenURL { url in
                 appState.handle(url: url)
             }
+            .onAppear {
+                syncAppearanceMode()
+            }
+            .onChange(of: appearanceMode) { _, _ in
+                syncAppearanceMode()
+            }
         if let scheme = AppAppearance.colorScheme(for: appearanceMode) {
             baseView.preferredColorScheme(scheme)
         } else {
             baseView
         }
+    }
+
+    private func syncAppearanceMode() {
+        AppearanceModeStore.updateSharedMode(appearanceMode)
+        WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
     }
 }
