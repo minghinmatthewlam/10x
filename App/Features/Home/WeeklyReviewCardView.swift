@@ -20,6 +20,16 @@ struct WeeklyReviewCardView: View {
                 .font(.tenxSmall)
                 .foregroundStyle(theme.textSecondary)
 
+            Text("Completion rate: \(summary.completed)/\(summary.total) (\(completionPercent)%)")
+                .font(.tenxSmall)
+                .foregroundStyle(theme.textSecondary)
+
+            if let topTag = summary.topTag {
+                Text("Top tag: \(topTag.label) \(topTag.completed)/\(topTag.total) (\(topTagPercent(topTag))%)")
+                    .font(.tenxSmall)
+                    .foregroundStyle(theme.textSecondary)
+            }
+
             if summary.tagSummaries.isEmpty {
                 Text("Add tags to see focus patterns.")
                     .font(.tenxSmall)
@@ -47,5 +57,15 @@ struct WeeklyReviewCardView: View {
         .padding(20)
         .background(theme.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+
+    private var completionPercent: Int {
+        guard summary.total > 0 else { return 0 }
+        return Int((Double(summary.completed) / Double(summary.total)) * 100)
+    }
+
+    private func topTagPercent(_ tag: WeeklyTagSummary) -> Int {
+        guard tag.total > 0 else { return 0 }
+        return Int((Double(tag.completed) / Double(tag.total)) * 100)
     }
 }

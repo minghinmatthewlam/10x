@@ -9,6 +9,7 @@ struct WeeklyTagSummary: Identifiable {
 
 struct WeeklySummary {
     let tagSummaries: [WeeklyTagSummary]
+    let topTag: WeeklyTagSummary?
     let completed: Int
     let total: Int
     let daysWithCompletion: Int
@@ -48,7 +49,20 @@ struct WeeklySummary {
 
         summaries.sort { $0.total > $1.total }
 
+        let topTag = summaries
+            .filter { $0.id != "untagged" }
+            .sorted {
+                let leftRate = Double($0.completed) / Double(max($0.total, 1))
+                let rightRate = Double($1.completed) / Double(max($1.total, 1))
+                if leftRate == rightRate {
+                    return $0.total > $1.total
+                }
+                return leftRate > rightRate
+            }
+            .first
+
         return WeeklySummary(tagSummaries: summaries,
+                             topTag: topTag,
                              completed: focuses.filter(\.isCompleted).count,
                              total: focuses.count,
                              daysWithCompletion: weekEntries.filter(\.maintainsStreak).count)
