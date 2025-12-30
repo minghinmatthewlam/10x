@@ -11,48 +11,14 @@ struct WeeklyReviewCardView: View {
                     .font(.tenxTitle)
                     .foregroundStyle(theme.textPrimary)
                 Spacer()
-                Text("\(summary.completed)/\(summary.total)")
+                Text("\(completionPercent)%")
                     .font(.tenxSmall)
                     .foregroundStyle(theme.textSecondary)
             }
-
-            Text("\(summary.daysWithCompletion) of 7 days met your streak goal")
-                .font(.tenxSmall)
-                .foregroundStyle(theme.textSecondary)
 
             Text("Completion rate: \(summary.completed)/\(summary.total) (\(completionPercent)%)")
                 .font(.tenxSmall)
                 .foregroundStyle(theme.textSecondary)
-
-            if let topTag = summary.topTag {
-                Text("Top tag: \(topTag.label) \(topTag.completed)/\(topTag.total) (\(topTagPercent(topTag))%)")
-                    .font(.tenxSmall)
-                    .foregroundStyle(theme.textSecondary)
-            }
-
-            if summary.tagSummaries.isEmpty {
-                Text("Add tags to see focus patterns.")
-                    .font(.tenxSmall)
-                    .foregroundStyle(theme.textMuted)
-            } else {
-                VStack(spacing: 12) {
-                    ForEach(summary.tagSummaries) { tag in
-                        VStack(alignment: .leading, spacing: 6) {
-                            HStack {
-                                Text(tag.label)
-                                    .font(.tenxSmall)
-                                    .foregroundStyle(theme.textPrimary)
-                                Spacer()
-                                Text("\(tag.completed)/\(tag.total)")
-                                    .font(.tenxSmall)
-                                    .foregroundStyle(theme.textSecondary)
-                            }
-                            ProgressView(value: Double(tag.completed), total: Double(tag.total))
-                                .tint(theme.accent)
-                        }
-                    }
-                }
-            }
         }
         .padding(20)
         .background(theme.card)
@@ -64,8 +30,4 @@ struct WeeklyReviewCardView: View {
         return Int((Double(summary.completed) / Double(summary.total)) * 100)
     }
 
-    private func topTagPercent(_ tag: WeeklyTagSummary) -> Int {
-        guard tag.total > 0 else { return 0 }
-        return Int((Double(tag.completed) / Double(tag.total)) * 100)
-    }
 }
