@@ -16,6 +16,7 @@ struct DiagnosticsView: View {
 
             Section("Widget Snapshot") {
                 infoRow(label: "Snapshot path", value: snapshotURL?.path ?? "Unavailable")
+                infoRow(label: "Last refresh", value: lastSnapshotRefresh ?? "Unknown")
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Snapshot JSON")
                         .font(.tenxSmall)
@@ -56,6 +57,18 @@ struct DiagnosticsView: View {
 
     private var snapshotURL: URL? {
         AppGroup.containerURL?.appendingPathComponent(SharedConstants.widgetSnapshotFilename)
+    }
+
+    private var snapshot: WidgetSnapshot? {
+        WidgetSnapshotStore().load()
+    }
+
+    private var lastSnapshotRefresh: String? {
+        guard let snapshot else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: snapshot.generatedAt)
     }
 
     private var snapshotJSON: String {
