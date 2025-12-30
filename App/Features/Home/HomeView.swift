@@ -9,7 +9,6 @@ struct HomeView: View {
     @StateObject private var focusDraftsViewModel = HomeFocusDraftsViewModel()
     @State private var timeChangeListener: SignificantTimeChangeListener?
     @State private var shareItem: ShareItem?
-    @Environment(\.tenxTheme) private var theme
     @FocusState private var focusedDraftIndex: Int?
     @State private var isCreatingEntry: Bool = false
 
@@ -33,7 +32,7 @@ struct HomeView: View {
             .padding(.top, 24)
             .padding(.bottom, 48)
         }
-        .background(theme.background)
+        .background(AppColors.background)
         .navigationTitle("")
         .navigationBarHidden(true)
         .onAppear {
@@ -82,11 +81,11 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 6) {
                 Text("10x Goals")
                     .font(.tenxTitle)
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
 
                 Text(formattedDate)
                     .font(.tenxCaption)
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .textCase(.uppercase)
                     .tracking(1)
             }
@@ -96,9 +95,9 @@ struct HomeView: View {
             } label: {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 16))
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .frame(width: 36, height: 36)
-                    .background(theme.surface)
+                    .background(AppColors.surface)
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
@@ -109,7 +108,7 @@ struct HomeView: View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Focuses")
                 .font(.tenxTitle)
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(AppColors.textPrimary)
 
             if let todayEntry = viewModel.todayEntry, !todayEntry.focuses.isEmpty {
                 VStack(spacing: 12) {
@@ -162,7 +161,7 @@ struct HomeView: View {
             }
         }
         .padding(20)
-        .background(theme.card)
+        .background(AppColors.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 
@@ -288,7 +287,7 @@ struct HomeView: View {
     }
 
     private func renderShareImage(streak: Int) -> UIImage? {
-        let renderer = ImageRenderer(content: StreakShareCardView(streak: streak, theme: theme))
+        let renderer = ImageRenderer(content: StreakShareCardView(streak: streak))
         renderer.scale = UIScreen.main.scale
         return renderer.uiImage
     }

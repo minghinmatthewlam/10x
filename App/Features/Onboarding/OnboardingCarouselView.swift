@@ -2,7 +2,6 @@ import SwiftUI
 
 struct OnboardingCarouselView: View {
     let onComplete: () -> Void
-    @Environment(\.tenxTheme) private var theme
     @State private var stepIndex = 0
 
     private let steps: [OnboardingStep] = [
@@ -34,7 +33,7 @@ struct OnboardingCarouselView: View {
 
     var body: some View {
         ZStack {
-            theme.background.ignoresSafeArea()
+            AppColors.background.ignoresSafeArea()
 
             VStack(spacing: 0) {
                 topBar
@@ -44,20 +43,20 @@ struct OnboardingCarouselView: View {
                         VStack(spacing: 24) {
                             Image(systemName: step.systemImage)
                                 .font(.system(size: 52, weight: .semibold))
-                                .foregroundStyle(theme.textPrimary)
+                                .foregroundStyle(AppColors.textPrimary)
                                 .padding(.bottom, 12)
 
                             Text(step.title)
                                 .font(.tenxTitle)
-                                .foregroundStyle(theme.textPrimary)
+                                .foregroundStyle(AppColors.textPrimary)
 
                             Text(step.subtitle)
                                 .font(.tenxBody)
-                                .foregroundStyle(theme.textSecondary)
+                                .foregroundStyle(AppColors.textSecondary)
 
                             Text(step.description)
                                 .font(.tenxSmall)
-                                .foregroundStyle(theme.textSecondary)
+                                .foregroundStyle(AppColors.textSecondary)
                                 .multilineTextAlignment(.center)
                                 .lineSpacing(4)
                                 .frame(maxWidth: 280)
@@ -100,7 +99,7 @@ struct OnboardingCarouselView: View {
             HStack(spacing: 6) {
                 ForEach(0..<steps.count, id: \.self) { index in
                     Capsule()
-                        .fill(index == stepIndex ? theme.textPrimary : theme.textMuted)
+                        .fill(index == stepIndex ? AppColors.textPrimary : AppColors.textMuted)
                         .frame(width: index == stepIndex ? 24 : 6, height: 6)
                         .animation(.easeInOut(duration: 0.2), value: stepIndex)
                 }

@@ -6,8 +6,6 @@ struct FocusInputRow: View {
     let isFocused: Bool
     let onCommit: (() -> Void)?
 
-    @Environment(\.tenxTheme) private var theme
-
     init(draft: Binding<TenXStore.FocusDraft>,
          placeholder: String,
          isFocused: Bool,
@@ -22,7 +20,7 @@ struct FocusInputRow: View {
         VStack(alignment: .leading, spacing: 10) {
             TextField(placeholder, text: $draft.title, axis: .vertical)
                 .font(.tenxLargeBody)
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(AppColors.textPrimary)
                 .textInputAutocapitalization(.sentences)
                 .lineLimit(1...3)
                 .onSubmit {
@@ -40,11 +38,11 @@ struct FocusInputRow: View {
         .padding(.vertical, 18)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(theme.surface)
+                .fill(AppColors.surface)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .strokeBorder(
-                            isFocused ? theme.textMuted : Color.clear,
+                            isFocused ? AppColors.textMuted : Color.clear,
                             lineWidth: 1
                         )
                 )

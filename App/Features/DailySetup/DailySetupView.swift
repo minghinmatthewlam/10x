@@ -5,7 +5,6 @@ struct DailySetupView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @FocusState private var focusedField: Int?
-    @Environment(\.tenxTheme) private var theme
 
     @StateObject private var viewModel: DailySetupViewModel
 
@@ -23,7 +22,7 @@ struct DailySetupView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("What would make\ntoday a 10x day?")
                             .font(.tenxHero)
-                            .foregroundStyle(theme.textPrimary)
+                            .foregroundStyle(AppColors.textPrimary)
                             .lineSpacing(4)
                     }
 
@@ -38,7 +37,7 @@ struct DailySetupView: View {
                         }
                     }
 
-                    Spacer(minLength: 32)
+                        Spacer(minLength: 32)
 
                     Button("Begin") {
                         startDay()
@@ -48,25 +47,25 @@ struct DailySetupView: View {
                     .opacity(viewModel.hasValidFocus ? 1 : 0.4)
                     .disabled(!viewModel.hasValidFocus)
                 }
-                .padding(.horizontal, 28)
-                .padding(.top, 32)
-                .padding(.bottom, 48)
-            }
-            .background(theme.background)
-            .scrollDismissesKeyboard(.interactively)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        dismiss()
-                    } label: {
-                            Image(systemName: "xmark")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundStyle(theme.textSecondary)
-                    }
-                }
-            }
-            .toolbarBackground(theme.background, for: .navigationBar)
+            .padding(.horizontal, 28)
+            .padding(.top, 32)
+            .padding(.bottom, 48)
         }
+        .background(AppColors.background)
+        .scrollDismissesKeyboard(.interactively)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    dismiss()
+                } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundStyle(AppColors.textSecondary)
+                    }
+            }
+        }
+        .toolbarBackground(AppColors.background, for: .navigationBar)
+    }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil
         }, set: { isPresented in

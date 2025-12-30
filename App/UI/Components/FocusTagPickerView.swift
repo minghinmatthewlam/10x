@@ -2,7 +2,6 @@ import SwiftUI
 
 struct FocusTagPickerView: View {
     @Binding var tag: FocusTag?
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         Menu {
@@ -19,10 +18,10 @@ struct FocusTagPickerView: View {
                 Image(systemName: "chevron.down")
                     .font(.system(size: 11, weight: .semibold))
             }
-            .foregroundStyle(theme.textSecondary)
+            .foregroundStyle(AppColors.textSecondary)
             .padding(.horizontal, 10)
             .padding(.vertical, 6)
-            .background(theme.surface.opacity(0.8))
+            .background(AppColors.surface.opacity(0.8))
             .clipShape(Capsule())
         }
     }

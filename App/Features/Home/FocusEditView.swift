@@ -2,7 +2,6 @@ import SwiftUI
 
 struct FocusEditView: View {
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.tenxTheme) private var theme
 
     let focus: DailyFocus
     let onSave: (String, FocusTag?) throws -> Void
@@ -23,18 +22,18 @@ struct FocusEditView: View {
             VStack(alignment: .leading, spacing: 24) {
                 Text("Edit focus")
                     .font(.tenxTitle)
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
 
                 TextField("What matters most?", text: $title, axis: .vertical)
                     .font(.tenxLargeBody)
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
                     .textInputAutocapitalization(.sentences)
                     .lineLimit(1...4)
                     .padding(.horizontal, 20)
                     .padding(.vertical, 18)
                     .background(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(theme.surface)
+                            .fill(AppColors.surface)
                     )
 
                 FocusTagPickerView(tag: $tag)
@@ -50,7 +49,7 @@ struct FocusEditView: View {
                 .opacity(canSave ? 1 : 0.4)
             }
             .padding(24)
-            .background(theme.background)
+            .background(AppColors.background)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -58,11 +57,11 @@ struct FocusEditView: View {
                     } label: {
                         Image(systemName: "xmark")
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(theme.textSecondary)
+                            .foregroundStyle(AppColors.textSecondary)
                     }
                 }
             }
-            .toolbarBackground(theme.background, for: .navigationBar)
+            .toolbarBackground(AppColors.background, for: .navigationBar)
         }
         .alert("Oops", isPresented: Binding(get: {
             errorMessage != nil

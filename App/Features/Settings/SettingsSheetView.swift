@@ -4,7 +4,6 @@ struct SettingsSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var appState: AppState
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.tenxTheme) private var theme
     @StateObject private var viewModel = SettingsViewModel()
 
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -49,12 +48,12 @@ struct SettingsSheetView: View {
 
                     Text(weeklyReminderText)
                         .font(.tenxCaption)
-                        .foregroundStyle(theme.textSecondary)
+                        .foregroundStyle(AppColors.textSecondary)
 
                     if viewModel.authorizationStatus == .denied {
                         Text("Notifications are disabled. Enable them in Settings.")
                             .font(.tenxCaption)
-                            .foregroundStyle(theme.textSecondary)
+                            .foregroundStyle(AppColors.textSecondary)
 
                         Button("Open Settings") {
                             NotificationScheduler.shared.openSystemSettings()
@@ -82,7 +81,7 @@ struct SettingsSheetView: View {
 
                     Text("Returns to the onboarding carousel immediately.")
                         .font(.tenxCaption)
-                        .foregroundStyle(theme.textSecondary)
+                        .foregroundStyle(AppColors.textSecondary)
                 }
 #endif
             }
@@ -90,7 +89,7 @@ struct SettingsSheetView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
-        .background(theme.background)
+        .background(AppColors.background)
         .presentationDetents([.fraction(0.85)])
         .presentationDragIndicator(.visible)
         .onAppear {
@@ -113,16 +112,16 @@ struct SettingsSheetView: View {
         HStack {
             Text("Settings")
                 .font(.tenxTitle)
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(AppColors.textPrimary)
             Spacer()
             Button {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
                     .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
                     .frame(width: 32, height: 32)
-                    .background(theme.surface)
+                    .background(AppColors.surface)
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
@@ -133,12 +132,12 @@ struct SettingsSheetView: View {
         VStack(alignment: .leading, spacing: 16) {
             Text(title)
                 .font(.tenxCaption)
-                .foregroundStyle(theme.textSecondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .textCase(.uppercase)
 
             VStack(alignment: .leading, spacing: 16, content: content)
                 .padding(16)
-                .background(theme.card)
+                .background(AppColors.card)
                 .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         }
     }

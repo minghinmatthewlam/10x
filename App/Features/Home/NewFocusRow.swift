@@ -4,7 +4,6 @@ struct NewFocusRow: View {
     let placeholder: String
     let onAdd: (String, FocusTag?) -> Void
 
-    @Environment(\.tenxTheme) private var theme
     @FocusState private var isFocused: Bool
     @State private var title: String = ""
     @State private var tag: FocusTag?
@@ -13,7 +12,7 @@ struct NewFocusRow: View {
         VStack(alignment: .leading, spacing: 10) {
             TextField(placeholder, text: $title, axis: .vertical)
                 .font(.tenxLargeBody)
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(AppColors.textPrimary)
                 .textInputAutocapitalization(.sentences)
                 .lineLimit(1...3)
                 .focused($isFocused)
@@ -30,10 +29,10 @@ struct NewFocusRow: View {
         .padding(.vertical, 18)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(theme.surface)
+                .fill(AppColors.surface)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .strokeBorder(theme.textMuted.opacity(0.15), lineWidth: 1)
+                        .strokeBorder(AppColors.textMuted.opacity(0.15), lineWidth: 1)
                 )
         )
     }

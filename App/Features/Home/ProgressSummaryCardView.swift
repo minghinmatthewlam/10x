@@ -3,28 +3,27 @@ import SwiftUI
 struct ProgressSummaryCardView: View {
     let completed: Int
     let total: Int
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Text("Today's Progress")
                     .font(.tenxTitle)
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
                 Spacer()
                 Text("\(completed)/\(total)")
                     .font(.tenxSmall)
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 
             progressBar
 
             Text(statusText)
                 .font(.tenxCaption)
-                .foregroundStyle(theme.textSecondary)
+                .foregroundStyle(AppColors.textSecondary)
         }
         .padding(20)
-        .background(theme.card)
+        .background(AppColors.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 
@@ -35,11 +34,11 @@ struct ProgressSummaryCardView: View {
 
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(theme.surface)
+                    .fill(AppColors.surface)
                     .frame(height: 8)
 
                 Capsule()
-                    .fill(theme.accent)
+                    .fill(AppColors.accent)
                     .frame(width: width * ratio, height: 8)
             }
         }

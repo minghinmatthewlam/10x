@@ -1,28 +1,26 @@
 import SwiftUI
-import TenXShared
 
 struct StreakShareCardView: View {
     let streak: Int
-    let theme: ThemePalette
 
     var body: some View {
         ZStack {
-            LinearGradient(colors: [theme.background, theme.surface],
+            LinearGradient(colors: [AppColors.background, AppColors.surface],
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
 
             VStack(alignment: .leading, spacing: 20) {
                 Text("10x")
                     .font(.system(size: 52, weight: .semibold))
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
 
                 Text("Streak \(streak) days")
                     .font(.system(size: 46, weight: .semibold))
-                    .foregroundStyle(theme.accent)
+                    .foregroundStyle(AppColors.accent)
 
                 Text("1-3 focuses a day. Complete two to keep it alive.")
                     .font(.system(size: 26, weight: .regular))
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(80)

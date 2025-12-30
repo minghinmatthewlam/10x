@@ -4,7 +4,6 @@ import TenXShared
 
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
-    @EnvironmentObject private var themeManager: ThemeManager
     @Environment(\.modelContext) private var modelContext
 
     @AppStorage(UserDefaultsKeys.notificationHour) private var notificationHour = AppConstants.defaultNotificationHour
@@ -12,7 +11,6 @@ struct SettingsView: View {
     @AppStorage(UserDefaultsKeys.middayReminderEnabled) private var middayReminderEnabled = AppConstants.defaultMiddayReminderEnabled
     @AppStorage(UserDefaultsKeys.eveningReminderEnabled) private var eveningReminderEnabled = AppConstants.defaultEveningReminderEnabled
     @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         Form {
@@ -34,16 +32,16 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
-                    .listRowBackground(theme.surface)
+                    .listRowBackground(AppColors.surface)
 
                 if viewModel.authorizationStatus == .denied {
                     Text("Notifications are disabled. Enable them in Settings.")
-                        .foregroundStyle(theme.textSecondary)
-                        .listRowBackground(theme.surface)
+                        .foregroundStyle(AppColors.textSecondary)
+                        .listRowBackground(AppColors.surface)
                     Button("Open Settings") {
                         NotificationScheduler.shared.openSystemSettings()
                     }
-                    .listRowBackground(theme.surface)
+                    .listRowBackground(AppColors.surface)
                 }
 
                 Toggle("Midday check-in", isOn: $middayReminderEnabled)
@@ -55,7 +53,7 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
-                    .listRowBackground(theme.surface)
+                    .listRowBackground(AppColors.surface)
 
                 Toggle("Evening reflection", isOn: $eveningReminderEnabled)
                     .onChange(of: eveningReminderEnabled) { _, _ in
@@ -66,31 +64,21 @@ struct SettingsView: View {
                                                      middayEnabled: middayReminderEnabled,
                                                      eveningEnabled: eveningReminderEnabled)
                     }
-                    .listRowBackground(theme.surface)
+                    .listRowBackground(AppColors.surface)
 
                 Text(weeklyReminderText)
-                    .foregroundStyle(theme.textSecondary)
-                    .listRowBackground(theme.surface)
+                    .foregroundStyle(AppColors.textSecondary)
+                    .listRowBackground(AppColors.surface)
 
                 #if DEBUG
                 Button("Send Test Notification") {
                     viewModel.scheduleTest()
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
                 #endif
             } header: {
                 Text("Notifications")
-                    .foregroundStyle(theme.textSecondary)
-            }
-
-            Section {
-                NavigationLink("Style") {
-                    ThemePickerView()
-                }
-                .listRowBackground(theme.surface)
-            } header: {
-                Text("Theme")
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 
             Section {
@@ -100,10 +88,10 @@ struct SettingsView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
             } header: {
                 Text("Appearance")
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 
 #if DEBUG
@@ -111,18 +99,18 @@ struct SettingsView: View {
                 NavigationLink("Diagnostics") {
                     DiagnosticsView()
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
             } header: {
                 Text("Debug")
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 #endif
         }
         .navigationTitle("Settings")
         .scrollContentBackground(.hidden)
-        .background(theme.background)
-        .toolbarBackground(theme.background, for: .navigationBar)
-        .tint(theme.accent)
+        .background(AppColors.background)
+        .toolbarBackground(AppColors.background, for: .navigationBar)
+        .tint(AppColors.accent)
         .onAppear {
             viewModel.refreshStatus()
         }

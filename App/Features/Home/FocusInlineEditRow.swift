@@ -6,7 +6,6 @@ struct FocusInlineEditRow: View {
     let onTitleCommit: (String) -> Void
     let onTagChange: (FocusTag?) -> Void
 
-    @Environment(\.tenxTheme) private var theme
     @FocusState private var isFocused: Bool
     @State private var title: String
 
@@ -26,19 +25,19 @@ struct FocusInlineEditRow: View {
             Button(action: onToggle) {
                 Circle()
                     .strokeBorder(
-                        focus.isCompleted ? theme.complete : theme.textMuted,
+                        focus.isCompleted ? AppColors.complete : AppColors.textMuted,
                         lineWidth: 1.5
                     )
                     .background(
                         Circle()
-                            .fill(focus.isCompleted ? theme.complete : Color.clear)
+                            .fill(focus.isCompleted ? AppColors.complete : Color.clear)
                     )
                     .frame(width: 24, height: 24)
                     .overlay {
                         if focus.isCompleted {
                             Image(systemName: "checkmark")
                                 .font(.system(size: 12, weight: .bold))
-                                .foregroundStyle(theme.background)
+                                .foregroundStyle(AppColors.background)
                         }
                     }
             }
@@ -47,8 +46,8 @@ struct FocusInlineEditRow: View {
             VStack(alignment: .leading, spacing: 10) {
                 TextField("Focus", text: $title, axis: .vertical)
                     .font(.tenxLargeBody)
-                    .foregroundStyle(focus.isCompleted ? theme.textSecondary : theme.textPrimary)
-                    .strikethrough(focus.isCompleted, color: theme.textSecondary)
+                    .foregroundStyle(focus.isCompleted ? AppColors.textSecondary : AppColors.textPrimary)
+                    .strikethrough(focus.isCompleted, color: AppColors.textSecondary)
                     .textInputAutocapitalization(.sentences)
                     .lineLimit(1...3)
                     .focused($isFocused)
@@ -73,10 +72,10 @@ struct FocusInlineEditRow: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
-        .background(theme.surface)
+        .background(AppColors.surface)
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(theme.textMuted.opacity(0.15), lineWidth: 1)
+                .strokeBorder(AppColors.textMuted.opacity(0.15), lineWidth: 1)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }

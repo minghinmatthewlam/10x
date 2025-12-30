@@ -2,7 +2,6 @@ import SwiftUI
 
 struct WeeklyReviewCardView: View {
     let summary: WeeklySummary
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -10,20 +9,20 @@ struct WeeklyReviewCardView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("Weekly progress")
                         .font(.tenxTitle)
-                        .foregroundStyle(theme.textPrimary)
+                        .foregroundStyle(AppColors.textPrimary)
                 }
                 Spacer()
                 Text("\(completionPercent)%")
                     .font(.tenxSmall)
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 
             Text("You completed \(summary.completed) of \(summary.total) focuses (\(completionPercent)%).")
                 .font(.tenxSmall)
-                .foregroundStyle(theme.textSecondary)
+                .foregroundStyle(AppColors.textSecondary)
         }
         .padding(20)
-        .background(theme.card)
+        .background(AppColors.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 

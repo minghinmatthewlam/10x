@@ -5,34 +5,32 @@ struct FocusCardView: View {
     let onToggle: () -> Void
     let onTagChange: (FocusTag?) -> Void
 
-    @Environment(\.tenxTheme) private var theme
-
     var body: some View {
         HStack(spacing: 16) {
             Button(action: onToggle) {
                 HStack(spacing: 16) {
                     Circle()
                         .strokeBorder(
-                            focus.isCompleted ? theme.complete : theme.textMuted,
+                            focus.isCompleted ? AppColors.complete : AppColors.textMuted,
                             lineWidth: 1.5
                         )
                         .background(
                             Circle()
-                                .fill(focus.isCompleted ? theme.complete : Color.clear)
+                                .fill(focus.isCompleted ? AppColors.complete : Color.clear)
                         )
                         .frame(width: 24, height: 24)
                         .overlay {
                             if focus.isCompleted {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 12, weight: .bold))
-                                    .foregroundStyle(theme.background)
+                                    .foregroundStyle(AppColors.background)
                             }
                         }
 
                     Text(focus.title)
                         .font(.tenxLargeBody)
-                        .foregroundStyle(focus.isCompleted ? theme.textSecondary : theme.textPrimary)
-                        .strikethrough(focus.isCompleted, color: theme.textSecondary)
+                        .foregroundStyle(focus.isCompleted ? AppColors.textSecondary : AppColors.textPrimary)
+                        .strikethrough(focus.isCompleted, color: AppColors.textSecondary)
                         .multilineTextAlignment(.leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -47,10 +45,10 @@ struct FocusCardView: View {
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
-        .background(theme.surface)
+        .background(AppColors.surface)
         .overlay(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(theme.textMuted.opacity(0.15), lineWidth: 1)
+                .strokeBorder(AppColors.textMuted.opacity(0.15), lineWidth: 1)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }

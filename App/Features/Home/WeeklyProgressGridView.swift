@@ -2,18 +2,17 @@ import SwiftUI
 
 struct WeeklyProgressGridView: View {
     let days: [WeeklyProgressDay]
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(alignment: .firstTextBaseline) {
                 Text("Weekly Progress")
                     .font(.tenxTitle)
-                    .foregroundStyle(theme.textPrimary)
+                    .foregroundStyle(AppColors.textPrimary)
                 Spacer()
                 Text("Success: \(successRate)%")
                     .font(.tenxSmall)
-                    .foregroundStyle(theme.textSecondary)
+                    .foregroundStyle(AppColors.textSecondary)
             }
 
             LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 7), spacing: 10) {
@@ -21,7 +20,7 @@ struct WeeklyProgressGridView: View {
                     VStack(spacing: 8) {
                         Text(dayLabel(for: day.date))
                             .font(.tenxCaption)
-                            .foregroundStyle(theme.textSecondary)
+                            .foregroundStyle(AppColors.textSecondary)
 
                         ZStack {
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
@@ -51,11 +50,11 @@ struct WeeklyProgressGridView: View {
             HStack(spacing: 12) {
                 LegendItem(color: Color.green, label: "Success")
                 LegendItem(color: Color.orange, label: "Partial")
-                LegendItem(color: theme.textMuted, label: "Missed")
+                LegendItem(color: AppColors.textMuted, label: "Missed")
             }
         }
         .padding(20)
-        .background(theme.card)
+        .background(AppColors.card)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 
@@ -67,14 +66,14 @@ struct WeeklyProgressGridView: View {
     }
 
     private func statusColor(for day: WeeklyProgressDay) -> Color {
-        guard day.total > 0 else { return theme.surface }
+        guard day.total > 0 else { return AppColors.surface }
         if day.maintainsStreak {
             return Color.green
         }
         if day.completed > 0 {
             return Color.orange
         }
-        return theme.textMuted
+        return AppColors.textMuted
     }
 
     private func dayLabel(for date: Date) -> String {
@@ -88,7 +87,6 @@ struct WeeklyProgressGridView: View {
 private struct LegendItem: View {
     let color: Color
     let label: String
-    @Environment(\.tenxTheme) private var theme
 
     var body: some View {
         HStack(spacing: 6) {
@@ -97,7 +95,7 @@ private struct LegendItem: View {
                 .frame(width: 8, height: 8)
             Text(label)
                 .font(.tenxCaption)
-                .foregroundStyle(theme.textSecondary)
+                .foregroundStyle(AppColors.textSecondary)
         }
     }
 }

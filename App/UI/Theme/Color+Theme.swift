@@ -1,21 +1,19 @@
 import SwiftUI
-import TenXShared
-
 extension Color {
     // Warm, near-black backgrounds
-    static let tenxBackground = Theme.midnight.palette.background
-    static let tenxSurface = Theme.midnight.palette.surface
+    static let tenxBackground = AppColors.background
+    static let tenxSurface = AppColors.surface
 
     // Warm ivory accent — sophisticated, not aggressive
-    static let tenxAccent = Theme.midnight.palette.accent
+    static let tenxAccent = AppColors.accent
 
     // Subtle completion state
-    static let tenxComplete = Theme.midnight.palette.complete
+    static let tenxComplete = AppColors.complete
 
     // Text hierarchy
-    static let tenxTextPrimary = Theme.midnight.palette.textPrimary
-    static let tenxTextSecondary = Theme.midnight.palette.textSecondary
-    static let tenxTextMuted = Theme.midnight.palette.textMuted
+    static let tenxTextPrimary = AppColors.textPrimary
+    static let tenxTextSecondary = AppColors.textSecondary
+    static let tenxTextMuted = AppColors.textMuted
 
     // Legacy alias for existing code
     static let tenxCard = tenxSurface

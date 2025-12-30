@@ -7,7 +7,6 @@ import UIKit
 
 struct DiagnosticsView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.tenxTheme) private var theme
     @State private var didCopy = false
 
     var body: some View {
@@ -24,39 +23,39 @@ struct DiagnosticsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Snapshot JSON")
                         .font(.tenxSmall)
-                        .foregroundStyle(theme.textSecondary)
+                        .foregroundStyle(AppColors.textSecondary)
                     Text(snapshotJSON)
                         .font(.tenxCaption)
-                        .foregroundStyle(theme.textPrimary)
+                        .foregroundStyle(AppColors.textPrimary)
                         .textSelection(.enabled)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
             }
 
             Section("Actions") {
                 Button("Copy diagnostics") {
                     copyDiagnostics()
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
 
                 Button("Force widget refresh") {
                     let store = TenXStore(context: modelContext)
                     WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
 
                 Button("Reload widget timelines") {
                     WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
                 }
-                .listRowBackground(theme.surface)
+                .listRowBackground(AppColors.surface)
             }
         }
         .navigationTitle("Diagnostics")
         .scrollContentBackground(.hidden)
-        .background(theme.background)
-        .toolbarBackground(theme.background, for: .navigationBar)
-        .tint(theme.accent)
+        .background(AppColors.background)
+        .toolbarBackground(AppColors.background, for: .navigationBar)
+        .tint(AppColors.accent)
         .alert("Copied", isPresented: $didCopy) {
             Button("OK") { didCopy = false }
         } message: {
@@ -122,14 +121,14 @@ struct DiagnosticsView: View {
         HStack(alignment: .top, spacing: 8) {
             Text(label)
                 .font(.tenxCaption)
-                .foregroundStyle(theme.textSecondary)
+                .foregroundStyle(AppColors.textSecondary)
                 .frame(width: 120, alignment: .leading)
             Text(value)
                 .font(.tenxCaption)
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(AppColors.textPrimary)
                 .textSelection(.enabled)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .listRowBackground(theme.surface)
+        .listRowBackground(AppColors.surface)
     }
 }
