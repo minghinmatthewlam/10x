@@ -98,8 +98,6 @@ struct SettingsSheetView: View {
             .padding(.bottom, 40)
         }
         .background(AppColors.background)
-        .presentationDetents([.fraction(0.85)])
-        .presentationDragIndicator(.visible)
         .onAppear {
             viewModel.refreshStatus()
         }

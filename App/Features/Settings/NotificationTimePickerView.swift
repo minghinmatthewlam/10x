@@ -15,5 +15,6 @@ struct NotificationTimePickerView: View {
             hour = components.hour ?? hour
             minute = components.minute ?? minute
         }), displayedComponents: .hourAndMinute)
+        .font(.tenxBody)
     }
 }

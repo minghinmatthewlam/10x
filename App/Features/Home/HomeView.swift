@@ -58,6 +58,8 @@ struct HomeView: View {
         }
         .sheet(isPresented: $appState.showSettingsSheet) {
             SettingsSheetView()
+                .presentationDetents([.fraction(0.85)])
+                .presentationDragIndicator(.visible)
         }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil || focusDraftsViewModel.errorMessage != nil
