@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct ThemePalette: Equatable {
+public struct ThemePalette {
     public let background: Color
     public let surface: Color
     public let accent: Color
