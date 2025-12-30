@@ -38,8 +38,8 @@ struct SmallHomeWidgetView: View {
 
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("10x")
-                .font(WidgetTypography.logo)
+            Text("10x Goals")
+                .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Text(text)
                 .font(WidgetTypography.caption)
@@ -51,9 +51,9 @@ struct SmallHomeWidgetView: View {
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
-            focusList(snapshot)
+            progressSummary(snapshot)
             Spacer()
-            Text("Tap to set focuses")
+            Text("Set today’s focuses to begin.")
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
         }
@@ -63,7 +63,7 @@ struct SmallHomeWidgetView: View {
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
-            focusList(snapshot)
+            progressSummary(snapshot)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -71,31 +71,38 @@ struct SmallHomeWidgetView: View {
 
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
-            Text("Today")
+            Text("10x Goals")
                 .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Spacer()
-            Text("\(snapshot.streak)")
-                .font(WidgetTypography.badge)
-                .padding(.horizontal, 6)
-                .padding(.vertical, 3)
-                .background(palette.textPrimary.opacity(0.15))
-                .clipShape(Capsule())
-                .foregroundStyle(palette.textPrimary)
+            HStack(spacing: 4) {
+                Image(systemName: "flame.fill")
+                    .font(WidgetTypography.badge)
+                    .foregroundStyle(snapshot.streak > 0 ? palette.accent : palette.textMuted)
+                Text("\(snapshot.streak)")
+                    .font(WidgetTypography.badge)
+                    .foregroundStyle(palette.textPrimary)
+            }
+            .padding(.horizontal, 6)
+            .padding(.vertical, 3)
+            .background(palette.surface.opacity(0.9))
+            .clipShape(Capsule())
         }
     }
 
-    private func focusList(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
-                HStack(spacing: 4) {
-                    Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
-                        .imageScale(.small)
-                    Text(focus.title)
-                        .lineLimit(1)
-                }
-                .font(WidgetTypography.body)
-                .foregroundStyle(palette.textPrimary)
+    private func progressSummary(_ snapshot: WidgetSnapshot) -> some View {
+        let total = max(snapshot.focuses.count, 1)
+        return HStack(alignment: .center, spacing: 10) {
+            ProgressRing(progress: Double(snapshot.completedCount) / Double(total),
+                         palette: palette)
+                .frame(width: 34, height: 34)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Today's Progress")
+                    .font(WidgetTypography.caption)
+                    .foregroundStyle(palette.textSecondary)
+                Text("\(snapshot.completedCount)/\(total) focuses")
+                    .font(WidgetTypography.body)
+                    .foregroundStyle(palette.textPrimary)
             }
         }
     }

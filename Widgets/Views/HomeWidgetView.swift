@@ -38,8 +38,8 @@ struct HomeWidgetView: View {
 
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("10x")
-                .font(WidgetTypography.logo)
+            Text("10x Goals")
+                .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Text(text)
                 .font(WidgetTypography.caption)
@@ -52,18 +52,10 @@ struct HomeWidgetView: View {
         let total = max(snapshot.focuses.count, 1)
         return VStack(alignment: .leading, spacing: 12) {
             header(snapshot)
+            progressSummary(snapshot, total: total)
             focusList(snapshot)
 
             Spacer()
-
-            HStack {
-                ProgressRing(progress: Double(snapshot.completedCount) / Double(total),
-                             palette: palette)
-                    .frame(width: 36, height: 36)
-                Text("\(snapshot.completedCount)/\(total) complete")
-                    .font(WidgetTypography.progress)
-                    .foregroundStyle(palette.textSecondary)
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -75,8 +67,8 @@ struct HomeWidgetView: View {
 
             Spacer()
 
-            Text("Tap to set today’s focuses")
-                .font(WidgetTypography.progress)
+            Text("Set today’s focuses to begin.")
+                .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -84,25 +76,34 @@ struct HomeWidgetView: View {
 
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
-            Text("Today")
+            Text("10x Goals")
                 .font(WidgetTypography.title)
                 .foregroundStyle(palette.textPrimary)
             Spacer()
-            Text("\(snapshot.streak)")
-                .font(WidgetTypography.badge)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(palette.textPrimary.opacity(0.15))
-                .clipShape(Capsule())
-                .foregroundStyle(palette.textPrimary)
+            HStack(spacing: 4) {
+                Image(systemName: "flame.fill")
+                    .font(WidgetTypography.badge)
+                    .foregroundStyle(snapshot.streak > 0 ? palette.accent : palette.textMuted)
+                Text("\(snapshot.streak)")
+                    .font(WidgetTypography.badge)
+                    .foregroundStyle(palette.textPrimary)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(palette.surface.opacity(0.9))
+            .clipShape(Capsule())
         }
     }
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 6) {
+            Text("Focuses")
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
                 HStack(spacing: 6) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
                     Text(focus.title)
                         .lineLimit(1)
                 }
@@ -111,6 +112,39 @@ struct HomeWidgetView: View {
             }
         }
     }
+
+    private func progressSummary(_ snapshot: WidgetSnapshot, total: Int) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text("Today's Progress")
+                    .font(WidgetTypography.caption)
+                    .foregroundStyle(palette.textSecondary)
+                Spacer()
+                Text("\(snapshot.completedCount)/\(total)")
+                    .font(WidgetTypography.caption)
+                    .foregroundStyle(palette.textSecondary)
+            }
+
+            GeometryReader { proxy in
+                let ratio = total == 0 ? 0 : CGFloat(snapshot.completedCount) / CGFloat(total)
+                ZStack(alignment: .leading) {
+                    Capsule()
+                        .fill(palette.surface)
+                        .frame(height: 6)
+                    Capsule()
+                        .fill(palette.accent)
+                        .frame(width: proxy.size.width * max(0, min(ratio, 1)), height: 6)
+                }
+            }
+            .frame(height: 6)
+
+            Text("Complete 2/3 focuses to increase your streak.")
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
+        }
+    }
+
+    
 
     private var defaultURL: URL? {
         guard let snapshot else { return DeepLinks.url(for: .home) }
