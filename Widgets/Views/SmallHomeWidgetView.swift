@@ -51,7 +51,7 @@ struct SmallHomeWidgetView: View {
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
-            progressSummary(snapshot)
+            focusList(snapshot)
             Spacer()
             Text("Set today’s focuses to begin.")
                 .font(WidgetTypography.caption)
@@ -63,7 +63,7 @@ struct SmallHomeWidgetView: View {
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             header(snapshot)
-            progressSummary(snapshot)
+            focusList(snapshot)
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -90,19 +90,21 @@ struct SmallHomeWidgetView: View {
         }
     }
 
-    private func progressSummary(_ snapshot: WidgetSnapshot) -> some View {
-        let total = max(snapshot.focuses.count, 1)
-        return HStack(alignment: .center, spacing: 10) {
-            ProgressRing(progress: Double(snapshot.completedCount) / Double(total),
-                         palette: palette)
-                .frame(width: 34, height: 34)
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Today's Progress")
-                    .font(WidgetTypography.caption)
-                    .foregroundStyle(palette.textSecondary)
-                Text("\(snapshot.completedCount)/\(total) focuses")
-                    .font(WidgetTypography.body)
-                    .foregroundStyle(palette.textPrimary)
+    private func focusList(_ snapshot: WidgetSnapshot) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Focuses")
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
+            ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
+                HStack(spacing: 6) {
+                    Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .imageScale(.small)
+                        .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
+                    Text(focus.title)
+                        .lineLimit(1)
+                }
+                .font(WidgetTypography.body)
+                .foregroundStyle(palette.textPrimary)
             }
         }
     }
