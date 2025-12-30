@@ -59,7 +59,7 @@ struct DailySetupView: View {
                     dismiss()
                 } label: {
                         Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.tenxIconButton)
                             .foregroundStyle(AppColors.textSecondary)
                     }
             }

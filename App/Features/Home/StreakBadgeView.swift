@@ -6,7 +6,7 @@ struct StreakBadgeView: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: "flame.fill")
-                .font(.system(size: 14))
+                .font(.tenxIconSmall)
                 .foregroundStyle(streak > 0 ? AppColors.textPrimary : AppColors.textMuted)
             Text("\(streak)")
                 .font(.tenxBody.monospacedDigit())

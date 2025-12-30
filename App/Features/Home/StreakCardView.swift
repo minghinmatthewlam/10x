@@ -13,7 +13,7 @@ struct StreakCardView: View {
 
                     HStack(alignment: .firstTextBaseline, spacing: 6) {
                         Text("\(streak)")
-                            .font(.system(size: 36, weight: .semibold))
+                            .font(.tenxStat)
                             .foregroundStyle(AppColors.textPrimary)
                         Text("days")
                             .font(.tenxSmall)
@@ -23,7 +23,7 @@ struct StreakCardView: View {
                 Spacer()
 
                 Image(systemName: "flame.fill")
-                    .font(.system(size: 36))
+                    .font(.tenxIconLarge)
                     .foregroundStyle(streak > 0 ? Color.orange : AppColors.textMuted)
             }
 

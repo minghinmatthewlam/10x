@@ -30,7 +30,7 @@ struct WeeklyProgressGridView: View {
                             if day.total > 0 {
                                 if day.maintainsStreak {
                                     Image(systemName: "checkmark")
-                                        .font(.system(size: 12, weight: .bold))
+                                        .font(.tenxTinyBold)
                                         .foregroundStyle(Color.white)
                                 } else if day.completed > 0 {
                                     Text("\(day.completed)/\(day.total)")
@@ -38,7 +38,7 @@ struct WeeklyProgressGridView: View {
                                         .foregroundStyle(Color.white)
                                 } else {
                                     Image(systemName: "xmark")
-                                        .font(.system(size: 12, weight: .bold))
+                                        .font(.tenxTinyBold)
                                         .foregroundStyle(Color.white.opacity(0.7))
                                 }
                             }

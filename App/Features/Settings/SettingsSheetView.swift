@@ -118,7 +118,7 @@ struct SettingsSheetView: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 12, weight: .bold))
+                    .font(.tenxTinyBold)
                     .foregroundStyle(AppColors.textSecondary)
                     .frame(width: 32, height: 32)
                     .background(AppColors.surface)

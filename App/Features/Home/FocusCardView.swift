@@ -22,7 +22,7 @@ struct FocusCardView: View {
                         .overlay {
                             if focus.isCompleted {
                                 Image(systemName: "checkmark")
-                                    .font(.system(size: 12, weight: .bold))
+                                    .font(.tenxTinyBold)
                                     .foregroundStyle(AppColors.background)
                             }
                         }

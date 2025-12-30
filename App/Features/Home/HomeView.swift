@@ -94,7 +94,7 @@ struct HomeView: View {
                 appState.showSettingsSheet = true
             } label: {
                 Image(systemName: "gearshape.fill")
-                    .font(.system(size: 16))
+                    .font(.tenxIconMedium)
                     .foregroundStyle(AppColors.textSecondary)
                     .frame(width: 36, height: 36)
                     .background(AppColors.surface)

@@ -11,15 +11,15 @@ struct StreakShareCardView: View {
 
             VStack(alignment: .leading, spacing: 20) {
                 Text("10x")
-                    .font(.system(size: 52, weight: .semibold))
+                    .font(.tenxDisplay)
                     .foregroundStyle(AppColors.textPrimary)
 
                 Text("Streak \(streak) days")
-                    .font(.system(size: 46, weight: .semibold))
+                    .font(.tenxDisplaySecondary)
                     .foregroundStyle(AppColors.accent)
 
                 Text("1-3 focuses a day. Complete two to keep it alive.")
-                    .font(.system(size: 26, weight: .regular))
+                    .font(.tenxShareBody)
                     .foregroundStyle(AppColors.textSecondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

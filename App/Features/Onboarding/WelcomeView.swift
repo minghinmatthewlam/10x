@@ -10,7 +10,7 @@ struct WelcomeView: View {
 
             VStack(alignment: .leading, spacing: 32) {
                 Text("10x")
-                    .font(.system(size: 48, weight: .semibold))
+                    .font(.tenxLogo)
                     .foregroundStyle(AppColors.textPrimary)
 
                 Text("What would make\ntoday extraordinary?")

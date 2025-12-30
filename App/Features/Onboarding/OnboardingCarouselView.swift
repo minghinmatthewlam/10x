@@ -42,7 +42,7 @@ struct OnboardingCarouselView: View {
                     ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
                         VStack(spacing: 24) {
                             Image(systemName: step.systemImage)
-                                .font(.system(size: 52, weight: .semibold))
+                                .font(.tenxDisplay)
                                 .foregroundStyle(AppColors.textPrimary)
                                 .padding(.bottom, 12)
 
@@ -72,7 +72,7 @@ struct OnboardingCarouselView: View {
                         Text(stepIndex == steps.count - 1 ? "Get Started" : "Continue")
                         if stepIndex < steps.count - 1 {
                             Image(systemName: "chevron.right")
-                                .font(.system(size: 12, weight: .semibold))
+                                .font(.tenxTinySemibold)
                         }
                     }
                     .frame(maxWidth: .infinity)

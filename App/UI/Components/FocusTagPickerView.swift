@@ -16,7 +16,7 @@ struct FocusTagPickerView: View {
                 Text(tag?.label ?? "Add tag")
                     .font(.tenxSmall)
                 Image(systemName: "chevron.down")
-                    .font(.system(size: 11, weight: .semibold))
+                    .font(.tenxMicroSemibold)
             }
             .foregroundStyle(AppColors.textSecondary)
             .padding(.horizontal, 10)
