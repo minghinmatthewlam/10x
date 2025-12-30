@@ -2,7 +2,7 @@ import SwiftUI
 
 enum WidgetTypography {
     private static func font(size: CGFloat, weight: Font.Weight) -> Font {
-        .system(size: size, weight: weight)
+        .system(size: size, weight: weight, design: .monospaced)
     }
 
     static let logo = font(size: 16, weight: .semibold)
