@@ -1,10 +1,14 @@
 import SwiftUI
 import TenXShared
 import WidgetKit
+#if canImport(UIKit)
+import UIKit
+#endif
 
 struct DiagnosticsView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.tenxTheme) private var theme
+    @State private var didCopy = false
 
     var body: some View {
         List {
@@ -31,6 +35,11 @@ struct DiagnosticsView: View {
             }
 
             Section("Actions") {
+                Button("Copy diagnostics") {
+                    copyDiagnostics()
+                }
+                .listRowBackground(theme.surface)
+
                 Button("Force widget refresh") {
                     let store = TenXStore(context: modelContext)
                     WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
@@ -48,6 +57,11 @@ struct DiagnosticsView: View {
         .background(theme.background)
         .toolbarBackground(theme.background, for: .navigationBar)
         .tint(theme.accent)
+        .alert("Copied", isPresented: $didCopy) {
+            Button("OK") { didCopy = false }
+        } message: {
+            Text("Diagnostics copied to clipboard.")
+        }
     }
 
     private var sharedTheme: String? {
@@ -78,6 +92,29 @@ struct DiagnosticsView: View {
             return "No snapshot file found."
         }
         return string
+    }
+
+    private var diagnosticsText: String {
+        let themeValue = sharedTheme ?? "nil"
+        let containerPath = AppGroup.containerURL?.path ?? "Unavailable"
+        let snapshotPath = snapshotURL?.path ?? "Unavailable"
+        let lastRefresh = lastSnapshotRefresh ?? "Unknown"
+        return """
+        App Group ID: \(SharedConstants.appGroupID)
+        App Group Container: \(containerPath)
+        Theme (shared): \(themeValue)
+        Snapshot Path: \(snapshotPath)
+        Snapshot Last Refresh: \(lastRefresh)
+        Snapshot JSON:
+        \(snapshotJSON)
+        """
+    }
+
+    private func copyDiagnostics() {
+#if canImport(UIKit)
+        UIPasteboard.general.string = diagnosticsText
+        didCopy = true
+#endif
     }
 
     @ViewBuilder
