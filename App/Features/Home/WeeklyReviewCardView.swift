@@ -6,10 +6,19 @@ struct WeeklyReviewCardView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Text("Weekly completion")
-                    .font(.tenxTitle)
-                    .foregroundStyle(theme.textPrimary)
+            HStack(alignment: .top) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("Weekly completion")
+                        .font(.tenxTitle)
+                        .foregroundStyle(theme.textPrimary)
+                    Text("Review ready")
+                        .font(.tenxCaption)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(theme.textPrimary.opacity(0.12))
+                        .clipShape(Capsule())
+                        .foregroundStyle(theme.textPrimary)
+                }
                 Spacer()
                 Text("\(completionPercent)%")
                     .font(.tenxSmall)
