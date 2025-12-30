@@ -5,6 +5,7 @@ enum TenXTypography {
     static let mediumName: String? = nil
     static let semiboldName: String? = nil
     static let boldName: String? = nil
+    static let systemDesign: Font.Design = .monospaced
 
     static func font(size: CGFloat, weight: Font.Weight, relativeTo: Font.TextStyle) -> Font {
         let name: String?
@@ -22,7 +23,7 @@ enum TenXTypography {
         if let name {
             return .custom(name, size: size, relativeTo: relativeTo)
         }
-        return .system(size: size, weight: weight)
+        return .system(size: size, weight: weight, design: systemDesign)
     }
 }
 
