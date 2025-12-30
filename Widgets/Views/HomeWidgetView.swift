@@ -4,14 +4,15 @@ import TenXShared
 
 struct HomeWidgetView: View {
     let snapshot: WidgetSnapshot?
-    private var theme: ThemePalette {
-        ThemeStore.storedTheme()?.palette ?? ThemeStore.currentTheme().palette
+    @Environment(\.colorScheme) private var colorScheme
+    private var palette: ThemePalette {
+        AppearanceModeStore.palette(systemScheme: colorScheme)
     }
 
     var body: some View {
         content
             .padding(16)
-            .containerBackground(theme.background, for: .widget)
+            .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -38,11 +39,11 @@ struct HomeWidgetView: View {
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("10x")
-                .font(.headline)
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.logo)
+                .foregroundStyle(palette.textPrimary)
             Text(text)
-                .font(.caption)
-                .foregroundStyle(theme.textSecondary)
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -57,12 +58,12 @@ struct HomeWidgetView: View {
 
             HStack {
                 ProgressRing(progress: Double(snapshot.completedCount) / Double(total),
-                             theme: theme)
+                             palette: palette)
                     .frame(width: 36, height: 36)
-            Text("\(snapshot.completedCount)/\(total) complete")
-                .font(.caption2)
-                .foregroundStyle(theme.textSecondary)
-        }
+                Text("\(snapshot.completedCount)/\(total) complete")
+                    .font(WidgetTypography.progress)
+                    .foregroundStyle(palette.textSecondary)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -75,8 +76,8 @@ struct HomeWidgetView: View {
             Spacer()
 
             Text("Tap to set today’s focuses")
-                .font(.caption2)
-                .foregroundStyle(theme.textSecondary)
+                .font(WidgetTypography.progress)
+                .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -84,16 +85,16 @@ struct HomeWidgetView: View {
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
             Text("Today")
-                .font(.headline)
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.title)
+                .foregroundStyle(palette.textPrimary)
             Spacer()
             Text("\(snapshot.streak)")
-                .font(.caption)
+                .font(WidgetTypography.badge)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(theme.textPrimary.opacity(0.15))
+                .background(palette.textPrimary.opacity(0.15))
                 .clipShape(Capsule())
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(palette.textPrimary)
         }
     }
 
@@ -105,8 +106,8 @@ struct HomeWidgetView: View {
                     Text(focus.title)
                         .lineLimit(1)
                 }
-                .font(.caption2)
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.body)
+                .foregroundStyle(palette.textPrimary)
             }
         }
     }

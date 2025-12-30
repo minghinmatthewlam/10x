@@ -4,14 +4,15 @@ import TenXShared
 
 struct SmallHomeWidgetView: View {
     let snapshot: WidgetSnapshot?
-    private var theme: ThemePalette {
-        ThemeStore.storedTheme()?.palette ?? ThemeStore.currentTheme().palette
+    @Environment(\.colorScheme) private var colorScheme
+    private var palette: ThemePalette {
+        AppearanceModeStore.palette(systemScheme: colorScheme)
     }
 
     var body: some View {
         content
             .padding(14)
-            .containerBackground(theme.background, for: .widget)
+            .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -38,11 +39,11 @@ struct SmallHomeWidgetView: View {
     private func emptyState(text: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("10x")
-                .font(.callout.weight(.semibold))
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.logo)
+                .foregroundStyle(palette.textPrimary)
             Text(text)
-                .font(.footnote)
-                .foregroundStyle(theme.textSecondary)
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -53,8 +54,8 @@ struct SmallHomeWidgetView: View {
             focusList(snapshot)
             Spacer()
             Text("Tap to set focuses")
-                .font(.footnote)
-                .foregroundStyle(theme.textSecondary)
+                .font(WidgetTypography.caption)
+                .foregroundStyle(palette.textSecondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
@@ -71,16 +72,16 @@ struct SmallHomeWidgetView: View {
     private func header(_ snapshot: WidgetSnapshot) -> some View {
         HStack {
             Text("Today")
-                .font(.callout.weight(.semibold))
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.title)
+                .foregroundStyle(palette.textPrimary)
             Spacer()
             Text("\(snapshot.streak)")
-                .font(.footnote)
+                .font(WidgetTypography.badge)
                 .padding(.horizontal, 6)
                 .padding(.vertical, 3)
-                .background(theme.textPrimary.opacity(0.15))
+                .background(palette.textPrimary.opacity(0.15))
                 .clipShape(Capsule())
-                .foregroundStyle(theme.textPrimary)
+                .foregroundStyle(palette.textPrimary)
         }
     }
 
@@ -93,8 +94,8 @@ struct SmallHomeWidgetView: View {
                     Text(focus.title)
                         .lineLimit(1)
                 }
-                .font(.footnote)
-                .foregroundStyle(theme.textPrimary)
+                .font(WidgetTypography.body)
+                .foregroundStyle(palette.textPrimary)
             }
         }
     }

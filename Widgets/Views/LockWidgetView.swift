@@ -4,8 +4,9 @@ import TenXShared
 
 struct LockWidgetView: View {
     let snapshot: WidgetSnapshot?
-    private var theme: ThemePalette {
-        ThemeStore.storedTheme()?.palette ?? ThemeStore.currentTheme().palette
+    @Environment(\.colorScheme) private var colorScheme
+    private var palette: ThemePalette {
+        AppearanceModeStore.palette(systemScheme: colorScheme)
     }
 
     var body: some View {
@@ -16,10 +17,10 @@ struct LockWidgetView: View {
                     Image(systemName: "target")
                 } currentValueLabel: {
                     Text("\(snapshot.completedCount)")
-                        .font(.caption2)
+                        .font(WidgetTypography.caption)
                 }
                 .gaugeStyle(.accessoryCircular)
-                .tint(snapshot.completedCount >= total ? theme.complete : theme.accent)
+                .tint(snapshot.completedCount >= total ? palette.complete : palette.accent)
             } else {
                 Image(systemName: "target")
             }
