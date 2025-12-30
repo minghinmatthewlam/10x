@@ -7,7 +7,7 @@ struct WeeklyReviewCardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Text("This week")
+                Text("Weekly completion")
                     .font(.tenxTitle)
                     .foregroundStyle(theme.textPrimary)
                 Spacer()
@@ -16,7 +16,7 @@ struct WeeklyReviewCardView: View {
                     .foregroundStyle(theme.textSecondary)
             }
 
-            Text("Completion rate: \(summary.completed)/\(summary.total) (\(completionPercent)%)")
+            Text("You completed \(summary.completed) of \(summary.total) focuses (\(completionPercent)%).")
                 .font(.tenxSmall)
                 .foregroundStyle(theme.textSecondary)
         }
