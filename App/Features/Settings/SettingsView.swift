@@ -41,6 +41,7 @@ struct SettingsView: View {
                     Button("Open Settings") {
                         NotificationScheduler.shared.openSystemSettings()
                     }
+                    .font(.tenxBody.weight(.medium))
                     .listRowBackground(AppColors.surface)
                 }
 
@@ -74,6 +75,7 @@ struct SettingsView: View {
                 Button("Send Test Notification") {
                     viewModel.scheduleTest()
                 }
+                .font(.tenxBody.weight(.medium))
                 .listRowBackground(AppColors.surface)
                 #endif
             } header: {
