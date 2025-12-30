@@ -11,13 +11,15 @@ struct WeeklyReviewCardView: View {
                     Text("Weekly completion")
                         .font(.tenxTitle)
                         .foregroundStyle(theme.textPrimary)
-                    Text("Review ready")
-                        .font(.tenxCaption)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(theme.textPrimary.opacity(0.12))
-                        .clipShape(Capsule())
-                        .foregroundStyle(theme.textPrimary)
+                    if let badgeText {
+                        Text(badgeText)
+                            .font(.tenxCaption)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(theme.textPrimary.opacity(0.12))
+                            .clipShape(Capsule())
+                            .foregroundStyle(theme.textPrimary)
+                    }
                 }
                 Spacer()
                 Text("\(completionPercent)%")
@@ -37,6 +39,11 @@ struct WeeklyReviewCardView: View {
     private var completionPercent: Int {
         guard summary.total > 0 else { return 0 }
         return Int((Double(summary.completed) / Double(summary.total)) * 100)
+    }
+
+    private var badgeText: String? {
+        let weekday = Calendar.current.component(.weekday, from: Date())
+        return weekday == 1 ? nil : "Week in progress"
     }
 
 }
