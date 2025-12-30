@@ -4,6 +4,7 @@ options:
 settings:
   base:
     IPHONEOS_DEPLOYMENT_TARGET: 17.0
+    DEVELOPMENT_TEAM: P2MBURJVUW
 packages:
   TenXShared:
     path: Shared
