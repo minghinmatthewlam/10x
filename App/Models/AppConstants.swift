@@ -11,6 +11,9 @@ enum AppConstants {
     static let eveningReminderMinute = 0
     static let defaultMiddayReminderEnabled = true
     static let defaultEveningReminderEnabled = true
+    static let weeklyReminderWeekday = 1
+    static let weeklyReminderHour = 18
+    static let weeklyReminderMinute = 0
     static let widgetRefreshMinutes = 30
     static let maxFocusTitleLength = 80
     static let streakMilestones = [7, 14, 30]

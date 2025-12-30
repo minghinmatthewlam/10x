@@ -12,6 +12,7 @@ final class NotificationScheduler {
         "tenx.reminder.midday",
         "tenx.reminder.evening"
     ]
+    private let weeklyIdentifier = "tenx.reminder.weekly"
 
     func requestAuthorization() async -> Bool {
         do {
@@ -35,39 +36,38 @@ final class NotificationScheduler {
                            middayEnabled: Bool,
                            eveningEnabled: Bool) async {
         let incomplete = focuses.filter { !$0.isCompleted }
-        guard !incomplete.isEmpty else {
-            await removeReminders()
-            return
-        }
-
-        let content = reminderContent(for: incomplete)
         do {
             try await center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
 
-            try await center.add(
-                reminderRequest(identifier: "tenx.reminder.morning",
-                                content: content,
-                                hour: morningHour,
-                                minute: morningMinute)
-            )
-
-            if middayEnabled {
+            if !incomplete.isEmpty {
+                let content = reminderContent(for: incomplete)
                 try await center.add(
-                    reminderRequest(identifier: "tenx.reminder.midday",
+                    reminderRequest(identifier: "tenx.reminder.morning",
                                     content: content,
-                                    hour: AppConstants.middayReminderHour,
-                                    minute: AppConstants.middayReminderMinute)
+                                    hour: morningHour,
+                                    minute: morningMinute)
                 )
+
+                if middayEnabled {
+                    try await center.add(
+                        reminderRequest(identifier: "tenx.reminder.midday",
+                                        content: content,
+                                        hour: AppConstants.middayReminderHour,
+                                        minute: AppConstants.middayReminderMinute)
+                    )
+                }
+
+                if eveningEnabled {
+                    try await center.add(
+                        reminderRequest(identifier: "tenx.reminder.evening",
+                                        content: content,
+                                        hour: AppConstants.eveningReminderHour,
+                                        minute: AppConstants.eveningReminderMinute)
+                    )
+                }
             }
 
-            if eveningEnabled {
-                try await center.add(
-                    reminderRequest(identifier: "tenx.reminder.evening",
-                                    content: content,
-                                    hour: AppConstants.eveningReminderHour,
-                                    minute: AppConstants.eveningReminderMinute)
-                )
-            }
+            try await center.add(weeklyReminderRequest())
         } catch {
             // Intentionally no-op; settings view surfaces status.
         }
@@ -109,6 +109,22 @@ final class NotificationScheduler {
         return UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
     }
 
+    private func weeklyReminderRequest() -> UNNotificationRequest {
+        let content = UNMutableNotificationContent()
+        content.title = "10x Weekly Review"
+        content.body = "Your weekly review is ready."
+        content.sound = nil
+
+        var components = DateComponents()
+        components.weekday = AppConstants.weeklyReminderWeekday
+        components.hour = AppConstants.weeklyReminderHour
+        components.minute = AppConstants.weeklyReminderMinute
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        return UNNotificationRequest(identifier: weeklyIdentifier,
+                                     content: content,
+                                     trigger: trigger)
+    }
+
     private func reminderContent(for focuses: [DailyFocus]) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "10x"
@@ -126,11 +142,5 @@ final class NotificationScheduler {
         return content
     }
 
-    private func removeReminders() async {
-        do {
-            try await center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
-        } catch {
-            // Ignore; best effort cleanup.
-        }
-    }
+    
 }
