@@ -101,6 +101,18 @@ struct SettingsView: View {
                 Text("Appearance")
                     .foregroundStyle(theme.textSecondary)
             }
+
+#if DEBUG
+            Section {
+                NavigationLink("Diagnostics") {
+                    DiagnosticsView()
+                }
+                .listRowBackground(theme.surface)
+            } header: {
+                Text("Debug")
+                    .foregroundStyle(theme.textSecondary)
+            }
+#endif
         }
         .navigationTitle("Settings")
         .scrollContentBackground(.hidden)
