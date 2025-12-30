@@ -7,7 +7,7 @@ enum UserDefaultsKeys {
     static let notificationMinute = "notificationMinute"
     static let middayReminderEnabled = "middayReminderEnabled"
     static let eveningReminderEnabled = "eveningReminderEnabled"
-    static let appearanceMode = "appearanceMode"
+    static let appearanceMode = SharedConstants.appearanceModeKey
     static let theme = SharedConstants.themeKey
     static let lastSharedStreak = "lastSharedStreak"
 }
