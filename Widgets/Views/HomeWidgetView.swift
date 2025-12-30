@@ -11,7 +11,7 @@ struct HomeWidgetView: View {
 
     var body: some View {
         content
-            .padding(16)
+            .padding(18)
             .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
@@ -50,7 +50,7 @@ struct HomeWidgetView: View {
 
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
         let total = max(snapshot.focuses.count, 1)
-        return VStack(alignment: .leading, spacing: 12) {
+        return VStack(alignment: .leading, spacing: 14) {
             header(snapshot)
             progressSummary(snapshot, total: total)
             focusList(snapshot)
@@ -61,7 +61,7 @@ struct HomeWidgetView: View {
     }
 
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 14) {
             header(snapshot)
             focusList(snapshot)
 
@@ -96,12 +96,12 @@ struct HomeWidgetView: View {
     }
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Focuses")
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
-                HStack(spacing: 6) {
+                HStack(spacing: 8) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
                         .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
                     Text(focus.title)
@@ -114,7 +114,7 @@ struct HomeWidgetView: View {
     }
 
     private func progressSummary(_ snapshot: WidgetSnapshot, total: Int) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text("Today's Progress")
                     .font(WidgetTypography.caption)
@@ -141,6 +141,7 @@ struct HomeWidgetView: View {
             Text("Complete 2/3 focuses to increase your streak.")
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
+                .lineLimit(2)
         }
     }
 

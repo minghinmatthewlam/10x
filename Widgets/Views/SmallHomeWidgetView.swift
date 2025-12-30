@@ -11,7 +11,7 @@ struct SmallHomeWidgetView: View {
 
     var body: some View {
         content
-            .padding(14)
+            .padding(16)
             .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
@@ -49,7 +49,7 @@ struct SmallHomeWidgetView: View {
     }
 
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             header(snapshot)
             focusList(snapshot)
             Spacer()
@@ -61,7 +61,7 @@ struct SmallHomeWidgetView: View {
     }
 
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 12) {
             header(snapshot)
             focusList(snapshot)
             Spacer()
@@ -91,12 +91,12 @@ struct SmallHomeWidgetView: View {
     }
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Focuses")
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
-                HStack(spacing: 6) {
+                HStack(spacing: 8) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
                         .imageScale(.small)
                         .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
