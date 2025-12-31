@@ -10,6 +10,10 @@ struct TenXApp: App {
 
     @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
 
+    init() {
+        UIKitAppearance.apply()
+    }
+
     var body: some Scene {
         WindowGroup {
             rootView
