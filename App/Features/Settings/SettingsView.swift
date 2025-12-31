@@ -6,6 +6,7 @@ struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var theme: ThemeController
+    @Environment(\.colorScheme) private var systemScheme
 
     @AppStorage(UserDefaultsKeys.notificationHour) private var notificationHour = AppConstants.defaultNotificationHour
     @AppStorage(UserDefaultsKeys.notificationMinute) private var notificationMinute = AppConstants.defaultNotificationMinute
@@ -87,7 +88,7 @@ struct SettingsView: View {
                 Picker("Mode", selection: Binding(get: {
                     theme.appearanceMode
                 }, set: { mode in
-                    theme.setAppearanceMode(mode)
+                    theme.setAppearanceMode(mode, systemScheme: systemScheme)
                 })) {
                     ForEach(AppearanceMode.allCases) { mode in
                         Text(mode.label).tag(mode)

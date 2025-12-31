@@ -5,6 +5,7 @@ struct SettingsSheetView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var theme: ThemeController
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) private var systemScheme
     @StateObject private var viewModel = SettingsViewModel()
 
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -26,7 +27,7 @@ struct SettingsSheetView: View {
                     Picker("Appearance", selection: Binding(get: {
                         theme.appearanceMode
                     }, set: { mode in
-                        theme.setAppearanceMode(mode)
+                        theme.setAppearanceMode(mode, systemScheme: systemScheme)
                     })) {
                         ForEach(AppearanceMode.allCases) { mode in
                             Text(mode.label).tag(mode)
