@@ -57,5 +57,4 @@ struct NewFocusRow: View {
         tag = nil
         isFocused = false
     }
-
 }

@@ -4,6 +4,7 @@
 # Paths to ignore
 excluded:
   - .build
+  - build
   - TenX.xcodeproj
   - TenXShared/.build
   - DerivedData

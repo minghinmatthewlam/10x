@@ -31,16 +31,15 @@ struct DailySetupView: View {
                             FocusInputRow(
                                 draft: $viewModel.drafts[index],
                                 placeholder: placeholder(for: index),
-                                isFocused: focusedField == index,
-                                onRequestBlur: {
-                                    focusedField = nil
-                                }
-                            )
+                                isFocused: focusedField == index
+                            ) {
+                                focusedField = nil
+                            }
                             .focused($focusedField, equals: index)
                         }
                     }
 
-                        Spacer(minLength: 32)
+                    Spacer(minLength: 32)
 
                     Button("Begin") {
                         startDay()
@@ -50,25 +49,25 @@ struct DailySetupView: View {
                     .opacity(viewModel.hasValidFocus ? 1 : 0.4)
                     .disabled(!viewModel.hasValidFocus)
                 }
-            .padding(.horizontal, 28)
-            .padding(.top, 32)
-            .padding(.bottom, 48)
-        }
-        .background(AppColors.background)
-        .scrollDismissesKeyboard(.interactively)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    dismiss()
-                } label: {
+                .padding(.horizontal, 28)
+                .padding(.top, 32)
+                .padding(.bottom, 48)
+            }
+            .background(AppColors.background)
+            .scrollDismissesKeyboard(.interactively)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        dismiss()
+                    } label: {
                         Image(systemName: "xmark")
                             .font(.tenxIconButton)
                             .foregroundStyle(AppColors.textSecondary)
                     }
+                }
             }
+            .toolbarBackground(AppColors.background, for: .navigationBar)
         }
-        .toolbarBackground(AppColors.background, for: .navigationBar)
-    }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil
         }, set: { isPresented in
@@ -100,5 +99,4 @@ struct DailySetupView: View {
             dismiss()
         }
     }
-
 }

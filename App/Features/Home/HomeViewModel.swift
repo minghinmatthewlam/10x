@@ -17,5 +17,4 @@ final class HomeViewModel: ObservableObject {
         weeklySummary = WeeklySummary.make(todayKey: todayKey, entries: entries)
         weeklyProgressDays = WeeklyProgressDay.makeWeek(todayKey: todayKey, entries: entries)
     }
-
 }

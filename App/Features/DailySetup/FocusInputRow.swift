@@ -58,5 +58,4 @@ struct FocusInputRow: View {
                 )
         )
     }
-
 }

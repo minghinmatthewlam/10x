@@ -16,24 +16,36 @@ enum ModelContainerFactory {
                 groupContainer = .none
             }
 
-            let config = ModelConfiguration(schema: schema,
-                                            isStoredInMemoryOnly: inMemory,
-                                            groupContainer: groupContainer)
+            let config = ModelConfiguration(
+                schema: schema,
+                isStoredInMemoryOnly: inMemory,
+                groupContainer: groupContainer
+            )
 
-            return try ModelContainer(for: schema,
-                                      configurations: [config])
+            return try ModelContainer(
+                for: schema,
+                configurations: [config]
+            )
         } catch {
             do {
-                let fallbackConfig = ModelConfiguration(schema: schema,
-                                                       isStoredInMemoryOnly: inMemory)
-                return try ModelContainer(for: schema,
-                                          configurations: [fallbackConfig])
+                let fallbackConfig = ModelConfiguration(
+                    schema: schema,
+                    isStoredInMemoryOnly: inMemory
+                )
+                return try ModelContainer(
+                    for: schema,
+                    configurations: [fallbackConfig]
+                )
             } catch {
-                let memoryConfig = ModelConfiguration(schema: schema,
-                                                      isStoredInMemoryOnly: true)
+                let memoryConfig = ModelConfiguration(
+                    schema: schema,
+                    isStoredInMemoryOnly: true
+                )
                 do {
-                    return try ModelContainer(for: schema,
-                                              configurations: [memoryConfig])
+                    return try ModelContainer(
+                        for: schema,
+                        configurations: [memoryConfig]
+                    )
                 } catch {
                     fatalError("Failed to create SwiftData container: \(error)")
                 }

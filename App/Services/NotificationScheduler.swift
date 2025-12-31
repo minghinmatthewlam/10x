@@ -141,6 +141,4 @@ final class NotificationScheduler {
         content.sound = nil
         return content
     }
-
-    
 }

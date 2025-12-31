@@ -55,7 +55,7 @@ private struct TimePickerSheet: View {
         _hour = hour
         _minute = minute
         let initialHour = hour.wrappedValue
-        let adjustedHour = initialHour % 12 == 0 ? 12 : initialHour % 12
+        let adjustedHour = initialHour.isMultiple(of: 12) ? 12 : initialHour % 12
         _selectedHour = State(initialValue: adjustedHour)
         _selectedMinute = State(initialValue: minute.wrappedValue)
         _isAM = State(initialValue: initialHour < 12)

@@ -144,9 +144,6 @@ struct HomeWidgetView: View {
                 .lineLimit(2)
         }
     }
-
-    
-
     private var defaultURL: URL? {
         guard let snapshot else { return DeepLinks.url(for: .home) }
         switch snapshot.state {

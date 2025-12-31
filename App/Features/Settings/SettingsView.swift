@@ -146,5 +146,4 @@ struct SettingsView: View {
         let time = formatter.string(from: date)
         return "Weekly review reminder: \(weekday)s at \(time)"
     }
-
 }

@@ -103,5 +103,4 @@ struct FocusInlineEditRow: View {
             onTitleCommit(trimmed)
         }
     }
-
 }

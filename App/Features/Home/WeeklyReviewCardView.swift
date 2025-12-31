@@ -30,5 +30,4 @@ struct WeeklyReviewCardView: View {
         guard summary.total > 0 else { return 0 }
         return Int((Double(summary.completed) / Double(summary.total)) * 100)
     }
-
 }

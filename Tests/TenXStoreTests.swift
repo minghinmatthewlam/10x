@@ -49,7 +49,7 @@ final class TenXStoreTests: XCTestCase {
         ]
 
         try store.createDayEntry(todayKey: yesterdayKey, drafts: drafts)
-        let yesterday = try store.fetchDayEntry(dayKey: yesterdayKey)!
+        let yesterday = try XCTUnwrap(store.fetchDayEntry(dayKey: yesterdayKey))
         if let first = yesterday.sortedFocuses.first {
             try store.toggleCompletion(first)
         }

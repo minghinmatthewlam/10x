@@ -129,12 +129,9 @@ struct HomeView: View {
                     }
 
                     if todayEntry.focuses.count < AppConstants.dailyFocusMax {
-                        NewFocusRow(
-                            placeholder: placeholder(for: todayEntry.focuses.count),
-                            onAdd: { title, tag in
-                                addFocus(to: todayEntry, title: title, tag: tag)
-                            }
-                        )
+                        NewFocusRow(placeholder: placeholder(for: todayEntry.focuses.count)) { title, tag in
+                            addFocus(to: todayEntry, title: title, tag: tag)
+                        }
                     }
                 }
             } else {
@@ -144,11 +141,10 @@ struct HomeView: View {
                             draft: $focusDraftsViewModel.drafts[index],
                             placeholder: placeholder(for: index),
                             isFocused: focusedDraftIndex == index,
-                            onCommit: handleDraftCommit,
-                            onRequestBlur: {
-                                focusedDraftIndex = nil
-                            }
-                        )
+                            onCommit: handleDraftCommit
+                        ) {
+                            focusedDraftIndex = nil
+                        }
                         .focused($focusedDraftIndex, equals: index)
                     }
                 }
@@ -243,7 +239,6 @@ struct HomeView: View {
         guard focusDraftsViewModel.hasValidFocus else { return }
         createEntry()
     }
-
 
     private func placeholder(for index: Int) -> String {
         switch index {
