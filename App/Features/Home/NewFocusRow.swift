@@ -9,49 +9,33 @@ struct NewFocusRow: View {
     @State private var tag: FocusTag?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 12) {
-                TextField(placeholder, text: $title, axis: .vertical)
-                    .font(.tenxLargeBody)
-                    .foregroundStyle(AppColors.textPrimary)
-                    .textInputAutocapitalization(.sentences)
-                    .lineLimit(1...3)
-                    .focused($isFocused)
-                    .onSubmit { commitIfNeeded() }
-                    .onChange(of: isFocused) { _, focused in
-                        if !focused {
-                            commitIfNeeded()
-                        }
-                    }
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()
-                            Button("Done") {
-                                commitIfNeeded()
-                                isFocused = false
-                            }
-                        }
-                    }
-
-                Button {
+        HStack(spacing: 12) {
+            TextField(placeholder, text: $title)
+                .font(.tenxLargeBody)
+                .foregroundStyle(AppColors.textPrimary)
+                .textInputAutocapitalization(.sentences)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .submitLabel(.done)
+                .focused($isFocused)
+                .onSubmit {
                     commitIfNeeded()
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.tenxIconMedium)
-                        .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                    isFocused = false
                 }
-                .buttonStyle(.plain)
-                .disabled(!canCommit)
-                .accessibilityLabel("Add focus")
-            }
+                .onChange(of: isFocused) { _, focused in
+                    if !focused {
+                        commitIfNeeded()
+                    }
+                }
+                .layoutPriority(1)
 
-            HStack {
-                Spacer()
-                FocusTagPickerView(tag: $tag)
-            }
+            Spacer(minLength: 8)
+
+            FocusTagPickerView(tag: $tag)
+                .fixedSize(horizontal: true, vertical: false)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 18)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(AppColors.surface)
@@ -71,10 +55,7 @@ struct NewFocusRow: View {
         onAdd(safeTitle, tag)
         title = ""
         tag = nil
-        isFocused = true
+        isFocused = false
     }
 
-    private var canCommit: Bool {
-        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
 }

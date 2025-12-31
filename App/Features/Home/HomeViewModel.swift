@@ -11,7 +11,7 @@ final class HomeViewModel: ObservableObject {
 
     func load(store: TenXStore, todayKey: String) {
         todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
-        unfinishedDrafts = (try? store.carryoverDraftsIfNeeded(todayKey: todayKey)) ?? []
+        unfinishedDrafts = []
         let entries = (try? store.fetchRecentDayEntries()) ?? []
         streak = StreakEngine.currentStreak(todayKey: todayKey, entries: entries)
         weeklySummary = WeeklySummary.make(todayKey: todayKey, entries: entries)

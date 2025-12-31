@@ -24,11 +24,14 @@ struct FocusEditView: View {
                     .font(.tenxTitle)
                     .foregroundStyle(AppColors.textPrimary)
 
-                TextField("What matters most?", text: $title, axis: .vertical)
+                TextField("What matters most?", text: $title)
                     .font(.tenxLargeBody)
                     .foregroundStyle(AppColors.textPrimary)
                     .textInputAutocapitalization(.sentences)
-                    .lineLimit(1...4)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        save()
+                    }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 18)
                     .background(

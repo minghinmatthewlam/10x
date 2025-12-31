@@ -5,54 +5,47 @@ struct FocusInputRow: View {
     let placeholder: String
     let isFocused: Bool
     let onCommit: (() -> Void)?
+    let onRequestBlur: (() -> Void)?
 
     init(draft: Binding<TenXStore.FocusDraft>,
          placeholder: String,
          isFocused: Bool,
-         onCommit: (() -> Void)? = nil) {
+         onCommit: (() -> Void)? = nil,
+         onRequestBlur: (() -> Void)? = nil) {
         _draft = draft
         self.placeholder = placeholder
         self.isFocused = isFocused
         self.onCommit = onCommit
+        self.onRequestBlur = onRequestBlur
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .top, spacing: 12) {
-                TextField(placeholder, text: $draft.title, axis: .vertical)
-                    .font(.tenxLargeBody)
-                    .foregroundStyle(AppColors.textPrimary)
-                    .textInputAutocapitalization(.sentences)
-                    .lineLimit(1...3)
-                    .onSubmit {
-                        onCommit?()
-                    }
-                    .onChange(of: isFocused) { _, focused in
-                        if !focused {
-                            onCommit?()
-                        }
-                    }
-                if onCommit != nil {
-                    Button {
-                        onCommit?()
-                    } label: {
-                        Image(systemName: "checkmark.circle.fill")
-                            .font(.tenxIconMedium)
-                            .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(!canCommit)
-                    .accessibilityLabel("Save focus")
+        HStack(spacing: 12) {
+            TextField(placeholder, text: $draft.title)
+                .font(.tenxLargeBody)
+                .foregroundStyle(AppColors.textPrimary)
+                .textInputAutocapitalization(.sentences)
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .submitLabel(.done)
+                .onSubmit {
+                    onCommit?()
+                    onRequestBlur?()
                 }
-            }
+                .onChange(of: isFocused) { _, focused in
+                    if !focused {
+                        onCommit?()
+                    }
+                }
+                .layoutPriority(1)
 
-            HStack {
-                Spacer()
-                FocusTagPickerView(tag: $draft.tag)
-            }
+            Spacer(minLength: 8)
+
+            FocusTagPickerView(tag: $draft.tag)
+                .fixedSize(horizontal: true, vertical: false)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 18)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(AppColors.surface)
@@ -66,7 +59,4 @@ struct FocusInputRow: View {
         )
     }
 
-    private var canCommit: Bool {
-        !draft.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
 }

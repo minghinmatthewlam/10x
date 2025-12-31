@@ -79,15 +79,6 @@ struct HomeView: View {
         } message: {
             Text(errorMessage)
         }
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("Done") {
-                    handleDraftCommit()
-                    focusedDraftIndex = nil
-                }
-            }
-        }
     }
 
     private var headerView: some View {
@@ -147,27 +138,16 @@ struct HomeView: View {
                     }
                 }
             } else {
-                if !viewModel.unfinishedDrafts.isEmpty {
-                    IncompleteDayPromptView(
-                        unfinished: viewModel.unfinishedDrafts,
-                        onContinue: {
-                            focusDraftsViewModel.applyDrafts(viewModel.unfinishedDrafts)
-                            focusedDraftIndex = 0
-                        },
-                        onFreshStart: {
-                            focusDraftsViewModel.applyDrafts([])
-                            focusedDraftIndex = 0
-                        }
-                    )
-                }
-
                 VStack(spacing: 16) {
                     ForEach(Array(focusDraftsViewModel.drafts.enumerated()), id: \.offset) { index, _ in
                         FocusInputRow(
                             draft: $focusDraftsViewModel.drafts[index],
                             placeholder: placeholder(for: index),
                             isFocused: focusedDraftIndex == index,
-                            onCommit: handleDraftCommit
+                            onCommit: handleDraftCommit,
+                            onRequestBlur: {
+                                focusedDraftIndex = nil
+                            }
                         )
                         .focused($focusedDraftIndex, equals: index)
                     }
@@ -263,6 +243,7 @@ struct HomeView: View {
         guard focusDraftsViewModel.hasValidFocus else { return }
         createEntry()
     }
+
 
     private func placeholder(for index: Int) -> String {
         switch index {

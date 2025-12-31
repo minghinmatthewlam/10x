@@ -31,7 +31,10 @@ struct DailySetupView: View {
                             FocusInputRow(
                                 draft: $viewModel.drafts[index],
                                 placeholder: placeholder(for: index),
-                                isFocused: focusedField == index
+                                isFocused: focusedField == index,
+                                onRequestBlur: {
+                                    focusedField = nil
+                                }
                             )
                             .focused($focusedField, equals: index)
                         }
@@ -62,12 +65,6 @@ struct DailySetupView: View {
                             .font(.tenxIconButton)
                             .foregroundStyle(AppColors.textSecondary)
                     }
-            }
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("Done") {
-                    focusedField = nil
-                }
             }
         }
         .toolbarBackground(AppColors.background, for: .navigationBar)
@@ -103,4 +100,5 @@ struct DailySetupView: View {
             dismiss()
         }
     }
+
 }
