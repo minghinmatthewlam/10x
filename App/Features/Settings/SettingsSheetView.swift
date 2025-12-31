@@ -4,6 +4,7 @@ struct SettingsSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var appState: AppState
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.colorScheme) private var systemColorScheme
     @StateObject private var viewModel = SettingsViewModel()
 
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -15,6 +16,11 @@ struct SettingsSheetView: View {
 
     var body: some View {
         sheetContent
+            .preferredColorScheme(effectiveColorScheme)
+    }
+
+    private var effectiveColorScheme: ColorScheme {
+        AppAppearance.colorScheme(for: appearanceMode) ?? systemColorScheme
     }
 
     private var sheetContent: some View {
