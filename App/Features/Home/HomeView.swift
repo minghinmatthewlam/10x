@@ -5,6 +5,8 @@ import UIKit
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var theme: ThemeController
+    @Environment(\.colorScheme) private var systemScheme
     @StateObject private var viewModel = HomeViewModel()
     @StateObject private var focusDraftsViewModel = HomeFocusDraftsViewModel()
     @State private var timeChangeListener: SignificantTimeChangeListener?
@@ -60,6 +62,7 @@ struct HomeView: View {
             SettingsSheetView()
                 .presentationDetents([.fraction(0.85)])
                 .presentationDragIndicator(.visible)
+                .preferredColorScheme(theme.preferredColorScheme ?? systemScheme)
         }
         .alert("Oops", isPresented: Binding(get: {
             viewModel.errorMessage != nil || focusDraftsViewModel.errorMessage != nil

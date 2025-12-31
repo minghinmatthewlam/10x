@@ -5,7 +5,6 @@ struct SettingsSheetView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var theme: ThemeController
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.colorScheme) private var systemScheme
     @StateObject private var viewModel = SettingsViewModel()
 
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -15,7 +14,6 @@ struct SettingsSheetView: View {
     @AppStorage(UserDefaultsKeys.eveningReminderEnabled) private var eveningReminderEnabled = AppConstants.defaultEveningReminderEnabled
     var body: some View {
         sheetContent
-            .tenxTheme()
     }
 
     private var sheetContent: some View {
@@ -100,7 +98,6 @@ struct SettingsSheetView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
-        .id(sheetIdentity)
         .background(AppColors.background)
         .onAppear {
             viewModel.refreshStatus()
@@ -175,7 +172,4 @@ struct SettingsSheetView: View {
         return "Weekly review reminder: \(weekday)s at \(time)"
     }
 
-    private var sheetIdentity: String {
-        "\(theme.appearanceMode.rawValue)-\(systemScheme == .dark ? "dark" : "light")"
-    }
 }
