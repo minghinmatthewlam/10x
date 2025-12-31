@@ -14,11 +14,7 @@ struct SettingsSheetView: View {
     @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
 
     var body: some View {
-        if let scheme = AppAppearance.colorScheme(for: appearanceMode) {
-            sheetContent.preferredColorScheme(scheme)
-        } else {
-            sheetContent
-        }
+        sheetContent
     }
 
     private var sheetContent: some View {

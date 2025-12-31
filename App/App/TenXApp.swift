@@ -16,9 +16,8 @@ struct TenXApp: App {
         }
     }
 
-    @ViewBuilder
     private var rootView: some View {
-        let baseView = ThemedRootView()
+        ThemedRootView()
             .environmentObject(appState)
             .modelContainer(container)
             .onOpenURL { url in
@@ -30,11 +29,7 @@ struct TenXApp: App {
             .onChange(of: appearanceMode) { _, _ in
                 syncAppearanceMode()
             }
-        if let scheme = AppAppearance.colorScheme(for: appearanceMode) {
-            baseView.preferredColorScheme(scheme)
-        } else {
-            baseView
-        }
+            .preferredColorScheme(AppAppearance.colorScheme(for: appearanceMode))
     }
 
     private func syncAppearanceMode() {
