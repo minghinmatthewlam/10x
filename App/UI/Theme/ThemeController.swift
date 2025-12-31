@@ -4,18 +4,22 @@ import TenXShared
 
 @MainActor
 final class ThemeController: ObservableObject {
-    @AppStorage(UserDefaultsKeys.appearanceMode) private var storedMode = AppearanceMode.system.rawValue
+    private static let appearanceKey = UserDefaultsKeys.appearanceMode
     @Published private(set) var appearanceMode: AppearanceMode
 
     init() {
-        appearanceMode = AppearanceMode(rawValue: storedMode) ?? .system
+        let storedValue = Self.loadStoredMode()
+        appearanceMode = AppearanceMode(rawValue: storedValue) ?? .system
+        if storedValue != appearanceMode.rawValue {
+            Self.storeMode(appearanceMode.rawValue)
+        }
         sync()
     }
 
     func setAppearanceMode(_ mode: AppearanceMode) {
         guard mode != appearanceMode else { return }
         appearanceMode = mode
-        storedMode = mode.rawValue
+        Self.storeMode(mode.rawValue)
         sync()
     }
 
@@ -28,7 +32,15 @@ final class ThemeController: ObservableObject {
     }
 
     private func sync() {
-        AppearanceModeStore.updateSharedMode(storedMode)
+        AppearanceModeStore.updateSharedMode(appearanceMode.rawValue)
         WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
+    }
+
+    private static func loadStoredMode() -> String {
+        UserDefaults.standard.string(forKey: appearanceKey) ?? AppearanceMode.system.rawValue
+    }
+
+    private static func storeMode(_ value: String) {
+        UserDefaults.standard.set(value, forKey: appearanceKey)
     }
 }
