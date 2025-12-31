@@ -44,30 +44,44 @@ struct FocusInlineEditRow: View {
             .buttonStyle(.plain)
 
             VStack(alignment: .leading, spacing: 10) {
-                TextField("Focus", text: $title, axis: .vertical)
-                    .font(.tenxLargeBody)
-                    .foregroundStyle(focus.isCompleted ? AppColors.textSecondary : AppColors.textPrimary)
-                    .strikethrough(focus.isCompleted, color: AppColors.textSecondary)
-                    .textInputAutocapitalization(.sentences)
-                    .lineLimit(1...3)
-                    .focused($isFocused)
-                    .onSubmit(commitIfNeeded)
-                    .onChange(of: isFocused) { _, focused in
-                        if !focused {
-                            commitIfNeeded()
+                HStack(alignment: .top, spacing: 12) {
+                    TextField("Focus", text: $title, axis: .vertical)
+                        .font(.tenxLargeBody)
+                        .foregroundStyle(focus.isCompleted ? AppColors.textSecondary : AppColors.textPrimary)
+                        .strikethrough(focus.isCompleted, color: AppColors.textSecondary)
+                        .textInputAutocapitalization(.sentences)
+                        .lineLimit(1...3)
+                        .focused($isFocused)
+                        .onSubmit(commitIfNeeded)
+                        .onChange(of: isFocused) { _, focused in
+                            if !focused {
+                                commitIfNeeded()
+                            }
                         }
-                    }
-                    .onChange(of: focus.title) { _, newValue in
-                        if !isFocused {
-                            title = newValue
+                        .onChange(of: focus.title) { _, newValue in
+                            if !isFocused {
+                                title = newValue
+                            }
                         }
-                    }
 
-                FocusTagPickerView(tag: Binding(get: {
-                    focus.tag
-                }, set: { newTag in
-                    onTagChange(newTag)
-                }))
+                    Button(action: commitIfNeeded) {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.tenxIconMedium)
+                            .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(!canCommit)
+                    .accessibilityLabel("Save focus")
+                }
+
+                HStack {
+                    Spacer()
+                    FocusTagPickerView(tag: Binding(get: {
+                        focus.tag
+                    }, set: { newTag in
+                        onTagChange(newTag)
+                    }))
+                }
             }
         }
         .padding(.horizontal, 20)
@@ -95,5 +109,10 @@ struct FocusInlineEditRow: View {
         if trimmed != focus.title {
             onTitleCommit(trimmed)
         }
+    }
+
+    private var canCommit: Bool {
+        let trimmed = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !trimmed.isEmpty && trimmed != focus.title
     }
 }

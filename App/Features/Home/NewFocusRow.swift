@@ -10,20 +10,36 @@ struct NewFocusRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            TextField(placeholder, text: $title, axis: .vertical)
-                .font(.tenxLargeBody)
-                .foregroundStyle(AppColors.textPrimary)
-                .textInputAutocapitalization(.sentences)
-                .lineLimit(1...3)
-                .focused($isFocused)
-                .onSubmit { commitIfNeeded() }
-                .onChange(of: isFocused) { _, focused in
-                    if !focused {
-                        commitIfNeeded()
+            HStack(alignment: .top, spacing: 12) {
+                TextField(placeholder, text: $title, axis: .vertical)
+                    .font(.tenxLargeBody)
+                    .foregroundStyle(AppColors.textPrimary)
+                    .textInputAutocapitalization(.sentences)
+                    .lineLimit(1...3)
+                    .focused($isFocused)
+                    .onSubmit { commitIfNeeded() }
+                    .onChange(of: isFocused) { _, focused in
+                        if !focused {
+                            commitIfNeeded()
+                        }
                     }
-                }
 
-            FocusTagPickerView(tag: $tag)
+                Button {
+                    commitIfNeeded()
+                } label: {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.tenxIconMedium)
+                        .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                }
+                .buttonStyle(.plain)
+                .disabled(!canCommit)
+                .accessibilityLabel("Add focus")
+            }
+
+            HStack {
+                Spacer()
+                FocusTagPickerView(tag: $tag)
+            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 18)
@@ -47,5 +63,9 @@ struct NewFocusRow: View {
         title = ""
         tag = nil
         isFocused = true
+    }
+
+    private var canCommit: Bool {
+        !title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }

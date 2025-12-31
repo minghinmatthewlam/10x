@@ -18,21 +18,37 @@ struct FocusInputRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            TextField(placeholder, text: $draft.title, axis: .vertical)
-                .font(.tenxLargeBody)
-                .foregroundStyle(AppColors.textPrimary)
-                .textInputAutocapitalization(.sentences)
-                .lineLimit(1...3)
-                .onSubmit {
-                    onCommit?()
-                }
-                .onChange(of: isFocused) { _, focused in
-                    if !focused {
+            HStack(alignment: .top, spacing: 12) {
+                TextField(placeholder, text: $draft.title, axis: .vertical)
+                    .font(.tenxLargeBody)
+                    .foregroundStyle(AppColors.textPrimary)
+                    .textInputAutocapitalization(.sentences)
+                    .lineLimit(1...3)
+                    .onSubmit {
                         onCommit?()
                     }
-                }
+                    .onChange(of: isFocused) { _, focused in
+                        if !focused {
+                            onCommit?()
+                        }
+                    }
 
-            FocusTagPickerView(tag: $draft.tag)
+                Button {
+                    onCommit?()
+                } label: {
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.tenxIconMedium)
+                        .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                }
+                .buttonStyle(.plain)
+                .disabled(!canCommit)
+                .accessibilityLabel("Save focus")
+            }
+
+            HStack {
+                Spacer()
+                FocusTagPickerView(tag: $draft.tag)
+            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 18)
@@ -47,5 +63,9 @@ struct FocusInputRow: View {
                         )
                 )
         )
+    }
+
+    private var canCommit: Bool {
+        !draft.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
