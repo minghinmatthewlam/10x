@@ -23,6 +23,15 @@ struct NewFocusRow: View {
                             commitIfNeeded()
                         }
                     }
+                    .toolbar {
+                        ToolbarItemGroup(placement: .keyboard) {
+                            Spacer()
+                            Button("Done") {
+                                commitIfNeeded()
+                                isFocused = false
+                            }
+                        }
+                    }
 
                 Button {
                     commitIfNeeded()

@@ -63,6 +63,15 @@ struct FocusInlineEditRow: View {
                                 title = newValue
                             }
                         }
+                        .toolbar {
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()
+                                Button("Done") {
+                                    commitIfNeeded()
+                                    isFocused = false
+                                }
+                            }
+                        }
 
                     Button(action: commitIfNeeded) {
                         Image(systemName: "checkmark.circle.fill")

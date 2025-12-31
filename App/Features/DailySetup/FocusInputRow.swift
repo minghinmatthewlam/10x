@@ -32,17 +32,18 @@ struct FocusInputRow: View {
                             onCommit?()
                         }
                     }
-
-                Button {
-                    onCommit?()
-                } label: {
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.tenxIconMedium)
-                        .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                if onCommit != nil {
+                    Button {
+                        onCommit?()
+                    } label: {
+                        Image(systemName: "checkmark.circle.fill")
+                            .font(.tenxIconMedium)
+                            .foregroundStyle(canCommit ? AppColors.accent : AppColors.textMuted)
+                    }
+                    .buttonStyle(.plain)
+                    .disabled(!canCommit)
+                    .accessibilityLabel("Save focus")
                 }
-                .buttonStyle(.plain)
-                .disabled(!canCommit)
-                .accessibilityLabel("Save focus")
             }
 
             HStack {

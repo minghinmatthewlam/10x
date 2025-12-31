@@ -63,6 +63,12 @@ struct DailySetupView: View {
                             .foregroundStyle(AppColors.textSecondary)
                     }
             }
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    focusedField = nil
+                }
+            }
         }
         .toolbarBackground(AppColors.background, for: .navigationBar)
     }

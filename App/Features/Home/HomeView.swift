@@ -79,6 +79,15 @@ struct HomeView: View {
         } message: {
             Text(errorMessage)
         }
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("Done") {
+                    handleDraftCommit()
+                    focusedDraftIndex = nil
+                }
+            }
+        }
     }
 
     private var headerView: some View {
