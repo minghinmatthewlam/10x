@@ -6,9 +6,8 @@ import WidgetKit
 @main
 struct TenXApp: App {
     @StateObject private var appState = AppState()
+    @StateObject private var themeController = ThemeController()
     private let container = ModelContainerFactory.make()
-
-    @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
 
     init() {
         UIKitAppearance.apply()
@@ -23,21 +22,10 @@ struct TenXApp: App {
     private var rootView: some View {
         ThemedRootView()
             .environmentObject(appState)
+            .environmentObject(themeController)
             .modelContainer(container)
             .onOpenURL { url in
                 appState.handle(url: url)
             }
-            .onAppear {
-                syncAppearanceMode()
-            }
-            .onChange(of: appearanceMode) { _, _ in
-                syncAppearanceMode()
-            }
-            .preferredColorScheme(AppAppearance.colorScheme(for: appearanceMode))
-    }
-
-    private func syncAppearanceMode() {
-        AppearanceModeStore.updateSharedMode(appearanceMode)
-        WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
     }
 }
