@@ -16,12 +16,11 @@ final class ThemeController: ObservableObject {
         sync()
     }
 
-    func setAppearanceMode(_ mode: AppearanceMode, systemScheme: ColorScheme? = nil) {
+    func setAppearanceMode(_ mode: AppearanceMode) {
         guard mode != appearanceMode else { return }
         appearanceMode = mode
         Self.storeMode(mode.rawValue)
         sync()
-        AppIconManager.apply(for: mode, systemScheme: systemScheme)
     }
 
     var preferredColorScheme: ColorScheme? {

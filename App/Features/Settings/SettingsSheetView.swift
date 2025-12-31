@@ -27,7 +27,7 @@ struct SettingsSheetView: View {
                     Picker("Appearance", selection: Binding(get: {
                         theme.appearanceMode
                     }, set: { mode in
-                        theme.setAppearanceMode(mode, systemScheme: systemScheme)
+                        theme.setAppearanceMode(mode)
                     })) {
                         ForEach(AppearanceMode.allCases) { mode in
                             Text(mode.label).tag(mode)
