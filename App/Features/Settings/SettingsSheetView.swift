@@ -3,8 +3,8 @@ import SwiftUI
 struct SettingsSheetView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var appState: AppState
+    @EnvironmentObject private var theme: ThemeController
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.colorScheme) private var systemColorScheme
     @StateObject private var viewModel = SettingsViewModel()
 
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
@@ -12,15 +12,9 @@ struct SettingsSheetView: View {
     @AppStorage(UserDefaultsKeys.notificationMinute) private var notificationMinute = AppConstants.defaultNotificationMinute
     @AppStorage(UserDefaultsKeys.middayReminderEnabled) private var middayReminderEnabled = AppConstants.defaultMiddayReminderEnabled
     @AppStorage(UserDefaultsKeys.eveningReminderEnabled) private var eveningReminderEnabled = AppConstants.defaultEveningReminderEnabled
-    @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
-
     var body: some View {
         sheetContent
-            .preferredColorScheme(effectiveColorScheme)
-    }
-
-    private var effectiveColorScheme: ColorScheme {
-        AppAppearance.colorScheme(for: appearanceMode) ?? systemColorScheme
+            .tenxTheme()
     }
 
     private var sheetContent: some View {
@@ -29,9 +23,13 @@ struct SettingsSheetView: View {
                 header
 
                 settingsSection(title: "Appearance") {
-                    Picker("Appearance", selection: $appearanceMode) {
+                    Picker("Appearance", selection: Binding(get: {
+                        theme.appearanceMode
+                    }, set: { mode in
+                        theme.setAppearanceMode(mode)
+                    })) {
                         ForEach(AppearanceMode.allCases) { mode in
-                            Text(mode.label).tag(mode.rawValue)
+                            Text(mode.label).tag(mode)
                         }
                     }
                     .pickerStyle(.segmented)

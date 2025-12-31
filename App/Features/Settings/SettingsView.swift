@@ -5,12 +5,12 @@ import TenXShared
 struct SettingsView: View {
     @StateObject private var viewModel = SettingsViewModel()
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject private var theme: ThemeController
 
     @AppStorage(UserDefaultsKeys.notificationHour) private var notificationHour = AppConstants.defaultNotificationHour
     @AppStorage(UserDefaultsKeys.notificationMinute) private var notificationMinute = AppConstants.defaultNotificationMinute
     @AppStorage(UserDefaultsKeys.middayReminderEnabled) private var middayReminderEnabled = AppConstants.defaultMiddayReminderEnabled
     @AppStorage(UserDefaultsKeys.eveningReminderEnabled) private var eveningReminderEnabled = AppConstants.defaultEveningReminderEnabled
-    @AppStorage(UserDefaultsKeys.appearanceMode) private var appearanceMode = AppearanceMode.system.rawValue
 
     var body: some View {
         Form {
@@ -84,9 +84,13 @@ struct SettingsView: View {
             }
 
             Section {
-                Picker("Mode", selection: $appearanceMode) {
+                Picker("Mode", selection: Binding(get: {
+                    theme.appearanceMode
+                }, set: { mode in
+                    theme.setAppearanceMode(mode)
+                })) {
                     ForEach(AppearanceMode.allCases) { mode in
-                        Text(mode.label).tag(mode.rawValue)
+                        Text(mode.label).tag(mode)
                     }
                 }
                 .pickerStyle(.segmented)
