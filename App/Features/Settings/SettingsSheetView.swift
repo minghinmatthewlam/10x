@@ -46,11 +46,13 @@ struct SettingsSheetView: View {
                         }
 
                     Toggle("Midday check-in", isOn: $middayReminderEnabled)
+                        .font(.tenxBody)
                         .onChange(of: middayReminderEnabled) { _, _ in
                             scheduleNotifications()
                         }
 
                     Toggle("Evening reflection", isOn: $eveningReminderEnabled)
+                        .font(.tenxBody)
                         .onChange(of: eveningReminderEnabled) { _, _ in
                             scheduleNotifications()
                         }
