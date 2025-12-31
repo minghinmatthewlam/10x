@@ -98,7 +98,7 @@ struct SettingsSheetView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
-        .id(theme.appearanceMode)
+        .id(sheetIdentity)
         .background(AppColors.background)
         .onAppear {
             viewModel.refreshStatus()
@@ -171,5 +171,9 @@ struct SettingsSheetView: View {
         formatter.timeStyle = .short
         let time = formatter.string(from: date)
         return "Weekly review reminder: \(weekday)s at \(time)"
+    }
+
+    private var sheetIdentity: String {
+        "\(theme.appearanceMode.rawValue)-\(systemScheme == .dark ? "dark" : "light")"
     }
 }
