@@ -97,6 +97,7 @@ struct SettingsSheetView: View {
             .padding(.top, 20)
             .padding(.bottom, 40)
         }
+        .id(theme.appearanceMode)
         .background(AppColors.background)
         .onAppear {
             viewModel.refreshStatus()
