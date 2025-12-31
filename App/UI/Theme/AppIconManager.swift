@@ -23,6 +23,12 @@ enum AppIconManager {
     private static func setAlternateIconIfNeeded(_ name: String?) {
         guard UIApplication.shared.supportsAlternateIcons else { return }
         guard UIApplication.shared.alternateIconName != name else { return }
-        UIApplication.shared.setAlternateIconName(name)
+        UIApplication.shared.setAlternateIconName(name) { error in
+            if let error {
+                #if DEBUG
+                print("App icon change failed: \(error.localizedDescription)")
+                #endif
+            }
+        }
     }
 }

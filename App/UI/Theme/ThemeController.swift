@@ -14,7 +14,6 @@ final class ThemeController: ObservableObject {
             Self.storeMode(appearanceMode.rawValue)
         }
         sync()
-        AppIconManager.apply(for: appearanceMode)
     }
 
     func setAppearanceMode(_ mode: AppearanceMode, systemScheme: ColorScheme? = nil) {
@@ -31,11 +30,6 @@ final class ThemeController: ObservableObject {
 
     func resolvedColorScheme(system: ColorScheme) -> ColorScheme {
         preferredColorScheme ?? system
-    }
-
-    func handleSystemSchemeChange(_ scheme: ColorScheme) {
-        guard appearanceMode == .system else { return }
-        AppIconManager.apply(for: .system, systemScheme: scheme)
     }
 
     private func sync() {
