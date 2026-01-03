@@ -144,6 +144,27 @@ final class TenXStore {
         context.insert(focus)
         try context.save()
     }
+
+    func deleteFocus(_ focus: DailyFocus) throws {
+        let entry = focus.day
+        entry?.focuses.removeAll { $0 === focus }
+        context.delete(focus)
+
+        if let entry {
+            for (index, remaining) in entry.sortedFocuses.enumerated() {
+                remaining.sortOrder = index
+            }
+        }
+
+        try context.save()
+    }
+
+    func updateFocusOrder(_ focuses: [DailyFocus]) throws {
+        for (index, focus) in focuses.enumerated() {
+            focus.sortOrder = index
+        }
+        try context.save()
+    }
 }
 
 enum StoreError: Error, LocalizedError {

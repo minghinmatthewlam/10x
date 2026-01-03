@@ -20,6 +20,8 @@ struct YearProgressView: View {
 
             footer
         }
+        .contentShape(Rectangle())
+        .simultaneousGesture(yearSwipeGesture)
         .padding(.horizontal, 20)
         .padding(.top, 24)
         .padding(.bottom, 32)
@@ -57,8 +59,7 @@ struct YearProgressView: View {
             Menu {
                 ForEach(viewModel.availableYears, id: \.self) { year in
                     Button {
-                        let store = TenXStore(context: modelContext)
-                        viewModel.selectYear(year, store: store)
+                        selectYear(year)
                     } label: {
                         Text(verbatim: String(year))
                     }
@@ -160,7 +161,7 @@ struct YearProgressView: View {
         let incomplete = Color(red: 0.18, green: 0.38, blue: 0.78)
         let emptyToday = Color(red: 0.16, green: 0.27, blue: 0.48)
         let emptyPast = Color(red: 0.10, green: 0.18, blue: 0.32)
-        let future = Color(red: 0.06, green: 0.11, blue: 0.22)
+        let future = Color(red: 0.17, green: 0.17, blue: 0.18)
         switch status {
         case .success:
             return success
@@ -188,6 +189,31 @@ struct YearProgressView: View {
         case .future:
             return "future"
         }
+    }
+
+    private var yearSwipeGesture: some Gesture {
+        DragGesture(minimumDistance: 24, coordinateSpace: .local)
+            .onEnded { value in
+                guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                if value.translation.width < -60 {
+                    moveYear(by: -1)
+                } else if value.translation.width > 60 {
+                    moveYear(by: 1)
+                }
+            }
+    }
+
+    private func moveYear(by delta: Int) {
+        guard let currentIndex = viewModel.availableYears.firstIndex(of: viewModel.selectedYear) else { return }
+        let newIndex = currentIndex + delta
+        guard viewModel.availableYears.indices.contains(newIndex) else { return }
+        selectYear(viewModel.availableYears[newIndex])
+    }
+
+    private func selectYear(_ year: Int) {
+        selectedDayIndex = nil
+        let store = TenXStore(context: modelContext)
+        viewModel.selectYear(year, store: store)
     }
 }
 
@@ -237,6 +263,7 @@ private struct YearProgressDetailView: View {
         }
         .padding(24)
         .background(AppColors.background)
+        .simultaneousGesture(daySwipeGesture)
     }
 
     private var header: some View {
@@ -298,5 +325,17 @@ private struct YearProgressDetailView: View {
         guard let selectedIndex else { return }
         let newIndex = max(0, min(selectedIndex + delta, days.count - 1))
         self.selectedIndex = newIndex
+    }
+
+    private var daySwipeGesture: some Gesture {
+        DragGesture(minimumDistance: 24, coordinateSpace: .local)
+            .onEnded { value in
+                guard abs(value.translation.width) > abs(value.translation.height) else { return }
+                if value.translation.width < -60 {
+                    moveSelection(by: 1)
+                } else if value.translation.width > 60 {
+                    moveSelection(by: -1)
+                }
+            }
     }
 }
