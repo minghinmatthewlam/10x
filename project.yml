@@ -62,3 +62,20 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx.uitests
     dependencies:
       - target: TenX
+
+schemes:
+  TenX:
+    build:
+      targets:
+        TenX: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - TenXTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
