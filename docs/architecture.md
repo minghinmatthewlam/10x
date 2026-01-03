@@ -41,3 +41,23 @@
 
 - `TenXStore` throws validation errors for UI to surface via alerts.
 - UI surfaces errors via alerts (see `HomeView`, `DailySetupView`).
+
+## System flow (high level)
+
+```
+UI (SwiftUI Views)
+  ↓
+ViewModels (state + orchestration)
+  ↓
+TenXStore (validation + persistence API)
+  ↓
+SwiftData (DayEntry / DailyFocus)
+  ↓
+Local app storage on disk (App Group if available)
+```
+
+## Side systems
+
+- Notifications: scheduled from persisted focus data (`NotificationScheduler`).
+- Widgets: app writes snapshot JSON to App Group; widget reads snapshot for timelines.
+- Settings/theme: stored in UserDefaults and App Group defaults.
