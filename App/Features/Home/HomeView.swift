@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var shareItem: ShareItem?
     @FocusState private var focusedDraftIndex: Int?
     @State private var isCreatingEntry: Bool = false
+    @State private var showYearProgress = false
 
     var body: some View {
         let todayKey = DayKey.make()
@@ -20,7 +21,12 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 24) {
                 headerView
 
-                StreakCardView(streak: viewModel.streak)
+                Button {
+                    showYearProgress = true
+                } label: {
+                    StreakCardView(streak: viewModel.streak)
+                }
+                .buttonStyle(.plain)
 
                 if let todayEntry = viewModel.todayEntry, !todayEntry.focuses.isEmpty {
                     ProgressSummaryCardView(completed: todayEntry.completedCount, total: todayEntry.focuses.count)
@@ -62,6 +68,10 @@ struct HomeView: View {
             SettingsSheetView()
                 .presentationDetents([.fraction(0.85)])
                 .presentationDragIndicator(.visible)
+                .preferredColorScheme(theme.preferredColorScheme ?? systemScheme)
+        }
+        .fullScreenCover(isPresented: $showYearProgress) {
+            YearProgressView()
                 .preferredColorScheme(theme.preferredColorScheme ?? systemScheme)
         }
         .alert("Oops", isPresented: Binding(get: {

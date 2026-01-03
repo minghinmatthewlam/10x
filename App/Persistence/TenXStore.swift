@@ -29,6 +29,24 @@ final class TenXStore {
         return try context.fetch(descriptor)
     }
 
+    func fetchEntries(from startDayKey: String, to endDayKey: String) throws -> [DayEntry] {
+        let predicate = #Predicate<DayEntry> {
+            $0.dayKey >= startDayKey && $0.dayKey <= endDayKey
+        }
+        var descriptor = FetchDescriptor(predicate: predicate)
+        descriptor.sortBy = [SortDescriptor(\.dayKey)]
+        return try context.fetch(descriptor)
+    }
+
+    func fetchEntryYears() throws -> [Int] {
+        let entries = try context.fetch(FetchDescriptor<DayEntry>())
+        let calendar = Calendar.current
+        let years = entries.compactMap { entry in
+            DayKey.date(from: entry.dayKey).map { calendar.component(.year, from: $0) }
+        }
+        return Array(Set(years)).sorted()
+    }
+
     func carryoverDraftsIfNeeded(todayKey: String) throws -> [FocusDraft] {
         let yesterdayKey = DayKey.previous(dayKey: todayKey)
         guard let yesterday = try fetchDayEntry(dayKey: yesterdayKey) else { return [] }
