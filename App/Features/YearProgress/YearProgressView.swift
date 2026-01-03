@@ -50,14 +50,16 @@ struct YearProgressView: View {
 
             Menu {
                 ForEach(viewModel.availableYears, id: \.self) { year in
-                    Button("\(year)") {
+                    Button {
                         let store = TenXStore(context: modelContext)
                         viewModel.selectYear(year, store: store)
+                    } label: {
+                        Text(verbatim: String(year))
                     }
                 }
             } label: {
                 HStack(spacing: 6) {
-                    Text("\(viewModel.selectedYear)")
+                    Text(verbatim: String(viewModel.selectedYear))
                         .font(.tenxTitle)
                         .foregroundStyle(AppColors.textPrimary)
                     Image(systemName: "chevron.down")
@@ -75,28 +77,25 @@ struct YearProgressView: View {
 
     private var dotGrid: some View {
         GeometryReader { proxy in
-            let columns = 14
-            let spacing: CGFloat = 6
-            let totalSpacing = spacing * CGFloat(columns - 1)
-            let dotSize = max(4, (proxy.size.width - totalSpacing) / CGFloat(columns))
-            let gridItems = Array(repeating: GridItem(.fixed(dotSize), spacing: spacing), count: columns)
+            let spacing: CGFloat = 5
+            let layout = gridLayout(for: proxy.size, totalDays: viewModel.days.count, spacing: spacing)
+            let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacing), count: layout.columns)
 
-            ScrollView {
-                LazyVGrid(columns: gridItems, spacing: spacing) {
-                    ForEach(viewModel.days) { day in
-                        Button {
-                            selectedDay = day
-                        } label: {
-                            Circle()
-                                .fill(day.isComplete ? AppColors.accent : AppColors.surface)
-                                .frame(width: dotSize, height: dotSize)
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityLabel(dayAccessibilityLabel(for: day))
+            LazyVGrid(columns: gridItems, spacing: spacing) {
+                ForEach(viewModel.days) { day in
+                    Button {
+                        selectedDay = day
+                    } label: {
+                        Circle()
+                            .fill(day.isComplete ? AppColors.accent : AppColors.surface)
+                            .frame(width: layout.dotSize, height: layout.dotSize)
                     }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(dayAccessibilityLabel(for: day))
                 }
-                .padding(.vertical, 8)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.vertical, 8)
         }
         .frame(maxHeight: .infinity)
     }
@@ -114,6 +113,33 @@ struct YearProgressView: View {
         let dateString = formatter.string(from: day.date)
         let status = day.isComplete ? "completed" : "not completed"
         return "\(dateString), \(status)"
+    }
+
+    private func gridLayout(for size: CGSize, totalDays: Int, spacing: CGFloat) -> (columns: Int, dotSize: CGFloat) {
+        guard totalDays > 0 else { return (columns: 1, dotSize: 4) }
+
+        let minDotForColumns: CGFloat = 4
+        let maxDotForColumns: CGFloat = 12
+        let maxColumns = max(10, Int((size.width + spacing) / (minDotForColumns + spacing)))
+        let minColumns = max(10, min(maxColumns, Int((size.width + spacing) / (maxDotForColumns + spacing))))
+        let upperBound = max(minColumns, maxColumns)
+
+        var bestColumns = minColumns
+        var bestDotSize: CGFloat = 0
+
+        for columns in minColumns...upperBound {
+            let rows = Int(ceil(Double(totalDays) / Double(columns)))
+            let widthSize = (size.width - spacing * CGFloat(columns - 1)) / CGFloat(columns)
+            let heightSize = (size.height - spacing * CGFloat(rows - 1)) / CGFloat(rows)
+            let dotSize = min(widthSize, heightSize)
+            if dotSize > bestDotSize {
+                bestDotSize = dotSize
+                bestColumns = columns
+            }
+        }
+
+        let finalDot = max(2, floor(bestDotSize))
+        return (columns: bestColumns, dotSize: finalDot)
     }
 }
 
