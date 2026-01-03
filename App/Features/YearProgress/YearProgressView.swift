@@ -5,7 +5,7 @@ struct YearProgressView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: YearProgressViewModel
-    @State private var selectedDay: YearDayDot?
+    @State private var selectedDayIndex: Int?
 
     init(year: Int = Calendar.current.component(.year, from: .now)) {
         _viewModel = StateObject(wrappedValue: YearProgressViewModel(year: year))
@@ -27,8 +27,14 @@ struct YearProgressView: View {
         .onAppear {
             viewModel.load(store: store)
         }
-        .sheet(item: $selectedDay) { day in
-            YearProgressDetailView(day: day)
+        .sheet(isPresented: Binding(get: {
+            selectedDayIndex != nil
+        }, set: { isPresented in
+            if !isPresented {
+                selectedDayIndex = nil
+            }
+        })) {
+            YearProgressDetailView(days: viewModel.days, selectedIndex: $selectedDayIndex)
         }
     }
 
@@ -83,9 +89,9 @@ struct YearProgressView: View {
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
-                ForEach(viewModel.days) { day in
+                ForEach(Array(viewModel.days.enumerated()), id: \.element.id) { index, day in
                     Button {
-                        selectedDay = day
+                        selectedDayIndex = index
                     } label: {
                         Circle()
                             .fill(dotColor(for: day.status))
@@ -96,7 +102,6 @@ struct YearProgressView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.vertical, 8)
         }
         .frame(maxHeight: .infinity)
     }
@@ -123,31 +128,50 @@ struct YearProgressView: View {
     ) -> (columns: Int, dotSize: CGFloat, spacingY: CGFloat) {
         guard totalDays > 0 else { return (columns: 1, dotSize: 4, spacingY: spacingYMin) }
 
-        let columns = 14
-        let rows = Int(ceil(Double(totalDays) / Double(columns)))
-        let widthDot = (size.width - spacingX * CGFloat(columns - 1)) / CGFloat(columns)
-        let heightDot = (size.height - spacingYMin * CGFloat(max(rows - 1, 0))) / CGFloat(rows)
-        let dotSize = max(2, floor(min(widthDot, heightDot)))
+        let minColumns = 10
+        let maxColumns = 20
+        var bestColumns = minColumns
+        var bestDotSize: CGFloat = 0
+        var bestSpacingY: CGFloat = spacingYMin
 
-        let totalDotHeight = CGFloat(rows) * dotSize
-        let availableSpacing = max(0, size.height - totalDotHeight)
-        let spacingY = rows > 1 ? max(spacingYMin, availableSpacing / CGFloat(rows - 1)) : 0
+        for columns in minColumns...maxColumns {
+            let rows = Int(ceil(Double(totalDays) / Double(columns)))
+            guard rows > 0 else { continue }
+            let widthDot = (size.width - spacingX * CGFloat(columns - 1)) / CGFloat(columns)
+            let heightDot = (size.height - spacingYMin * CGFloat(rows - 1)) / CGFloat(rows)
+            let rawDot = min(widthDot, heightDot)
+            let dotSize = max(2, floor(rawDot))
+            let totalDotHeight = CGFloat(rows) * dotSize
+            let availableSpacing = max(0, size.height - totalDotHeight)
+            let spacingY = rows > 1 ? max(spacingYMin, availableSpacing / CGFloat(rows - 1)) : 0
 
-        return (columns: columns, dotSize: dotSize, spacingY: spacingY)
+            if dotSize > bestDotSize {
+                bestDotSize = dotSize
+                bestColumns = columns
+                bestSpacingY = spacingY
+            }
+        }
+
+        return (columns: bestColumns, dotSize: bestDotSize, spacingY: bestSpacingY)
     }
 
     private func dotColor(for status: YearDayStatus) -> Color {
+        let success = Color(red: 0.22, green: 0.53, blue: 0.98)
+        let incomplete = Color(red: 0.18, green: 0.38, blue: 0.78)
+        let emptyToday = Color(red: 0.16, green: 0.27, blue: 0.48)
+        let emptyPast = Color(red: 0.10, green: 0.18, blue: 0.32)
+        let future = Color(red: 0.06, green: 0.11, blue: 0.22)
         switch status {
         case .success:
-            return AppColors.complete
+            return success
         case .incomplete:
-            return AppColors.accent.opacity(0.7)
+            return incomplete
         case .emptyToday:
-            return AppColors.textSecondary
+            return emptyToday
         case .emptyPast:
-            return AppColors.textMuted
+            return emptyPast
         case .future:
-            return AppColors.surface
+            return future
         }
     }
 
@@ -168,13 +192,12 @@ struct YearProgressView: View {
 }
 
 private struct YearProgressDetailView: View {
-    let day: YearDayDot
+    let days: [YearDayDot]
+    @Binding var selectedIndex: Int?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(formattedDate)
-                .font(.tenxTitle)
-                .foregroundStyle(AppColors.textPrimary)
+            header
 
             if let entry = day.entry {
                 VStack(alignment: .leading, spacing: 12) {
@@ -216,9 +239,64 @@ private struct YearProgressDetailView: View {
         .background(AppColors.background)
     }
 
+    private var header: some View {
+        HStack {
+            Button {
+                moveSelection(by: -1)
+            } label: {
+                Image(systemName: "chevron.left")
+                    .font(.tenxIconMedium)
+                    .foregroundStyle(AppColors.textSecondary)
+            }
+            .buttonStyle(.plain)
+            .disabled(!canMoveBackward)
+            .opacity(canMoveBackward ? 1 : 0.3)
+
+            Spacer()
+
+            Text(formattedDate)
+                .font(.tenxTitle)
+                .foregroundStyle(AppColors.textPrimary)
+
+            Spacer()
+
+            Button {
+                moveSelection(by: 1)
+            } label: {
+                Image(systemName: "chevron.right")
+                    .font(.tenxIconMedium)
+                    .foregroundStyle(AppColors.textSecondary)
+            }
+            .buttonStyle(.plain)
+            .disabled(!canMoveForward)
+            .opacity(canMoveForward ? 1 : 0.3)
+        }
+    }
+
     private var formattedDate: String {
         let formatter = DateFormatter()
         formatter.dateStyle = .full
         return formatter.string(from: day.date)
+    }
+
+    private var day: YearDayDot {
+        let index = selectedIndex ?? 0
+        return days[max(0, min(index, days.count - 1))]
+    }
+
+    private var canMoveBackward: Bool {
+        guard let selectedIndex else { return false }
+        return selectedIndex > 0
+    }
+
+    private var canMoveForward: Bool {
+        guard let selectedIndex else { return false }
+        return selectedIndex < days.count - 1
+    }
+
+    private func moveSelection(by delta: Int) {
+        guard let selectedIndex else { return }
+        let newIndex = max(0, min(selectedIndex + delta, days.count - 1))
+        self.selectedIndex = newIndex
     }
 }
