@@ -77,17 +77,18 @@ struct YearProgressView: View {
 
     private var dotGrid: some View {
         GeometryReader { proxy in
-            let spacing: CGFloat = 5
-            let layout = gridLayout(for: proxy.size, totalDays: viewModel.days.count, spacing: spacing)
-            let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacing), count: layout.columns)
+            let spacingX: CGFloat = 6
+            let spacingYMin: CGFloat = 4
+            let layout = gridLayout(for: proxy.size, totalDays: viewModel.days.count, spacingX: spacingX, spacingYMin: spacingYMin)
+            let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
-            LazyVGrid(columns: gridItems, spacing: spacing) {
+            LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
                 ForEach(viewModel.days) { day in
                     Button {
                         selectedDay = day
                     } label: {
                         Circle()
-                            .fill(day.isComplete ? AppColors.accent : AppColors.surface)
+                            .fill(dotColor(for: day.status))
                             .frame(width: layout.dotSize, height: layout.dotSize)
                     }
                     .buttonStyle(.plain)
@@ -111,35 +112,58 @@ struct YearProgressView: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         let dateString = formatter.string(from: day.date)
-        let status = day.isComplete ? "completed" : "not completed"
-        return "\(dateString), \(status)"
+        return "\(dateString), \(statusDescription(for: day.status))"
     }
 
-    private func gridLayout(for size: CGSize, totalDays: Int, spacing: CGFloat) -> (columns: Int, dotSize: CGFloat) {
-        guard totalDays > 0 else { return (columns: 1, dotSize: 4) }
+    private func gridLayout(
+        for size: CGSize,
+        totalDays: Int,
+        spacingX: CGFloat,
+        spacingYMin: CGFloat
+    ) -> (columns: Int, dotSize: CGFloat, spacingY: CGFloat) {
+        guard totalDays > 0 else { return (columns: 1, dotSize: 4, spacingY: spacingYMin) }
 
-        let minDotForColumns: CGFloat = 4
-        let maxDotForColumns: CGFloat = 12
-        let maxColumns = max(10, Int((size.width + spacing) / (minDotForColumns + spacing)))
-        let minColumns = max(10, min(maxColumns, Int((size.width + spacing) / (maxDotForColumns + spacing))))
-        let upperBound = max(minColumns, maxColumns)
+        let columns = 14
+        let rows = Int(ceil(Double(totalDays) / Double(columns)))
+        let widthDot = (size.width - spacingX * CGFloat(columns - 1)) / CGFloat(columns)
+        let heightDot = (size.height - spacingYMin * CGFloat(max(rows - 1, 0))) / CGFloat(rows)
+        let dotSize = max(2, floor(min(widthDot, heightDot)))
 
-        var bestColumns = minColumns
-        var bestDotSize: CGFloat = 0
+        let totalDotHeight = CGFloat(rows) * dotSize
+        let availableSpacing = max(0, size.height - totalDotHeight)
+        let spacingY = rows > 1 ? max(spacingYMin, availableSpacing / CGFloat(rows - 1)) : 0
 
-        for columns in minColumns...upperBound {
-            let rows = Int(ceil(Double(totalDays) / Double(columns)))
-            let widthSize = (size.width - spacing * CGFloat(columns - 1)) / CGFloat(columns)
-            let heightSize = (size.height - spacing * CGFloat(rows - 1)) / CGFloat(rows)
-            let dotSize = min(widthSize, heightSize)
-            if dotSize > bestDotSize {
-                bestDotSize = dotSize
-                bestColumns = columns
-            }
+        return (columns: columns, dotSize: dotSize, spacingY: spacingY)
+    }
+
+    private func dotColor(for status: YearDayStatus) -> Color {
+        switch status {
+        case .success:
+            return AppColors.complete
+        case .incomplete:
+            return AppColors.accent.opacity(0.7)
+        case .emptyToday:
+            return AppColors.textSecondary
+        case .emptyPast:
+            return AppColors.textMuted
+        case .future:
+            return AppColors.surface
         }
+    }
 
-        let finalDot = max(2, floor(bestDotSize))
-        return (columns: bestColumns, dotSize: finalDot)
+    private func statusDescription(for status: YearDayStatus) -> String {
+        switch status {
+        case .success:
+            return "success"
+        case .incomplete:
+            return "incomplete"
+        case .emptyToday:
+            return "no entry yet"
+        case .emptyPast:
+            return "missed"
+        case .future:
+            return "future"
+        }
     }
 }
 

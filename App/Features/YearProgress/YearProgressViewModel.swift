@@ -44,15 +44,16 @@ final class YearProgressViewModel: ObservableObject {
         let entries = (try? store.fetchEntries(from: startKey, to: endKey)) ?? []
         let entriesByKey = Dictionary(uniqueKeysWithValues: entries.map { ($0.dayKey, $0) })
 
+        let today = calendar.startOfDay(for: .now)
         days = (0..<daysInYear).compactMap { offset in
             guard let date = calendar.date(byAdding: .day, value: offset, to: startDate) else { return nil }
             let dayKey = DayKey.make(for: date)
             let entry = entriesByKey[dayKey]
-            let isComplete = entry?.maintainsStreak ?? false
-            return YearDayDot(date: date, dayKey: dayKey, isComplete: isComplete, entry: entry)
+            let status = status(for: date, entry: entry, today: today)
+            return YearDayDot(date: date, dayKey: dayKey, status: status, entry: entry)
         }
 
-        let completedDays = days.filter(\.isComplete).count
+        let completedDays = days.filter { $0.status == .success }.count
         let daysLeft = daysRemaining(in: year, totalDays: daysInYear)
         summary = YearProgressSummary(
             totalDays: daysInYear,
@@ -72,6 +73,19 @@ final class YearProgressViewModel: ObservableObject {
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: .now) ?? 0
         return max(0, totalDays - dayOfYear)
     }
+
+    private func status(for date: Date, entry: DayEntry?, today: Date) -> YearDayStatus {
+        if date > today {
+            return .future
+        }
+        if let entry {
+            return entry.maintainsStreak ? .success : .incomplete
+        }
+        if date == today {
+            return .emptyToday
+        }
+        return .emptyPast
+    }
 }
 
 struct YearProgressSummary {
@@ -90,8 +104,16 @@ struct YearProgressSummary {
 struct YearDayDot: Identifiable {
     let date: Date
     let dayKey: String
-    let isComplete: Bool
+    let status: YearDayStatus
     let entry: DayEntry?
 
     var id: String { dayKey }
+}
+
+enum YearDayStatus {
+    case success
+    case incomplete
+    case emptyToday
+    case emptyPast
+    case future
 }
