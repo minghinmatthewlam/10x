@@ -627,6 +627,7 @@ private struct TodayFocusDetailView: View {
         }
         .padding(24)
         .background(AppColors.background)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 
     private var header: some View {

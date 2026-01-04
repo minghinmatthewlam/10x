@@ -29,7 +29,7 @@ struct YearProgressView: View {
         .onAppear {
             viewModel.load(store: store)
         }
-        .sheet(isPresented: Binding(get: {
+        .fullScreenCover(isPresented: Binding(get: {
             selectedDayIndex != nil
         }, set: { isPresented in
             if !isPresented {
@@ -108,7 +108,7 @@ struct YearProgressView: View {
     }
 
     private var footer: some View {
-        Text("\(viewModel.summary.daysLeft)d left • \(viewModel.summary.percentComplete)%")
+        Text("\(viewModel.summary.daysLeft)d left")
             .font(.tenxCaption)
             .foregroundStyle(AppColors.textSecondary)
             .padding(.top, 4)
@@ -263,6 +263,7 @@ private struct YearProgressDetailView: View {
         }
         .padding(24)
         .background(AppColors.background)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .simultaneousGesture(daySwipeGesture)
     }
 
