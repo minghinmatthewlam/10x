@@ -72,10 +72,13 @@ private struct YearProgressMiniGridView: View {
 
     var body: some View {
         GeometryReader { proxy in
+            let inset: CGFloat = 6
             let spacingXMin: CGFloat = 4
             let spacingYMin: CGFloat = 3
+            let availableSize = CGSize(width: max(0, proxy.size.width - inset * 2),
+                                       height: max(0, proxy.size.height - inset * 2))
             let layout = YearProgressGridLayout.layout(
-                for: proxy.size,
+                for: availableSize,
                 totalDays: days.count,
                 spacingX: spacingXMin,
                 spacingYMin: spacingYMin,
@@ -84,7 +87,7 @@ private struct YearProgressMiniGridView: View {
             )
             let spacingX = layout.columns > 1
                 ? max(spacingXMin,
-                      (proxy.size.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
+                      (availableSize.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
                 : 0
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
@@ -95,7 +98,8 @@ private struct YearProgressMiniGridView: View {
                         .frame(width: layout.dotSize, height: layout.dotSize)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
+            .padding(inset)
         }
     }
 }

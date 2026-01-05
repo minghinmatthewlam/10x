@@ -13,7 +13,7 @@ struct HomeWidgetView: View {
     var body: some View {
         content
             .padding(16)
-            .containerBackground(palette.background, for: .widget)
+            .containerBackground(palette.card, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -289,10 +289,13 @@ private struct YearPreviewGrid: View {
 
     var body: some View {
         GeometryReader { proxy in
+            let inset: CGFloat = 6
             let spacingXMin: CGFloat = 3
             let spacingYMin: CGFloat = 2
+            let availableSize = CGSize(width: max(0, proxy.size.width - inset * 2),
+                                       height: max(0, proxy.size.height - inset * 2))
             let layout = YearPreviewGridLayout.layout(
-                for: proxy.size,
+                for: availableSize,
                 totalDays: statuses.count,
                 spacingX: spacingXMin,
                 spacingYMin: spacingYMin,
@@ -301,7 +304,7 @@ private struct YearPreviewGrid: View {
             )
             let spacingX = layout.columns > 1
                 ? max(spacingXMin,
-                      (proxy.size.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
+                      (availableSize.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
                 : 0
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
@@ -312,7 +315,8 @@ private struct YearPreviewGrid: View {
                         .frame(width: layout.dotSize, height: layout.dotSize)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
+            .padding(inset)
         }
     }
 
