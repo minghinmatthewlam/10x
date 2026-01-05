@@ -72,16 +72,20 @@ private struct YearProgressMiniGridView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let spacingX: CGFloat = 4
+            let spacingXMin: CGFloat = 4
             let spacingYMin: CGFloat = 3
             let layout = YearProgressGridLayout.layout(
                 for: proxy.size,
                 totalDays: days.count,
-                spacingX: spacingX,
+                spacingX: spacingXMin,
                 spacingYMin: spacingYMin,
                 minColumns: 18,
                 maxColumns: 28
             )
+            let spacingX = layout.columns > 1
+                ? max(spacingXMin,
+                      (proxy.size.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
+                : 0
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {

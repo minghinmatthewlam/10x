@@ -69,6 +69,7 @@ struct HomeWidgetView: View {
 
     private func mediumSetupState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            brandLabel
             YearPreviewWidgetView(preview: snapshot.yearPreview,
                                   palette: palette,
                                   layout: .medium)
@@ -144,6 +145,7 @@ struct HomeWidgetView: View {
 
     private func mediumState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            brandLabel
             YearPreviewWidgetView(preview: snapshot.yearPreview,
                                   palette: palette,
                                   layout: .medium)
@@ -280,16 +282,20 @@ private struct YearPreviewGrid: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let spacingX: CGFloat = 3
+            let spacingXMin: CGFloat = 3
             let spacingYMin: CGFloat = 2
             let layout = YearPreviewGridLayout.layout(
                 for: proxy.size,
                 totalDays: statuses.count,
-                spacingX: spacingX,
+                spacingX: spacingXMin,
                 spacingYMin: spacingYMin,
                 minColumns: 18,
                 maxColumns: 26
             )
+            let spacingX = layout.columns > 1
+                ? max(spacingXMin,
+                      (proxy.size.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
+                : 0
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
