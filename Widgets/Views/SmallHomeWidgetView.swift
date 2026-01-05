@@ -12,7 +12,7 @@ struct SmallHomeWidgetView: View {
     var body: some View {
         content
             .padding(16)
-            .containerBackground(palette.card, for: .widget)
+            .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
 

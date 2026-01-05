@@ -13,7 +13,7 @@ struct HomeWidgetView: View {
     var body: some View {
         content
             .padding(16)
-            .containerBackground(palette.card, for: .widget)
+            .containerBackground(palette.background, for: .widget)
             .widgetURL(defaultURL)
     }
 
@@ -229,7 +229,7 @@ private struct YearPreviewWidgetView: View {
             if let preview, !preview.statuses.isEmpty {
                 YearPreviewGrid(statuses: preview.statuses, palette: palette)
                     .frame(height: gridHeight)
-                    .background(palette.surface.opacity(0.6))
+                    .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             } else {
                 Text("Open 10x to sync year")
@@ -238,7 +238,7 @@ private struct YearPreviewWidgetView: View {
                     .lineLimit(2)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .frame(height: gridHeight)
-                    .background(palette.surface.opacity(0.6))
+                    .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             }
 
