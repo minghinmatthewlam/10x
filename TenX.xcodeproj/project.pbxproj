@@ -10,57 +10,85 @@
 		0757D5BF3642F38E98CBC390 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E64DCF54BDFEA24B8483822 /* AppGroup.swift */; };
 		0D8C75BAC2C6CA9833667DA4 /* NotificationTimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */; };
 		0FE73F5529A8AE5C1D94C7EA /* FocusCardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */; };
+		12D1A1B2585F9DAC7E94DBDD /* FocusStatusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A03811729F4C0D225D9AB7 /* FocusStatusCardView.swift */; };
+		139E400B887A842E4B168BAF /* FocusInlineEditRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6A52A29A3442710F28314 /* FocusInlineEditRow.swift */; };
 		14509CECE26C3C9051BE1E71 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC9FF32722CF545FC309C493 /* SettingsView.swift */; };
 		1B28AFD78D0E2E659092F096 /* HomeShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D1A6D7805D56D46CC0F0F2 /* HomeShellView.swift */; };
+		1BD5B7A207F8E17F19B9DCB0 /* YearProgressPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD8916417AD65D8458C917E /* YearProgressPalette.swift */; };
 		1E7CAE3BD30803A728731905 /* DayKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202A4F9F5292213D738F06F4 /* DayKeyTests.swift */; };
+		1F697788B97D01FC3D47A1E3 /* WidgetTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12A8CBDD3FDA35BA08E5BF5 /* WidgetTypography.swift */; };
 		20F1F632FB1276A783F9B843 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */; };
+		2107061D574A629CEA69C5E2 /* ProgressSummaryCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CDD03743636B585CB62BF3 /* ProgressSummaryCardView.swift */; };
 		22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */; };
 		24DAE9EAF8EF31E2F4204D41 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */; };
 		2932F40C6DAB87691A120ADB /* FocusTagPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C159ABFF5DDDC897144D0DB /* FocusTagPickerView.swift */; };
 		297B5033539813EE52B262F7 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = 71FCB568A50E5A2BB243E6FE /* TenXShared */; };
+		2BF1379398D6CBE0B6518B9B /* HomeView+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ADBB6B2A591870B45A58AD0 /* HomeView+Actions.swift */; };
 		332DCF5758C5CACAA0C9B1F8 /* TestContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCFCC743D503723BB68C5E80 /* TestContainerFactory.swift */; };
+		38C57C8F2C4562E1CABB0742 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7184B408622476752E69E770 /* Assets.xcassets */; };
 		39CC757426CDF68E4618FE03 /* DayKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA27161AD0848A5BD034279 /* DayKey.swift */; };
 		3A6E0C07D9C8EC0712CE06CB /* DayEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */; };
 		3ADC3366983661FBCC841439 /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27A5218DB11B4AEAE02DECE9 /* StreakEngineTests.swift */; };
 		40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */; };
 		48C8A344C6FE8FEA661AE5C0 /* TenXShared in Frameworks */ = {isa = PBXBuildFile; productRef = CA46EFC70D62016D07BE0742 /* TenXShared */; };
 		4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */; };
-		4DE0C8B2D7DCF8075F440E93 /* ThemeEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */; };
+		4D17E98B7DA9D92AD164442F /* YearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28751FEEA15DAD05F5ADDF32 /* YearProgressView.swift */; };
 		521752C7AC39D17FF7EF99D7 /* TenXWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		576CF98DCDDC4141244FB31B /* ThemedRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04956A1B79843FE344CDC10 /* ThemedRootView.swift */; };
 		58E60858273E2F0256FD7C13 /* ModelContainerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */; };
 		5EE3C769DC90D04361060CB5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */; };
-		63E0C8B7B75E882D7801A41A /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94B1466669EF643E81DEC5D /* ThemeManager.swift */; };
 		687C1846A3328212AFE483C4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A197A1ED012336720E95C9E /* HomeView.swift */; };
 		71301D945F826E65826578D5 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */; };
 		724C956231513266F15E63F2 /* OnboardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */; };
+		73AD28B13118BA083EA0C699 /* SettingsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 981B68592835FBD31E1B21A5 /* SettingsSheetView.swift */; };
 		75900800D0F183C5019940C6 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0276AF22821B9093A9B69D24 /* RootView.swift */; };
 		780CAA926474BC64CEA2B894 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D14D1C3E251F3E976370B01F /* Haptics.swift */; };
 		796739A9F7554CF233251E79 /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C58825A22690BF693906CCD /* StreakEngine.swift */; };
 		7C2993986641F7ECEDAA4318 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30256E82C2DD56A612FB96A5 /* AppState.swift */; };
 		881E128A78B3F5A5C08CF4E3 /* LaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990D2718E4798B9875A4E1BD /* LaunchTests.swift */; };
 		8DFCAF94FF2D9B388B55B516 /* SnapshotTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E718A6BE3F4B249B394CF63 /* SnapshotTimelineProvider.swift */; };
+		90002819563428246A128107 /* FocusReorderDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FCDF62C74291A4B39FE7754 /* FocusReorderDropDelegate.swift */; };
+		934A7FD3EEB3174B8D20F9C3 /* ThemeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F288787EDEBA564B4EEDB3 /* ThemeController.swift */; };
 		96FE66B2DB21DCEAEEF2E0C9 /* LockWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */; };
+		971F8BE5623BA7ABCA79D4DC /* DayFocusDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1078B87C31BE966CDD1B0658 /* DayFocusDetailView.swift */; };
 		9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D2263C6E158C710703930B /* FocusInputRow.swift */; };
 		9F85651D675BF99531345768 /* ShareItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490DCB3391BFF36DB308908A /* ShareItem.swift */; };
 		A0EB97CDCF3BC15C23A72667 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98E7758DABC2046933731E1C /* ShareSheet.swift */; };
+		A1DA7A047A6F68C5525371ED /* OnboardingCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C95B4D07CD03014B0D3FA31 /* OnboardingCarouselView.swift */; };
+		A4ADE892814C901A20E968F4 /* HomeFocusDraftsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E086F20E38749B31F81530 /* HomeFocusDraftsViewModel.swift */; };
 		A4F3B155A28701D87A8BEF17 /* TenXStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236CB66E5CEE6520EBC5D764 /* TenXStoreTests.swift */; };
 		AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BB3AD633CF6A4467EF207D /* TenXApp.swift */; };
 		AD2AE404B72E22A733F7B280 /* IncompleteDayPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */; };
 		AEE96A083C7896928C9A8BFD /* DailySetupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D7CC8CFB5DCAE3AABFB857 /* DailySetupViewModel.swift */; };
+		B076167B08E16206FDA74454 /* View+GlassEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44839E70627ADA9E33D1D65C /* View+GlassEffect.swift */; };
 		B1A8757D4F597250F882ED00 /* AppearanceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E1D974669AF89C03FEE247 /* AppearanceMode.swift */; };
+		B300071A229B4ED152E76958 /* StreakCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517EC9A1CAF6EE9C422EDB09 /* StreakCardView.swift */; };
 		B4907BA1205351D4BA2C3E05 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */; };
 		B50CD1ECEF4C625917B7706B /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */; };
 		B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */ = {isa = PBXBuildFile; fileRef = E413908A98A84837AF1265B1 /* Font+TenX.swift */; };
 		B7DF000566FC5050B57CDFF7 /* FocusTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708DD174FC806075C63C70F7 /* FocusTag.swift */; };
+		B98935E0A7CCD42221879DD6 /* UIKitAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECF09A08EA21B50442D89BA /* UIKitAppearance.swift */; };
+		BA15DF609CFDC232EFCDDBB6 /* FocusStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137A0A34F9331C76FD8F49C1 /* FocusStatus.swift */; };
+		BBC141BB2E10DE00283FA6AF /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BA69D02DD8B89E9B91FEF6 /* AppColors.swift */; };
 		BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */; };
-		C2D3DE4EFCC908BFF711B99F /* ThemePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */; };
+		BFDC2E9106EAEFE9F8223094 /* View+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CECB023EAAC5DF263710E50 /* View+Theme.swift */; };
+		C344E20770EDCC412BDBDCD6 /* YearProgressGridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E390C9D25A7C80753339EE0E /* YearProgressGridLayout.swift */; };
+		C50D10DBBC8097D3E38B937A /* WeeklyProgressDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FBDA6DE7BCCCE80C1D0007 /* WeeklyProgressDay.swift */; };
+		C589006E7FC897634095EF46 /* YearProgressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E091D9143FD68EBA9049E01 /* YearProgressViewModel.swift */; };
+		C84D915B596B34A91888E26D /* YearProgressPreviewTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7023406A76DE54CB3E7F235E /* YearProgressPreviewTileView.swift */; };
+		C8E9906D2751E6686671E915 /* SwipeToDeleteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0493E37994CC47C1A1B06F9E /* SwipeToDeleteRow.swift */; };
 		CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */; };
 		D13DDE23413098001F7D4AF9 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */; };
 		D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */; };
 		D3528F6838FC9FE67F4BD10E /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04580BDDF026D8EECA933EFC /* AppRouter.swift */; };
 		D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */; };
+		D7C58022DA8D714E1EB90844 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84386E4061182647509A34F7 /* DiagnosticsView.swift */; };
+		D8000794EE45D455D6D43E88 /* WeeklyProgressGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF7FBD9619E8B7627ECEEB /* WeeklyProgressGridView.swift */; };
 		DAE7691B34686E71FC2DC922 /* HomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50683C9D834BB93CC3EAD9 /* HomeWidgetView.swift */; };
+		DB19DC08A89B8021CECFD410 /* TodayFocusDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45AE7355264767B964E25A9 /* TodayFocusDetailView.swift */; };
 		DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */; };
+		DE8ACA66C7889538C54BC466 /* FocusDragPreviewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524172A34D50A5E16551962 /* FocusDragPreviewRow.swift */; };
+		E659799B543E43325E5E43F4 /* NewFocusRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A114B542B58F051FAC288F /* NewFocusRow.swift */; };
 		EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */; };
 		EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */; };
 		EC2C5A9982531AF8BBAC7789 /* StreakShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */; };
@@ -68,6 +96,7 @@
 		F0C480A6AECE92085A36B938 /* TenXWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E97FF760C25F89EF45F5D15 /* TenXWidgets.swift */; };
 		F0CC5E93A754105400330B29 /* DailySetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BDC76E7A57AF8EB8BB8EA76 /* DailySetupView.swift */; };
 		F0F011F19ECB4246DEC398B9 /* FocusEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701289363DB16CD7DDB81E42 /* FocusEditView.swift */; };
+		FB1D4B842BF1D74C5802BB77 /* YearProgressShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7257BDE8756551186073B573 /* YearProgressShareCardView.swift */; };
 		FC80F66562052CB386E12B82 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16C92806FE2659B574B0057 /* UserDefaultsKeys.swift */; };
 		FD77E939877143E221E4B962 /* DailyFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F373D31230C91E3FE326BAB /* DailyFocus.swift */; };
 /* End PBXBuildFile section */
@@ -114,40 +143,64 @@
 		0276AF22821B9093A9B69D24 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		03E4DB0F82EC4A1FFE0BA04C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		04580BDDF026D8EECA933EFC /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		0493E37994CC47C1A1B06F9E /* SwipeToDeleteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeToDeleteRow.swift; sourceTree = "<group>"; };
 		07651AC26DC05DB29A066184 /* TenXTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TenXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B895D9310069DF0C46E661D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0C95B4D07CD03014B0D3FA31 /* OnboardingCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCarouselView.swift; sourceTree = "<group>"; };
 		0E718A6BE3F4B249B394CF63 /* SnapshotTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotTimelineProvider.swift; sourceTree = "<group>"; };
+		1078B87C31BE966CDD1B0658 /* DayFocusDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayFocusDetailView.swift; sourceTree = "<group>"; };
+		137A0A34F9331C76FD8F49C1 /* FocusStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatus.swift; sourceTree = "<group>"; };
 		1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		16F288787EDEBA564B4EEDB3 /* ThemeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeController.swift; sourceTree = "<group>"; };
 		1AA27161AD0848A5BD034279 /* DayKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKey.swift; sourceTree = "<group>"; };
 		1C5380F616C2372079EC0FB7 /* Shared */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shared; path = Shared; sourceTree = SOURCE_ROOT; };
+		1FCDF62C74291A4B39FE7754 /* FocusReorderDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusReorderDropDelegate.swift; sourceTree = "<group>"; };
 		202A4F9F5292213D738F06F4 /* DayKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayKeyTests.swift; sourceTree = "<group>"; };
 		20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakBadgeView.swift; sourceTree = "<group>"; };
 		2184FDBAF6F88BFF80FFEF12 /* TenX.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = TenX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236CB66E5CEE6520EBC5D764 /* TenXStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXStoreTests.swift; sourceTree = "<group>"; };
+		25A03811729F4C0D225D9AB7 /* FocusStatusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusStatusCardView.swift; sourceTree = "<group>"; };
 		26F10FD6CCF4272BFD1B1ADE /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		27A5218DB11B4AEAE02DECE9 /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
+		28751FEEA15DAD05F5ADDF32 /* YearProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressView.swift; sourceTree = "<group>"; };
 		297C42A92646C47C6ACBD23A /* ModelContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerFactory.swift; sourceTree = "<group>"; };
+		2CE6A52A29A3442710F28314 /* FocusInlineEditRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusInlineEditRow.swift; sourceTree = "<group>"; };
 		30256E82C2DD56A612FB96A5 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		3E091D9143FD68EBA9049E01 /* YearProgressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressViewModel.swift; sourceTree = "<group>"; };
+		3ECF09A08EA21B50442D89BA /* UIKitAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitAppearance.swift; sourceTree = "<group>"; };
 		3F373D31230C91E3FE326BAB /* DailyFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFocus.swift; sourceTree = "<group>"; };
 		42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReviewCardView.swift; sourceTree = "<group>"; };
+		44839E70627ADA9E33D1D65C /* View+GlassEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+GlassEffect.swift"; sourceTree = "<group>"; };
+		44BA69D02DD8B89E9B91FEF6 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
 		46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTimePickerView.swift; sourceTree = "<group>"; };
 		490DCB3391BFF36DB308908A /* ShareItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareItem.swift; sourceTree = "<group>"; };
 		4BFC69E789D1CD18E3D9A477 /* TenXStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXStore.swift; sourceTree = "<group>"; };
 		4E64DCF54BDFEA24B8483822 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		517EC9A1CAF6EE9C422EDB09 /* StreakCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCardView.swift; sourceTree = "<group>"; };
 		53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummary.swift; sourceTree = "<group>"; };
 		55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncompleteDayPromptView.swift; sourceTree = "<group>"; };
+		56E086F20E38749B31F81530 /* HomeFocusDraftsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFocusDraftsViewModel.swift; sourceTree = "<group>"; };
 		5A197A1ED012336720E95C9E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5AD8916417AD65D8458C917E /* YearProgressPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressPalette.swift; sourceTree = "<group>"; };
 		5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Theme.swift"; sourceTree = "<group>"; };
 		5E97FF760C25F89EF45F5D15 /* TenXWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXWidgets.swift; sourceTree = "<group>"; };
 		60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardView.swift; sourceTree = "<group>"; };
 		6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotService.swift; sourceTree = "<group>"; };
 		701289363DB16CD7DDB81E42 /* FocusEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEditView.swift; sourceTree = "<group>"; };
+		7023406A76DE54CB3E7F235E /* YearProgressPreviewTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressPreviewTileView.swift; sourceTree = "<group>"; };
 		708DD174FC806075C63C70F7 /* FocusTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTag.swift; sourceTree = "<group>"; };
+		7184B408622476752E69E770 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7257BDE8756551186073B573 /* YearProgressShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressShareCardView.swift; sourceTree = "<group>"; };
 		728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		7BBBAD80761C36D016B64101 /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
 		7C159ABFF5DDDC897144D0DB /* FocusTagPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTagPickerView.swift; sourceTree = "<group>"; };
+		7CECB023EAAC5DF263710E50 /* View+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Theme.swift"; sourceTree = "<group>"; };
 		803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakShareCardView.swift; sourceTree = "<group>"; };
 		81D1A6D7805D56D46CC0F0F2 /* HomeShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeShellView.swift; sourceTree = "<group>"; };
+		84386E4061182647509A34F7 /* DiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
+		8ADBB6B2A591870B45A58AD0 /* HomeView+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+Actions.swift"; sourceTree = "<group>"; };
+		8BEF7FBD9619E8B7627ECEEB /* WeeklyProgressGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyProgressGridView.swift; sourceTree = "<group>"; };
+		981B68592835FBD31E1B21A5 /* SettingsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheetView.swift; sourceTree = "<group>"; };
 		98E7758DABC2046933731E1C /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		990D2718E4798B9875A4E1BD /* LaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchTests.swift; sourceTree = "<group>"; };
 		9BAC83F5724C6339A712BD95 /* SignificantTimeChangeListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignificantTimeChangeListener.swift; sourceTree = "<group>"; };
@@ -155,19 +208,24 @@
 		9C58825A22690BF693906CCD /* StreakEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngine.swift; sourceTree = "<group>"; };
 		9E50683C9D834BB93CC3EAD9 /* HomeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetView.swift; sourceTree = "<group>"; };
 		9ED091913D6DBCB8F0E2697B /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		A04956A1B79843FE344CDC10 /* ThemedRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedRootView.swift; sourceTree = "<group>"; };
 		A16C92806FE2659B574B0057 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		A4BB3AD633CF6A4467EF207D /* TenXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TenXApp.swift; sourceTree = "<group>"; };
 		AC9FF32722CF545FC309C493 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AE7A87A390435ECA61211529 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
-		B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEnvironment.swift; sourceTree = "<group>"; };
 		B3E1D974669AF89C03FEE247 /* AppearanceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceMode.swift; sourceTree = "<group>"; };
-		B94B1466669EF643E81DEC5D /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		B524172A34D50A5E16551962 /* FocusDragPreviewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusDragPreviewRow.swift; sourceTree = "<group>"; };
+		B6A114B542B58F051FAC288F /* NewFocusRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFocusRow.swift; sourceTree = "<group>"; };
 		BAF4A5DE129C0DA84C9FE5C6 /* TenXWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = TenXWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFA1E7B634B0F9DFD698A929 /* DayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayEntry.swift; sourceTree = "<group>"; };
 		C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRing.swift; sourceTree = "<group>"; };
+		C45AE7355264767B964E25A9 /* TodayFocusDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFocusDetailView.swift; sourceTree = "<group>"; };
 		D14D1C3E251F3E976370B01F /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		D3E4EC2B436728AAEF780FB4 /* TenXWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TenXWidgets.entitlements; sourceTree = "<group>"; };
+		D4FBDA6DE7BCCCE80C1D0007 /* WeeklyProgressDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyProgressDay.swift; sourceTree = "<group>"; };
 		DCFCC743D503723BB68C5E80 /* TestContainerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestContainerFactory.swift; sourceTree = "<group>"; };
+		E12A8CBDD3FDA35BA08E5BF5 /* WidgetTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypography.swift; sourceTree = "<group>"; };
+		E390C9D25A7C80753339EE0E /* YearProgressGridLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearProgressGridLayout.swift; sourceTree = "<group>"; };
 		E413908A98A84837AF1265B1 /* Font+TenX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+TenX.swift"; sourceTree = "<group>"; };
 		E912764EE7833587BDFFC948 /* FocusCardButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusCardButtonStyle.swift; sourceTree = "<group>"; };
 		EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockWidgetView.swift; sourceTree = "<group>"; };
@@ -177,8 +235,8 @@
 		F05036377D56E3E68CAB463C /* TenXUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TenXUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		F2D7CC8CFB5DCAE3AABFB857 /* DailySetupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailySetupViewModel.swift; sourceTree = "<group>"; };
+		F4CDD03743636B585CB62BF3 /* ProgressSummaryCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressSummaryCardView.swift; sourceTree = "<group>"; };
 		F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerView.swift; sourceTree = "<group>"; };
 		F9D2263C6E158C710703930B /* FocusInputRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusInputRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,6 +270,17 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		0F7829C6D5CA59609858B102 /* YearProgress */ = {
+			isa = PBXGroup;
+			children = (
+				E390C9D25A7C80753339EE0E /* YearProgressGridLayout.swift */,
+				5AD8916417AD65D8458C917E /* YearProgressPalette.swift */,
+				28751FEEA15DAD05F5ADDF32 /* YearProgressView.swift */,
+				3E091D9143FD68EBA9049E01 /* YearProgressViewModel.swift */,
+			);
+			path = YearProgress;
+			sourceTree = "<group>";
+		};
 		3F5B51E9A5029136D513DEB3 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +289,7 @@
 				BAAE3D4CD58B23E3273AD227 /* Onboarding */,
 				AFD0F9317039B7C5A29069DA /* Settings */,
 				8B0BE101B80F477DEC86E80D /* Sharing */,
+				0F7829C6D5CA59609858B102 /* YearProgress */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -292,6 +362,7 @@
 			children = (
 				490DCB3391BFF36DB308908A /* ShareItem.swift */,
 				803E436DCDD8D1A953BD8984 /* StreakShareCardView.swift */,
+				7257BDE8756551186073B573 /* YearProgressShareCardView.swift */,
 			);
 			path = Sharing;
 			sourceTree = "<group>";
@@ -319,11 +390,15 @@
 		9A2D938E62B9EE1246CE7641 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
+				44BA69D02DD8B89E9B91FEF6 /* AppColors.swift */,
 				728E685B8EA9B08BEC3DF2DC /* Color+Hex.swift */,
 				5DA7D711994B8BE6E5899F48 /* Color+Theme.swift */,
 				E413908A98A84837AF1265B1 /* Font+TenX.swift */,
-				B1BCE8FD822BA8F5CC9111EE /* ThemeEnvironment.swift */,
-				B94B1466669EF643E81DEC5D /* ThemeManager.swift */,
+				16F288787EDEBA564B4EEDB3 /* ThemeController.swift */,
+				A04956A1B79843FE344CDC10 /* ThemedRootView.swift */,
+				3ECF09A08EA21B50442D89BA /* UIKitAppearance.swift */,
+				44839E70627ADA9E33D1D65C /* View+GlassEffect.swift */,
+				7CECB023EAAC5DF263710E50 /* View+Theme.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -343,6 +418,7 @@
 				EA7B3DEFAFDA8B71377ABD04 /* LockWidgetView.swift */,
 				C25BCF57CCFD635A872F7E71 /* ProgressRing.swift */,
 				EAA7CFBE82A90B8B372C3410 /* SmallHomeWidgetView.swift */,
+				E12A8CBDD3FDA35BA08E5BF5 /* WidgetTypography.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -350,14 +426,30 @@
 		A2287003E003AB5DAB9FF693 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1078B87C31BE966CDD1B0658 /* DayFocusDetailView.swift */,
 				60DCD5E37D0AD37C8B75F312 /* FocusCardView.swift */,
+				B524172A34D50A5E16551962 /* FocusDragPreviewRow.swift */,
 				701289363DB16CD7DDB81E42 /* FocusEditView.swift */,
+				2CE6A52A29A3442710F28314 /* FocusInlineEditRow.swift */,
+				1FCDF62C74291A4B39FE7754 /* FocusReorderDropDelegate.swift */,
+				137A0A34F9331C76FD8F49C1 /* FocusStatus.swift */,
+				25A03811729F4C0D225D9AB7 /* FocusStatusCardView.swift */,
+				56E086F20E38749B31F81530 /* HomeFocusDraftsViewModel.swift */,
 				5A197A1ED012336720E95C9E /* HomeView.swift */,
+				8ADBB6B2A591870B45A58AD0 /* HomeView+Actions.swift */,
 				1664BE6DB35E7EADF4EA4A07 /* HomeViewModel.swift */,
 				55E831C5D46EC6B6D08E6991 /* IncompleteDayPromptView.swift */,
+				B6A114B542B58F051FAC288F /* NewFocusRow.swift */,
+				F4CDD03743636B585CB62BF3 /* ProgressSummaryCardView.swift */,
 				20791CAAF6A7AE205B086869 /* StreakBadgeView.swift */,
+				517EC9A1CAF6EE9C422EDB09 /* StreakCardView.swift */,
+				0493E37994CC47C1A1B06F9E /* SwipeToDeleteRow.swift */,
+				C45AE7355264767B964E25A9 /* TodayFocusDetailView.swift */,
+				D4FBDA6DE7BCCCE80C1D0007 /* WeeklyProgressDay.swift */,
+				8BEF7FBD9619E8B7627ECEEB /* WeeklyProgressGridView.swift */,
 				42A1FD41E796E83F1E5D7614 /* WeeklyReviewCardView.swift */,
 				53C845CBEBF7CE1B4C56DA7D /* WeeklySummary.swift */,
+				7023406A76DE54CB3E7F235E /* YearProgressPreviewTileView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -381,10 +473,11 @@
 		AFD0F9317039B7C5A29069DA /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				84386E4061182647509A34F7 /* DiagnosticsView.swift */,
 				46F5FDA1E996CC20FA7F7AB6 /* NotificationTimePickerView.swift */,
+				981B68592835FBD31E1B21A5 /* SettingsSheetView.swift */,
 				AC9FF32722CF545FC309C493 /* SettingsView.swift */,
 				F1AFA79C4EF9E55F564734C6 /* SettingsViewModel.swift */,
-				F8164A7E830A889AFAFFFA2A /* ThemePickerView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -416,6 +509,7 @@
 		BAAE3D4CD58B23E3273AD227 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				0C95B4D07CD03014B0D3FA31 /* OnboardingCarouselView.swift */,
 				EAE620A7161AE8EB3D572557 /* OnboardingContainerView.swift */,
 				F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */,
 			);
@@ -453,6 +547,7 @@
 		F216FE250D669D4ACC3FD224 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7184B408622476752E69E770 /* Assets.xcassets */,
 				03E4DB0F82EC4A1FFE0BA04C /* Info.plist */,
 			);
 			path = Resources;
@@ -514,6 +609,7 @@
 			buildConfigurationList = 2EF9EC1B763ED7C4AD0E0A0E /* Build configuration list for PBXNativeTarget "TenX" */;
 			buildPhases = (
 				A051A44088E997959EB950CF /* Sources */,
+				6D7325CD072BE14307CF5695 /* Resources */,
 				4135104EA20B832A40FF8BD1 /* Frameworks */,
 				B1C36A13C63E069C4B285799 /* Embed Foundation Extensions */,
 			);
@@ -557,7 +653,17 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					33F57D334BAB50FCCD5BEDF0 = {
+						DevelopmentTeam = P2MBURJVUW;
+					};
+					4F1762BF4154863C139BD26E = {
+						DevelopmentTeam = P2MBURJVUW;
+					};
+					9AA6A14B822845154F52A982 = {
+						DevelopmentTeam = P2MBURJVUW;
+					};
 					F0F770CB30BC9B1A3654FBFE = {
+						DevelopmentTeam = P2MBURJVUW;
 						TestTargetID = 9AA6A14B822845154F52A982;
 					};
 				};
@@ -587,6 +693,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		6D7325CD072BE14307CF5695 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38C57C8F2C4562E1CABB0742 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0E9C160E89F46CA1A2ADE881 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -598,6 +715,7 @@
 				40A01AC47E931B63638F475D /* SmallHomeWidgetView.swift in Sources */,
 				8DFCAF94FF2D9B388B55B516 /* SnapshotTimelineProvider.swift in Sources */,
 				F0C480A6AECE92085A36B938 /* TenXWidgets.swift in Sources */,
+				1F697788B97D01FC3D47A1E3 /* WidgetTypography.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +742,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBC141BB2E10DE00283FA6AF /* AppColors.swift in Sources */,
 				71301D945F826E65826578D5 /* AppConstants.swift in Sources */,
 				0757D5BF3642F38E98CBC390 /* AppGroup.swift in Sources */,
 				D3528F6838FC9FE67F4BD10E /* AppRouter.swift in Sources */,
@@ -635,44 +754,70 @@
 				F0CC5E93A754105400330B29 /* DailySetupView.swift in Sources */,
 				AEE96A083C7896928C9A8BFD /* DailySetupViewModel.swift in Sources */,
 				3A6E0C07D9C8EC0712CE06CB /* DayEntry.swift in Sources */,
+				971F8BE5623BA7ABCA79D4DC /* DayFocusDetailView.swift in Sources */,
 				39CC757426CDF68E4618FE03 /* DayKey.swift in Sources */,
+				D7C58022DA8D714E1EB90844 /* DiagnosticsView.swift in Sources */,
 				0FE73F5529A8AE5C1D94C7EA /* FocusCardButtonStyle.swift in Sources */,
 				4BFB00A00E35B7338900E967 /* FocusCardView.swift in Sources */,
+				DE8ACA66C7889538C54BC466 /* FocusDragPreviewRow.swift in Sources */,
 				F0F011F19ECB4246DEC398B9 /* FocusEditView.swift in Sources */,
+				139E400B887A842E4B168BAF /* FocusInlineEditRow.swift in Sources */,
 				9E0B424031378AE3039421B1 /* FocusInputRow.swift in Sources */,
+				90002819563428246A128107 /* FocusReorderDropDelegate.swift in Sources */,
+				BA15DF609CFDC232EFCDDBB6 /* FocusStatus.swift in Sources */,
+				12D1A1B2585F9DAC7E94DBDD /* FocusStatusCardView.swift in Sources */,
 				B7DF000566FC5050B57CDFF7 /* FocusTag.swift in Sources */,
 				2932F40C6DAB87691A120ADB /* FocusTagPickerView.swift in Sources */,
 				B7B11D462D8250328646F47D /* Font+TenX.swift in Sources */,
 				780CAA926474BC64CEA2B894 /* Haptics.swift in Sources */,
+				A4ADE892814C901A20E968F4 /* HomeFocusDraftsViewModel.swift in Sources */,
 				1B28AFD78D0E2E659092F096 /* HomeShellView.swift in Sources */,
+				2BF1379398D6CBE0B6518B9B /* HomeView+Actions.swift in Sources */,
 				687C1846A3328212AFE483C4 /* HomeView.swift in Sources */,
 				5EE3C769DC90D04361060CB5 /* HomeViewModel.swift in Sources */,
 				AD2AE404B72E22A733F7B280 /* IncompleteDayPromptView.swift in Sources */,
 				58E60858273E2F0256FD7C13 /* ModelContainerFactory.swift in Sources */,
+				E659799B543E43325E5E43F4 /* NewFocusRow.swift in Sources */,
 				D13DDE23413098001F7D4AF9 /* NotificationScheduler.swift in Sources */,
 				0D8C75BAC2C6CA9833667DA4 /* NotificationTimePickerView.swift in Sources */,
+				A1DA7A047A6F68C5525371ED /* OnboardingCarouselView.swift in Sources */,
 				724C956231513266F15E63F2 /* OnboardingContainerView.swift in Sources */,
 				24DAE9EAF8EF31E2F4204D41 /* PrimaryButtonStyle.swift in Sources */,
 				EA7BB5A29BA1CF7E5C252A05 /* ProgressRing.swift in Sources */,
+				2107061D574A629CEA69C5E2 /* ProgressSummaryCardView.swift in Sources */,
 				75900800D0F183C5019940C6 /* RootView.swift in Sources */,
+				73AD28B13118BA083EA0C699 /* SettingsSheetView.swift in Sources */,
 				14509CECE26C3C9051BE1E71 /* SettingsView.swift in Sources */,
 				B4907BA1205351D4BA2C3E05 /* SettingsViewModel.swift in Sources */,
 				9F85651D675BF99531345768 /* ShareItem.swift in Sources */,
 				A0EB97CDCF3BC15C23A72667 /* ShareSheet.swift in Sources */,
 				EBC8F12A37240FE5081E2523 /* SignificantTimeChangeListener.swift in Sources */,
 				22235B0567DA62FE0F9866AC /* StreakBadgeView.swift in Sources */,
+				B300071A229B4ED152E76958 /* StreakCardView.swift in Sources */,
 				796739A9F7554CF233251E79 /* StreakEngine.swift in Sources */,
 				EC2C5A9982531AF8BBAC7789 /* StreakShareCardView.swift in Sources */,
+				C8E9906D2751E6686671E915 /* SwipeToDeleteRow.swift in Sources */,
 				AB06F5E47349BF5B73F1297D /* TenXApp.swift in Sources */,
 				D2CD1F886B5B459B9E9C0E96 /* TenXStore.swift in Sources */,
-				4DE0C8B2D7DCF8075F440E93 /* ThemeEnvironment.swift in Sources */,
-				63E0C8B7B75E882D7801A41A /* ThemeManager.swift in Sources */,
-				C2D3DE4EFCC908BFF711B99F /* ThemePickerView.swift in Sources */,
+				934A7FD3EEB3174B8D20F9C3 /* ThemeController.swift in Sources */,
+				576CF98DCDDC4141244FB31B /* ThemedRootView.swift in Sources */,
+				DB19DC08A89B8021CECFD410 /* TodayFocusDetailView.swift in Sources */,
+				B98935E0A7CCD42221879DD6 /* UIKitAppearance.swift in Sources */,
 				FC80F66562052CB386E12B82 /* UserDefaultsKeys.swift in Sources */,
+				B076167B08E16206FDA74454 /* View+GlassEffect.swift in Sources */,
+				BFDC2E9106EAEFE9F8223094 /* View+Theme.swift in Sources */,
+				C50D10DBBC8097D3E38B937A /* WeeklyProgressDay.swift in Sources */,
+				D8000794EE45D455D6D43E88 /* WeeklyProgressGridView.swift in Sources */,
 				BE808C82FD641209C6534FBE /* WeeklyReviewCardView.swift in Sources */,
 				CABF8AADD960943BF1DB7515 /* WeeklySummary.swift in Sources */,
 				D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */,
 				DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */,
+				C344E20770EDCC412BDBDCD6 /* YearProgressGridLayout.swift in Sources */,
+				1BD5B7A207F8E17F19B9DCB0 /* YearProgressPalette.swift in Sources */,
+				C84D915B596B34A91888E26D /* YearProgressPreviewTileView.swift in Sources */,
+				FB1D4B842BF1D74C5802BB77 /* YearProgressShareCardView.swift in Sources */,
+				4D17E98B7DA9D92AD164442F /* YearProgressView.swift in Sources */,
+				C589006E7FC897634095EF46 /* YearProgressViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +877,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = P2MBURJVUW;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -872,6 +1018,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = P2MBURJVUW;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
