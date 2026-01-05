@@ -1,4 +1,5 @@
 import SwiftUI
+import TenXShared
 
 struct YearProgressPreviewTileView: View {
     let year: Int

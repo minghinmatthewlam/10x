@@ -323,15 +323,15 @@ private struct YearPreviewGrid: View {
     private func color(for status: WidgetYearDayStatus) -> Color {
         switch status {
         case .success:
-            return palette.accent
+            return YearProgressPalette.success
         case .incomplete:
-            return palette.textMuted
+            return YearProgressPalette.incomplete
         case .emptyToday:
-            return palette.textSecondary
+            return YearProgressPalette.emptyToday
         case .emptyPast:
-            return palette.textMuted
+            return YearProgressPalette.emptyPast
         case .future:
-            return palette.surface
+            return YearProgressPalette.future
         }
     }
 }
