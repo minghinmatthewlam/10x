@@ -21,6 +21,7 @@ final class WidgetSnapshotService {
         let hasCompletedOnboarding = userDefaults.bool(forKey: UserDefaultsKeys.hasCompletedOnboarding)
         let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
         let recentEntries = (try? store.fetchRecentDayEntries()) ?? []
+        let yearPreview = makeYearPreview()
 
         let state: WidgetSnapshot.State
         if !hasCompletedOnboarding {
@@ -49,6 +50,7 @@ final class WidgetSnapshotService {
                                       streak: StreakEngine.currentStreak(todayKey: todayKey, entries: recentEntries),
                                       completedCount: todayEntry?.completedCount ?? 0,
                                       focuses: focuses,
+                                      yearPreview: yearPreview,
                                       generatedAt: .now)
 
         do {
@@ -56,6 +58,35 @@ final class WidgetSnapshotService {
             WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
         } catch {
             // Widgets can fall back to empty state if write fails.
+        }
+    }
+
+    private func makeYearPreview() -> WidgetYearPreview? {
+        let currentYear = Calendar.current.component(.year, from: .now)
+        let yearData = YearProgressViewModel(year: currentYear).yearData(for: currentYear, store: store)
+        let statuses = yearData.days.map { WidgetYearDayStatus(from: $0.status) }
+        return WidgetYearPreview(year: currentYear,
+                                 totalDays: yearData.summary.totalDays,
+                                 completedDays: yearData.summary.completedDays,
+                                 daysLeft: yearData.summary.daysLeft,
+                                 yearCompletionPercent: yearData.summary.yearCompletionPercent,
+                                 statuses: statuses)
+    }
+}
+
+private extension WidgetYearDayStatus {
+    init(from status: YearDayStatus) {
+        switch status {
+        case .success:
+            self = .success
+        case .incomplete:
+            self = .incomplete
+        case .emptyToday:
+            self = .emptyToday
+        case .emptyPast:
+            self = .emptyPast
+        case .future:
+            self = .future
         }
     }
 }
