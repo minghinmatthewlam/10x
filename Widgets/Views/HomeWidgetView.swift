@@ -219,7 +219,7 @@ private struct YearPreviewWidgetView: View {
             HStack {
                 Text(brandText)
                     .font(WidgetTypography.caption)
-                    .foregroundStyle(palette.textSecondary)
+                    .foregroundStyle(brandColor)
                 Spacer()
                 Text(verbatim: yearText)
                     .font(WidgetTypography.badge)
@@ -260,6 +260,15 @@ private struct YearPreviewWidgetView: View {
             return "10x"
         case .large:
             return "Year"
+        }
+    }
+
+    private var brandColor: Color {
+        switch layout {
+        case .medium:
+            return palette.textPrimary
+        case .large:
+            return palette.textSecondary
         }
     }
 
