@@ -45,19 +45,15 @@ struct FocusStatusCardView: View {
                 Button {
                     onShare()
                 } label: {
-                    HStack(spacing: 6) {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.tenxIconSmall)
-                        Text("Share")
-                            .font(.tenxTinySemibold)
-                    }
-                    .foregroundStyle(AppColors.textSecondary)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(AppColors.surface.opacity(0.7))
-                    .clipShape(Capsule())
+                    Image(systemName: "square.and.arrow.up")
+                        .font(.tenxIconSmall)
+                        .foregroundStyle(AppColors.textSecondary)
+                        .frame(width: 28, height: 28)
+                        .background(AppColors.surface.opacity(0.7))
+                        .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Share")
             }
         }
         .padding(20)

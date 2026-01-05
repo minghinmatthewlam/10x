@@ -94,12 +94,27 @@ private struct YearProgressMiniGridView: View {
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
                 ForEach(days) { day in
                     Circle()
-                        .fill(day.status.color)
+                        .fill(color(for: day.status))
                         .frame(width: layout.dotSize, height: layout.dotSize)
                 }
             }
             .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
             .padding(inset)
+        }
+    }
+
+    private func color(for status: YearDayStatus) -> Color {
+        switch status {
+        case .success:
+            return YearProgressPalette.success
+        case .incomplete:
+            return YearProgressPalette.emptyPast
+        case .emptyToday:
+            return YearProgressPalette.emptyToday
+        case .emptyPast:
+            return YearProgressPalette.emptyPast
+        case .future:
+            return YearProgressPalette.future
         }
     }
 }

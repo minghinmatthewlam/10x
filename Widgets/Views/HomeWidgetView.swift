@@ -325,7 +325,7 @@ private struct YearPreviewGrid: View {
         case .success:
             return palette.accent
         case .incomplete:
-            return palette.complete
+            return palette.textMuted
         case .emptyToday:
             return palette.textSecondary
         case .emptyPast:
