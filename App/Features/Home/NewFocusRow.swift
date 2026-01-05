@@ -2,11 +2,10 @@ import SwiftUI
 
 struct NewFocusRow: View {
     let placeholder: String
-    let onAdd: (String, FocusTag?) -> Void
+    let onAdd: (String) -> Void
 
     @FocusState private var isFocused: Bool
     @State private var title: String = ""
-    @State private var tag: FocusTag?
 
     var body: some View {
         HStack(spacing: 12) {
@@ -30,9 +29,6 @@ struct NewFocusRow: View {
                 .layoutPriority(1)
 
             Spacer(minLength: 8)
-
-            FocusTagPickerView(tag: $tag)
-                .fixedSize(horizontal: true, vertical: false)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
@@ -52,9 +48,8 @@ struct NewFocusRow: View {
         let safeTitle = trimmed.count > AppConstants.maxFocusTitleLength
             ? String(trimmed.prefix(AppConstants.maxFocusTitleLength))
             : trimmed
-        onAdd(safeTitle, tag)
+        onAdd(safeTitle)
         title = ""
-        tag = nil
         isFocused = false
     }
 }

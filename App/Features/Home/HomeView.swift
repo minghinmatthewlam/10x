@@ -179,9 +179,6 @@ struct HomeView: View {
                                                onToggle: { toggleFocus(focus) },
                                                onTitleCommit: { title in
                                                    updateTitle(for: focus, title: title)
-                                               },
-                                               onTagChange: { tag in
-                                                   updateTag(for: focus, tag: tag)
                                                })
                         })
                         .scaleEffect(isDragging ? 1.02 : 1)
@@ -213,8 +210,8 @@ struct HomeView: View {
                     let remainingSlots = max(0, AppConstants.dailyFocusMax - todayEntry.focuses.count)
                     if remainingSlots > 0 {
                         ForEach(0..<remainingSlots, id: \.self) { offset in
-                            NewFocusRow(placeholder: placeholder(for: todayEntry.focuses.count + offset)) { title, tag in
-                                addFocus(to: todayEntry, title: title, tag: tag)
+                            NewFocusRow(placeholder: placeholder(for: todayEntry.focuses.count + offset)) { title in
+                                addFocus(to: todayEntry, title: title, tag: nil)
                             }
                         }
                     }

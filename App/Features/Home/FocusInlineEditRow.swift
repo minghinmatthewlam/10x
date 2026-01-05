@@ -4,19 +4,16 @@ struct FocusInlineEditRow: View {
     let focus: DailyFocus
     let onToggle: () -> Void
     let onTitleCommit: (String) -> Void
-    let onTagChange: (FocusTag?) -> Void
 
     @FocusState private var isFocused: Bool
     @State private var title: String
 
     init(focus: DailyFocus,
          onToggle: @escaping () -> Void,
-         onTitleCommit: @escaping (String) -> Void,
-         onTagChange: @escaping (FocusTag?) -> Void) {
+         onTitleCommit: @escaping (String) -> Void) {
         self.focus = focus
         self.onToggle = onToggle
         self.onTitleCommit = onTitleCommit
-        self.onTagChange = onTagChange
         _title = State(initialValue: focus.title)
     }
 
@@ -69,13 +66,6 @@ struct FocusInlineEditRow: View {
                 .layoutPriority(1)
 
             Spacer(minLength: 8)
-
-            FocusTagPickerView(tag: Binding(get: {
-                focus.tag
-            }, set: { newTag in
-                onTagChange(newTag)
-            }))
-            .fixedSize(horizontal: true, vertical: false)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)

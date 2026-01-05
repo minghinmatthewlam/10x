@@ -29,16 +29,6 @@ struct FocusDragPreviewRow: View {
                 .lineLimit(1)
 
             Spacer(minLength: 8)
-
-            if let tag = focus.tag {
-                Text(tag.label)
-                    .font(.tenxTinyBold)
-                    .foregroundStyle(AppColors.textSecondary)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 6)
-                    .background(AppColors.surface)
-                    .clipShape(Capsule())
-            }
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
