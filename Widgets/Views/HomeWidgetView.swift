@@ -69,7 +69,6 @@ struct HomeWidgetView: View {
 
     private func mediumSetupState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            brandLabel
             YearPreviewWidgetView(preview: snapshot.yearPreview,
                                   palette: palette,
                                   layout: .medium)
@@ -145,7 +144,6 @@ struct HomeWidgetView: View {
 
     private func mediumState(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            brandLabel
             YearPreviewWidgetView(preview: snapshot.yearPreview,
                                   palette: palette,
                                   layout: .medium)
@@ -219,7 +217,7 @@ private struct YearPreviewWidgetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("Year")
+                Text(brandText)
                     .font(WidgetTypography.caption)
                     .foregroundStyle(palette.textSecondary)
                 Spacer()
@@ -254,6 +252,15 @@ private struct YearPreviewWidgetView: View {
     private var yearText: String {
         guard let preview else { return "—" }
         return String(preview.year)
+    }
+
+    private var brandText: String {
+        switch layout {
+        case .medium:
+            return "10x"
+        case .large:
+            return "Year"
+        }
     }
 
     private var footerText: String {
