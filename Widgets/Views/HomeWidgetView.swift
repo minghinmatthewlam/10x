@@ -227,7 +227,7 @@ private struct YearPreviewWidgetView: View {
             }
 
             if let preview, !preview.statuses.isEmpty {
-                YearPreviewGrid(statuses: preview.statuses, palette: palette)
+                YearPreviewGrid(statuses: preview.statuses)
                     .frame(height: gridHeight)
                     .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -294,7 +294,6 @@ private enum YearPreviewLayout {
 
 private struct YearPreviewGrid: View {
     let statuses: [WidgetYearDayStatus]
-    let palette: ThemePalette
 
     var body: some View {
         GeometryReader { proxy in
@@ -303,7 +302,7 @@ private struct YearPreviewGrid: View {
             let spacingYMin: CGFloat = 2
             let availableSize = CGSize(width: max(0, proxy.size.width - inset * 2),
                                        height: max(0, proxy.size.height - inset * 2))
-            let layout = YearPreviewGridLayout.layout(
+            let layout = YearProgressGridLayout.layout(
                 for: availableSize,
                 totalDays: statuses.count,
                 spacingX: spacingXMin,
@@ -320,64 +319,12 @@ private struct YearPreviewGrid: View {
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
                 ForEach(Array(statuses.enumerated()), id: \.offset) { _, status in
                     Circle()
-                        .fill(color(for: status))
+                        .fill(status.color)
                         .frame(width: layout.dotSize, height: layout.dotSize)
                 }
             }
             .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
             .padding(inset)
         }
-    }
-
-    private func color(for status: WidgetYearDayStatus) -> Color {
-        switch status {
-        case .success:
-            return YearProgressPalette.success
-        case .incomplete:
-            return YearProgressPalette.incomplete
-        case .emptyToday:
-            return YearProgressPalette.emptyToday
-        case .emptyPast:
-            return YearProgressPalette.emptyPast
-        case .future:
-            return YearProgressPalette.future
-        }
-    }
-}
-
-private enum YearPreviewGridLayout {
-    static func layout(
-        for size: CGSize,
-        totalDays: Int,
-        spacingX: CGFloat,
-        spacingYMin: CGFloat,
-        minColumns: Int,
-        maxColumns: Int
-    ) -> (columns: Int, dotSize: CGFloat, spacingY: CGFloat) {
-        guard totalDays > 0 else { return (columns: 1, dotSize: 4, spacingY: spacingYMin) }
-
-        var bestColumns = minColumns
-        var bestDotSize: CGFloat = 0
-        var bestSpacingY = spacingYMin
-
-        for columns in minColumns...maxColumns {
-            let rows = Int(ceil(Double(totalDays) / Double(columns)))
-            guard rows > 0 else { continue }
-            let widthDot = (size.width - spacingX * CGFloat(columns - 1)) / CGFloat(columns)
-            let heightDot = (size.height - spacingYMin * CGFloat(rows - 1)) / CGFloat(rows)
-            let rawDot = min(widthDot, heightDot)
-            let dotSize = max(2, floor(rawDot))
-            let totalDotHeight = CGFloat(rows) * dotSize
-            let availableSpacing = max(0, size.height - totalDotHeight)
-            let spacingY = rows > 1 ? max(spacingYMin, availableSpacing / CGFloat(rows - 1)) : 0
-
-            if dotSize > bestDotSize {
-                bestDotSize = dotSize
-                bestColumns = columns
-                bestSpacingY = spacingY
-            }
-        }
-
-        return (columns: bestColumns, dotSize: bestDotSize, spacingY: bestSpacingY)
     }
 }
