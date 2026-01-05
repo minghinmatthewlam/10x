@@ -10,13 +10,13 @@ struct WidgetSnapshotEntry: TimelineEntry {
 struct SnapshotTimelineProvider: TimelineProvider {
     func placeholder(in context: Context) -> WidgetSnapshotEntry {
         let placeholderPreview = makePlaceholderYearPreview()
-        WidgetSnapshotEntry(date: .now, snapshot: WidgetSnapshot(state: .needsSetup,
-                                                                 dayKey: "",
-                                                                 streak: 0,
-                                                                 completedCount: 0,
-                                                                 focuses: [],
-                                                                 yearPreview: placeholderPreview,
-                                                                 generatedAt: .now))
+        return WidgetSnapshotEntry(date: .now, snapshot: WidgetSnapshot(state: .needsSetup,
+                                                                        dayKey: "",
+                                                                        streak: 0,
+                                                                        completedCount: 0,
+                                                                        focuses: [],
+                                                                        yearPreview: placeholderPreview,
+                                                                        generatedAt: .now))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (WidgetSnapshotEntry) -> Void) {
