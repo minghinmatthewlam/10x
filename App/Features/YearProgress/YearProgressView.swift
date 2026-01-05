@@ -1,11 +1,16 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct YearProgressView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @StateObject private var viewModel: YearProgressViewModel
     @State private var selectedDayIndex: Int?
+    @State private var shareItem: ShareItem?
+    @State private var dragOffset: CGFloat = 0
+    @State private var dragNeighborYear: Int?
+    @State private var dragNeighborData: YearProgressData?
 
     init(year: Int = Calendar.current.component(.year, from: .now)) {
         _viewModel = StateObject(wrappedValue: YearProgressViewModel(year: year))
@@ -16,12 +21,9 @@ struct YearProgressView: View {
         VStack(spacing: 16) {
             header
 
-            dotGrid
-
-            footer
+            yearContent
         }
         .contentShape(Rectangle())
-        .simultaneousGesture(yearSwipeGesture)
         .padding(.horizontal, 20)
         .padding(.top, 24)
         .padding(.bottom, 32)
@@ -29,7 +31,10 @@ struct YearProgressView: View {
         .onAppear {
             viewModel.load(store: store)
         }
-        .fullScreenCover(isPresented: Binding(get: {
+        .sheet(item: $shareItem) { item in
+            ShareSheet(items: [item.image])
+        }
+        .sheet(isPresented: Binding(get: {
             selectedDayIndex != nil
         }, set: { isPresented in
             if !isPresented {
@@ -37,6 +42,8 @@ struct YearProgressView: View {
             }
         })) {
             YearProgressDetailView(days: viewModel.days, selectedIndex: $selectedDayIndex)
+                .presentationDetents([.large])
+                .presentationDragIndicator(.visible)
         }
     }
 
@@ -77,25 +84,66 @@ struct YearProgressView: View {
 
             Spacer()
 
-            Color.clear
-                .frame(width: 32, height: 32)
+            Button {
+                shareYearProgress()
+            } label: {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.tenxIconMedium)
+                    .foregroundStyle(AppColors.textSecondary)
+                    .frame(width: 32, height: 32)
+                    .background(AppColors.surface)
+                    .clipShape(Circle())
+            }
+            .buttonStyle(.plain)
         }
     }
 
-    private var dotGrid: some View {
+    private var yearContent: some View {
+        GeometryReader { proxy in
+            let width = proxy.size.width
+            ZStack {
+                if let dragNeighborData, let neighborYear = dragNeighborYear {
+                    yearContentView(days: dragNeighborData.days, summary: dragNeighborData.summary)
+                        .offset(x: dragOffset + (dragOffset > 0 ? -width : width))
+                        .allowsHitTesting(false)
+                        .accessibilityLabel("Year \(neighborYear)")
+                }
+
+                yearContentView(days: viewModel.days, summary: viewModel.summary)
+                    .offset(x: dragOffset)
+            }
+            .clipped()
+            .gesture(yearDragGesture(width: width))
+        }
+        .frame(maxHeight: .infinity)
+    }
+
+    private func yearContentView(days: [YearDayDot], summary: YearProgressSummary) -> some View {
+        VStack(spacing: 16) {
+            dotGrid(days: days)
+            footer(summary: summary)
+        }
+    }
+
+    private func dotGrid(days: [YearDayDot]) -> some View {
         GeometryReader { proxy in
             let spacingX: CGFloat = 6
             let spacingYMin: CGFloat = 4
-            let layout = gridLayout(for: proxy.size, totalDays: viewModel.days.count, spacingX: spacingX, spacingYMin: spacingYMin)
+            let layout = YearProgressGridLayout.layout(
+                for: proxy.size,
+                totalDays: days.count,
+                spacingX: spacingX,
+                spacingYMin: spacingYMin
+            )
             let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
 
             LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
-                ForEach(Array(viewModel.days.enumerated()), id: \.element.id) { index, day in
+                ForEach(Array(days.enumerated()), id: \.element.id) { index, day in
                     Button {
                         selectedDayIndex = index
                     } label: {
                         Circle()
-                            .fill(dotColor(for: day.status))
+                            .fill(day.status.color)
                             .frame(width: layout.dotSize, height: layout.dotSize)
                     }
                     .buttonStyle(.plain)
@@ -107,8 +155,8 @@ struct YearProgressView: View {
         .frame(maxHeight: .infinity)
     }
 
-    private var footer: some View {
-        Text("\(viewModel.summary.daysLeft)d left")
+    private func footer(summary: YearProgressSummary) -> some View {
+        Text("\(summary.daysLeft)d left • \(String(format: "%.1f%%", summary.yearCompletionPercent))")
             .font(.tenxCaption)
             .foregroundStyle(AppColors.textSecondary)
             .padding(.top, 4)
@@ -119,61 +167,6 @@ struct YearProgressView: View {
         formatter.dateStyle = .medium
         let dateString = formatter.string(from: day.date)
         return "\(dateString), \(statusDescription(for: day.status))"
-    }
-
-    private func gridLayout(
-        for size: CGSize,
-        totalDays: Int,
-        spacingX: CGFloat,
-        spacingYMin: CGFloat
-    ) -> (columns: Int, dotSize: CGFloat, spacingY: CGFloat) {
-        guard totalDays > 0 else { return (columns: 1, dotSize: 4, spacingY: spacingYMin) }
-
-        let minColumns = 10
-        let maxColumns = 20
-        var bestColumns = minColumns
-        var bestDotSize: CGFloat = 0
-        var bestSpacingY: CGFloat = spacingYMin
-
-        for columns in minColumns...maxColumns {
-            let rows = Int(ceil(Double(totalDays) / Double(columns)))
-            guard rows > 0 else { continue }
-            let widthDot = (size.width - spacingX * CGFloat(columns - 1)) / CGFloat(columns)
-            let heightDot = (size.height - spacingYMin * CGFloat(rows - 1)) / CGFloat(rows)
-            let rawDot = min(widthDot, heightDot)
-            let dotSize = max(2, floor(rawDot))
-            let totalDotHeight = CGFloat(rows) * dotSize
-            let availableSpacing = max(0, size.height - totalDotHeight)
-            let spacingY = rows > 1 ? max(spacingYMin, availableSpacing / CGFloat(rows - 1)) : 0
-
-            if dotSize > bestDotSize {
-                bestDotSize = dotSize
-                bestColumns = columns
-                bestSpacingY = spacingY
-            }
-        }
-
-        return (columns: bestColumns, dotSize: bestDotSize, spacingY: bestSpacingY)
-    }
-
-    private func dotColor(for status: YearDayStatus) -> Color {
-        let success = Color(red: 0.22, green: 0.53, blue: 0.98)
-        let incomplete = Color(red: 0.18, green: 0.38, blue: 0.78)
-        let emptyToday = Color(red: 0.16, green: 0.27, blue: 0.48)
-        let emptyPast = Color(red: 0.10, green: 0.18, blue: 0.32)
-        let future = Color(red: 0.17, green: 0.17, blue: 0.18)
-        switch status {
-        case .success:
-            return success
-        case .incomplete:
-            return incomplete
-        case .emptyToday:
-            return emptyToday
-        case .emptyPast:
-            return emptyPast
-        case .future:
-            return future
-        }
     }
 
     private func statusDescription(for status: YearDayStatus) -> String {
@@ -191,14 +184,43 @@ struct YearProgressView: View {
         }
     }
 
-    private var yearSwipeGesture: some Gesture {
-        DragGesture(minimumDistance: 24, coordinateSpace: .local)
-            .onEnded { value in
+    private func yearDragGesture(width: CGFloat) -> some Gesture {
+        DragGesture(minimumDistance: 12, coordinateSpace: .local)
+            .onChanged { value in
                 guard abs(value.translation.width) > abs(value.translation.height) else { return }
-                if value.translation.width < -60 {
-                    moveYear(by: -1)
-                } else if value.translation.width > 60 {
-                    moveYear(by: 1)
+                let translation = value.translation.width
+                guard let neighborYear = neighborYear(for: translation) else {
+                    dragOffset = translation * 0.2
+                    return
+                }
+                if dragNeighborYear != neighborYear {
+                    dragNeighborYear = neighborYear
+                    let store = TenXStore(context: modelContext)
+                    dragNeighborData = viewModel.yearData(for: neighborYear, store: store)
+                }
+                dragOffset = translation
+            }
+            .onEnded { value in
+                guard abs(value.translation.width) > abs(value.translation.height) else {
+                    resetYearDrag()
+                    return
+                }
+                let threshold = width * 0.25
+                let shouldMove = abs(value.translation.width) > threshold
+                guard shouldMove, let targetYear = dragNeighborYear else {
+                    resetYearDrag()
+                    return
+                }
+                let targetOffset = value.translation.width > 0 ? width : -width
+                withAnimation(.easeOut(duration: 0.2)) {
+                    dragOffset = targetOffset
+                }
+                Task { @MainActor in
+                    try? await Task.sleep(nanoseconds: 200_000_000)
+                    selectYear(targetYear)
+                    dragOffset = 0
+                    dragNeighborYear = nil
+                    dragNeighborData = nil
                 }
             }
     }
@@ -214,6 +236,34 @@ struct YearProgressView: View {
         selectedDayIndex = nil
         let store = TenXStore(context: modelContext)
         viewModel.selectYear(year, store: store)
+    }
+
+    private func neighborYear(for translation: CGFloat) -> Int? {
+        guard let currentIndex = viewModel.availableYears.firstIndex(of: viewModel.selectedYear) else { return nil }
+        let nextIndex = translation < 0 ? currentIndex - 1 : currentIndex + 1
+        guard viewModel.availableYears.indices.contains(nextIndex) else { return nil }
+        return viewModel.availableYears[nextIndex]
+    }
+
+    private func resetYearDrag() {
+        withAnimation(.easeOut(duration: 0.2)) {
+            dragOffset = 0
+        }
+        dragNeighborYear = nil
+        dragNeighborData = nil
+    }
+
+    private func shareYearProgress() {
+        guard let image = renderShareImage() else { return }
+        shareItem = ShareItem(image: image)
+    }
+
+    private func renderShareImage() -> UIImage? {
+        let renderer = ImageRenderer(content: YearProgressShareCardView(year: viewModel.selectedYear,
+                                                                        summary: viewModel.summary,
+                                                                        days: viewModel.days))
+        renderer.scale = UIScreen.main.scale
+        return renderer.uiImage
     }
 }
 

@@ -31,10 +31,14 @@ final class YearProgressViewModel: ObservableObject {
     }
 
     private func loadYear(store: TenXStore, year: Int) {
+        let data = yearData(for: year, store: store)
+        days = data.days
+        summary = data.summary
+    }
+
+    func yearData(for year: Int, store: TenXStore) -> YearProgressData {
         guard let startDate = calendar.date(from: DateComponents(year: year, month: 1, day: 1)) else {
-            days = []
-            summary = .empty
-            return
+            return YearProgressData(days: [], summary: .empty)
         }
         let daysInYear = calendar.range(of: .day, in: .year, for: startDate)?.count ?? 365
         let endDate = calendar.date(byAdding: .day, value: daysInYear - 1, to: startDate) ?? startDate
@@ -45,7 +49,7 @@ final class YearProgressViewModel: ObservableObject {
         let entriesByKey = Dictionary(uniqueKeysWithValues: entries.map { ($0.dayKey, $0) })
 
         let today = calendar.startOfDay(for: .now)
-        days = (0..<daysInYear).compactMap { offset in
+        let days: [YearDayDot] = (0..<daysInYear).compactMap { offset in
             guard let date = calendar.date(byAdding: .day, value: offset, to: startDate) else { return nil }
             let dayKey = DayKey.make(for: date)
             let entry = entriesByKey[dayKey]
@@ -55,11 +59,14 @@ final class YearProgressViewModel: ObservableObject {
 
         let completedDays = days.filter { $0.status == .success }.count
         let daysLeft = daysRemaining(in: year, totalDays: daysInYear)
-        summary = YearProgressSummary(
+        let yearCompletionPercent = yearProgressPercent(in: year, totalDays: daysInYear)
+        let summary = YearProgressSummary(
             totalDays: daysInYear,
             completedDays: completedDays,
-            daysLeft: daysLeft
+            daysLeft: daysLeft,
+            yearCompletionPercent: yearCompletionPercent
         )
+        return YearProgressData(days: days, summary: summary)
     }
 
     private func daysRemaining(in year: Int, totalDays: Int) -> Int {
@@ -72,6 +79,19 @@ final class YearProgressViewModel: ObservableObject {
         }
         let dayOfYear = calendar.ordinality(of: .day, in: .year, for: .now) ?? 0
         return max(0, totalDays - dayOfYear)
+    }
+
+    private func yearProgressPercent(in year: Int, totalDays: Int) -> Double {
+        guard totalDays > 0 else { return 0 }
+        let currentYear = calendar.component(.year, from: .now)
+        if year < currentYear {
+            return 100
+        }
+        if year > currentYear {
+            return 0
+        }
+        let dayOfYear = calendar.ordinality(of: .day, in: .year, for: .now) ?? 0
+        return (Double(dayOfYear) / Double(totalDays)) * 100
     }
 
     private func status(for date: Date, entry: DayEntry?, today: Date) -> YearDayStatus {
@@ -88,17 +108,23 @@ final class YearProgressViewModel: ObservableObject {
     }
 }
 
+struct YearProgressData {
+    let days: [YearDayDot]
+    let summary: YearProgressSummary
+}
+
 struct YearProgressSummary {
     let totalDays: Int
     let completedDays: Int
     let daysLeft: Int
+    let yearCompletionPercent: Double
 
     var percentComplete: Int {
         guard totalDays > 0 else { return 0 }
         return Int((Double(completedDays) / Double(totalDays)) * 100)
     }
 
-    static let empty = YearProgressSummary(totalDays: 0, completedDays: 0, daysLeft: 0)
+    static let empty = YearProgressSummary(totalDays: 0, completedDays: 0, daysLeft: 0, yearCompletionPercent: 0)
 }
 
 struct YearDayDot: Identifiable {

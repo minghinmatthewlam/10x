@@ -10,13 +10,23 @@ struct StreakShareCardView: View {
                            endPoint: .bottomTrailing)
 
             VStack(alignment: .leading, spacing: 20) {
-                Text("10x")
+                Text("10X")
                     .font(.tenxDisplay)
                     .foregroundStyle(AppColors.textPrimary)
 
-                Text("Streak \(streak) days")
+                Text("10X Streak.")
                     .font(.tenxDisplaySecondary)
                     .foregroundStyle(AppColors.accent)
+
+                HStack(alignment: .firstTextBaseline, spacing: 12) {
+                    Text("\(streak)")
+                        .font(.tenxDisplaySecondary)
+                        .foregroundStyle(AppColors.textPrimary)
+
+                    Image(systemName: "flame.fill")
+                        .font(.tenxIconLarge)
+                        .foregroundStyle(streak > 0 ? Color.orange : AppColors.textMuted)
+                }
 
                 Text("1-3 focuses a day. Complete two to keep it alive.")
                     .font(.tenxShareBody)
