@@ -40,9 +40,6 @@ struct FocusInputRow: View {
                 .layoutPriority(1)
 
             Spacer(minLength: 8)
-
-            FocusTagPickerView(tag: $draft.tag)
-                .fixedSize(horizontal: true, vertical: false)
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
