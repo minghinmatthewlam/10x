@@ -1,4 +1,5 @@
 import SwiftUI
+import TenXShared
 
 struct YearProgressPreviewTileView: View {
     let year: Int
@@ -9,7 +10,12 @@ struct YearProgressPreviewTileView: View {
         VStack(alignment: .leading, spacing: 12) {
             header
 
-            YearProgressMiniGridView(days: days)
+            YearProgressDotGrid(colors: days.map { $0.status.color },
+                                inset: 6,
+                                spacingXMin: 4,
+                                spacingYMin: 3,
+                                minColumns: 18,
+                                maxColumns: 28)
                 .frame(height: 96)
                 .background(AppColors.surface)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -64,42 +70,5 @@ struct YearProgressPreviewTileView: View {
     private var footerText: String {
         guard summary.totalDays > 0 else { return "Year data will appear here" }
         return "\(summary.daysLeft)d left • \(String(format: "%.0f%%", summary.yearCompletionPercent))"
-    }
-}
-
-private struct YearProgressMiniGridView: View {
-    let days: [YearDayDot]
-
-    var body: some View {
-        GeometryReader { proxy in
-            let inset: CGFloat = 6
-            let spacingXMin: CGFloat = 4
-            let spacingYMin: CGFloat = 3
-            let availableSize = CGSize(width: max(0, proxy.size.width - inset * 2),
-                                       height: max(0, proxy.size.height - inset * 2))
-            let layout = YearProgressGridLayout.layout(
-                for: availableSize,
-                totalDays: days.count,
-                spacingX: spacingXMin,
-                spacingYMin: spacingYMin,
-                minColumns: 18,
-                maxColumns: 28
-            )
-            let spacingX = layout.columns > 1
-                ? max(spacingXMin,
-                      (availableSize.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
-                : 0
-            let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
-
-            LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
-                ForEach(days) { day in
-                    Circle()
-                        .fill(day.status.color)
-                        .frame(width: layout.dotSize, height: layout.dotSize)
-                }
-            }
-            .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
-            .padding(inset)
-        }
     }
 }

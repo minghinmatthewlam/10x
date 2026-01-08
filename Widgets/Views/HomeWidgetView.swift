@@ -22,10 +22,10 @@ struct HomeWidgetView: View {
         if let snapshot {
             switch snapshot.state {
             case .needsOnboarding:
-                emptyState(text: "Open 10x to get started")
+                emptyState(text: WidgetCopy.openToGetStarted)
             case .needsSetup:
                 if snapshot.focuses.isEmpty {
-                    emptyState(text: "Set today’s focuses")
+                    emptyState(text: WidgetCopy.setTodaysFocusesCurly)
                 } else {
                     setupState(snapshot)
                 }
@@ -33,7 +33,7 @@ struct HomeWidgetView: View {
                 progressState(snapshot)
             }
         } else {
-            emptyState(text: "Open TenX to get started")
+            emptyState(text: WidgetCopy.openTenXToGetStarted)
         }
     }
 
@@ -52,53 +52,25 @@ struct HomeWidgetView: View {
     private func progressState(_ snapshot: WidgetSnapshot) -> some View {
         switch family {
         case .systemLarge:
-            return AnyView(largeState(snapshot))
+            return AnyView(LargeWidgetContent(snapshot: snapshot,
+                                              palette: palette,
+                                              showsSetupMessage: false))
         default:
-            return AnyView(mediumState(snapshot))
+            return AnyView(MediumWidgetContent(preview: snapshot.yearPreview,
+                                               palette: palette))
         }
     }
 
     private func setupState(_ snapshot: WidgetSnapshot) -> some View {
         switch family {
         case .systemLarge:
-            return AnyView(largeSetupState(snapshot))
+            return AnyView(LargeWidgetContent(snapshot: snapshot,
+                                              palette: palette,
+                                              showsSetupMessage: true))
         default:
-            return AnyView(mediumSetupState(snapshot))
+            return AnyView(MediumWidgetContent(preview: snapshot.yearPreview,
+                                               palette: palette))
         }
-    }
-
-    private func mediumSetupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            YearPreviewWidgetView(preview: snapshot.yearPreview,
-                                  palette: palette,
-                                  layout: .medium)
-            Spacer(minLength: 8)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    private func largeSetupState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading, spacing: 8) {
-                    brandLabel
-                    focusList(snapshot, showsHeader: true)
-                    Text("Set today’s focuses to begin.")
-                        .font(WidgetTypography.caption)
-                        .foregroundStyle(palette.textSecondary)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-
-                streakBadge(snapshot)
-            }
-
-            Spacer(minLength: 8)
-
-            YearPreviewWidgetView(preview: snapshot.yearPreview,
-                                  palette: palette,
-                                  layout: .large)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 
     private func header(_ snapshot: WidgetSnapshot) -> some View {
@@ -121,57 +93,6 @@ struct HomeWidgetView: View {
             .clipShape(Capsule())
         }
     }
-
-    private func focusList(_ snapshot: WidgetSnapshot, showsHeader: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            if showsHeader {
-                Text("Focuses")
-                    .font(WidgetTypography.caption)
-                    .foregroundStyle(palette.textSecondary)
-            }
-            ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
-                HStack(spacing: 8) {
-                    Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
-                        .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
-                    Text(focus.title)
-                        .lineLimit(1)
-                }
-                .font(WidgetTypography.body)
-                .foregroundStyle(palette.textPrimary)
-            }
-        }
-    }
-
-    private func mediumState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            YearPreviewWidgetView(preview: snapshot.yearPreview,
-                                  palette: palette,
-                                  layout: .medium)
-            Spacer(minLength: 8)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    private func largeState(_ snapshot: WidgetSnapshot) -> some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack(alignment: .top, spacing: 16) {
-                VStack(alignment: .leading, spacing: 8) {
-                    brandLabel
-                    focusList(snapshot, showsHeader: true)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-
-                streakBadge(snapshot)
-            }
-
-            Spacer(minLength: 8)
-
-            YearPreviewWidgetView(preview: snapshot.yearPreview,
-                                  palette: palette,
-                                  layout: .large)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
     private var defaultURL: URL? {
         guard let snapshot else { return DeepLinks.url(for: .home) }
         switch snapshot.state {
@@ -183,20 +104,104 @@ struct HomeWidgetView: View {
             return DeepLinks.url(for: .home)
         }
     }
+}
 
-    private var brandLabel: some View {
+private struct MediumWidgetContent: View {
+    let preview: WidgetYearPreview?
+    let palette: ThemePalette
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            YearPreviewWidgetView(preview: preview,
+                                  palette: palette,
+                                  layout: .medium)
+            Spacer(minLength: 8)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+}
+
+private struct LargeWidgetContent: View {
+    let snapshot: WidgetSnapshot
+    let palette: ThemePalette
+    let showsSetupMessage: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .top, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
+                    BrandLabel(palette: palette)
+                    FocusListView(focuses: snapshot.focuses,
+                                  palette: palette,
+                                  showsHeader: true)
+                    if showsSetupMessage {
+                        Text(WidgetCopy.setTodaysFocusesToBegin)
+                            .font(WidgetTypography.caption)
+                            .foregroundStyle(palette.textSecondary)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+
+                StreakBadgeView(streak: snapshot.streak, palette: palette)
+            }
+
+            Spacer(minLength: 8)
+
+            YearPreviewWidgetView(preview: snapshot.yearPreview,
+                                  palette: palette,
+                                  layout: .large)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+    }
+}
+
+private struct BrandLabel: View {
+    let palette: ThemePalette
+
+    var body: some View {
         Text("10x")
             .font(WidgetTypography.title)
             .foregroundStyle(palette.textPrimary)
     }
+}
 
-    private func streakBadge(_ snapshot: WidgetSnapshot) -> some View {
+private struct FocusListView: View {
+    let focuses: [WidgetSnapshot.Focus]
+    let palette: ThemePalette
+    let showsHeader: Bool
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if showsHeader {
+                Text(WidgetCopy.focusesLabel)
+                    .font(WidgetTypography.caption)
+                    .foregroundStyle(palette.textSecondary)
+            }
+            ForEach(Array(focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
+                HStack(spacing: 8) {
+                    Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
+                        .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
+                    Text(focus.title)
+                        .lineLimit(1)
+                }
+                .font(WidgetTypography.body)
+                .foregroundStyle(palette.textPrimary)
+            }
+        }
+    }
+}
+
+private struct StreakBadgeView: View {
+    let streak: Int
+    let palette: ThemePalette
+
+    var body: some View {
         VStack(alignment: .trailing, spacing: 8) {
             HStack(spacing: 4) {
                 Image(systemName: "flame.fill")
                     .font(WidgetTypography.badge)
-                    .foregroundStyle(snapshot.streak > 0 ? palette.accent : palette.textMuted)
-                Text("\(snapshot.streak)")
+                    .foregroundStyle(streak > 0 ? palette.accent : palette.textMuted)
+                Text("\(streak)")
                     .font(WidgetTypography.badge)
                     .foregroundStyle(palette.textPrimary)
             }
@@ -227,12 +232,17 @@ private struct YearPreviewWidgetView: View {
             }
 
             if let preview, !preview.statuses.isEmpty {
-                YearPreviewGrid(statuses: preview.statuses)
+                YearProgressDotGrid(colors: preview.statuses.map(\.color),
+                                    inset: 6,
+                                    spacingXMin: 3,
+                                    spacingYMin: 2,
+                                    minColumns: 18,
+                                    maxColumns: 26)
                     .frame(height: gridHeight)
                     .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             } else {
-                Text("Open 10x to sync year")
+                Text(WidgetCopy.openToSyncYear)
                     .font(WidgetTypography.caption)
                     .foregroundStyle(palette.textSecondary)
                     .lineLimit(2)
@@ -273,7 +283,7 @@ private struct YearPreviewWidgetView: View {
     }
 
     private var footerText: String {
-        guard let preview, preview.totalDays > 0 else { return "Year progress" }
+        guard let preview, preview.totalDays > 0 else { return WidgetCopy.yearProgressFallback }
         return "\(String(format: "%.0f%%", preview.yearCompletionPercent)) • \(preview.daysLeft)d left"
     }
 
@@ -290,41 +300,4 @@ private struct YearPreviewWidgetView: View {
 private enum YearPreviewLayout {
     case medium
     case large
-}
-
-private struct YearPreviewGrid: View {
-    let statuses: [WidgetYearDayStatus]
-
-    var body: some View {
-        GeometryReader { proxy in
-            let inset: CGFloat = 6
-            let spacingXMin: CGFloat = 3
-            let spacingYMin: CGFloat = 2
-            let availableSize = CGSize(width: max(0, proxy.size.width - inset * 2),
-                                       height: max(0, proxy.size.height - inset * 2))
-            let layout = YearProgressGridLayout.layout(
-                for: availableSize,
-                totalDays: statuses.count,
-                spacingX: spacingXMin,
-                spacingYMin: spacingYMin,
-                minColumns: 18,
-                maxColumns: 26
-            )
-            let spacingX = layout.columns > 1
-                ? max(spacingXMin,
-                      (availableSize.width - CGFloat(layout.columns) * layout.dotSize) / CGFloat(layout.columns - 1))
-                : 0
-            let gridItems = Array(repeating: GridItem(.fixed(layout.dotSize), spacing: spacingX), count: layout.columns)
-
-            LazyVGrid(columns: gridItems, spacing: layout.spacingY) {
-                ForEach(Array(statuses.enumerated()), id: \.offset) { _, status in
-                    Circle()
-                        .fill(status.color)
-                        .frame(width: layout.dotSize, height: layout.dotSize)
-                }
-            }
-            .frame(width: availableSize.width, height: availableSize.height, alignment: .topLeading)
-            .padding(inset)
-        }
-    }
 }

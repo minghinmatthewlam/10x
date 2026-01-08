@@ -21,10 +21,10 @@ struct SmallHomeWidgetView: View {
         if let snapshot {
             switch snapshot.state {
             case .needsOnboarding:
-                emptyState(text: "Open 10x to start")
+                emptyState(text: WidgetCopy.openToStart)
             case .needsSetup:
                 if snapshot.focuses.isEmpty {
-                    emptyState(text: "Set today's focuses")
+                    emptyState(text: WidgetCopy.setTodaysFocusesPlain)
                 } else {
                     setupState(snapshot)
                 }
@@ -32,7 +32,7 @@ struct SmallHomeWidgetView: View {
                 progressState(snapshot)
             }
         } else {
-            emptyState(text: "Open TenX")
+            emptyState(text: WidgetCopy.openTenX)
         }
     }
 
@@ -53,7 +53,7 @@ struct SmallHomeWidgetView: View {
             header(snapshot)
             focusList(snapshot)
             Spacer()
-            Text("Set today’s focuses to begin.")
+            Text(WidgetCopy.setTodaysFocusesToBegin)
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
         }
@@ -92,7 +92,7 @@ struct SmallHomeWidgetView: View {
 
     private func focusList(_ snapshot: WidgetSnapshot) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Focuses")
+            Text(WidgetCopy.focusesLabel)
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
             ForEach(Array(snapshot.focuses.prefix(3).enumerated()), id: \.offset) { _, focus in
