@@ -30,7 +30,7 @@ struct DailySetupView: View {
                         ForEach(Array(viewModel.drafts.enumerated()), id: \.offset) { index, _ in
                             FocusInputRow(
                                 draft: $viewModel.drafts[index],
-                                placeholder: placeholder(for: index),
+                                placeholder: FocusDrafts.placeholder(for: index),
                                 isFocused: focusedField == index
                             ) {
                                 focusedField = nil
@@ -79,14 +79,6 @@ struct DailySetupView: View {
         }
         .onAppear {
             focusedField = 0
-        }
-    }
-
-    private func placeholder(for index: Int) -> String {
-        switch index {
-        case 0: return "Your most important focus..."
-        case 1: return "What else matters today?"
-        default: return "One more thing..."
         }
     }
 

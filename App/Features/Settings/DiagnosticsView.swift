@@ -78,10 +78,7 @@ struct DiagnosticsView: View {
 
     private var lastSnapshotRefresh: String? {
         guard let snapshot else { return nil }
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: snapshot.generatedAt)
+        return DateFormatters.mediumDateTime.string(from: snapshot.generatedAt)
     }
 
     private var snapshotJSON: String {

@@ -163,9 +163,7 @@ struct YearProgressView: View {
     }
 
     private func dayAccessibilityLabel(for day: YearDayDot) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let dateString = formatter.string(from: day.date)
+        let dateString = DateFormatters.mediumDate.string(from: day.date)
         return "\(dateString), \(statusDescription(for: day.status))"
     }
 
@@ -278,29 +276,7 @@ private struct YearProgressDetailView: View {
             if let entry = day.entry {
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(entry.sortedFocuses) { focus in
-                        HStack(spacing: 10) {
-                            Circle()
-                                .strokeBorder(
-                                    focus.isCompleted ? AppColors.complete : AppColors.textMuted,
-                                    lineWidth: 1.5
-                                )
-                                .background(
-                                    Circle()
-                                        .fill(focus.isCompleted ? AppColors.complete : Color.clear)
-                                )
-                                .frame(width: 18, height: 18)
-                                .overlay {
-                                    if focus.isCompleted {
-                                        Image(systemName: "checkmark")
-                                            .font(.tenxTinyBold)
-                                            .foregroundStyle(AppColors.background)
-                                    }
-                                }
-
-                            Text(focus.title)
-                                .font(.tenxBody)
-                                .foregroundStyle(AppColors.textPrimary)
-                        }
+                        FocusChecklistRow(title: focus.title, isCompleted: focus.isCompleted)
                     }
                 }
             } else {
@@ -352,9 +328,7 @@ private struct YearProgressDetailView: View {
     }
 
     private var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        return formatter.string(from: day.date)
+        DateFormatters.fullDate.string(from: day.date)
     }
 
     private var day: YearDayDot {

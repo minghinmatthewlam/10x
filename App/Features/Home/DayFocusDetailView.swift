@@ -20,29 +20,7 @@ struct DayFocusDetailView: View {
             if let entry {
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(entry.sortedFocuses) { focus in
-                        HStack(spacing: 10) {
-                            Circle()
-                                .strokeBorder(
-                                    focus.isCompleted ? AppColors.complete : AppColors.textMuted,
-                                    lineWidth: 1.5
-                                )
-                                .background(
-                                    Circle()
-                                        .fill(focus.isCompleted ? AppColors.complete : Color.clear)
-                                )
-                                .frame(width: 18, height: 18)
-                                .overlay {
-                                    if focus.isCompleted {
-                                        Image(systemName: "checkmark")
-                                            .font(.tenxTinyBold)
-                                            .foregroundStyle(AppColors.background)
-                                    }
-                                }
-
-                            Text(focus.title)
-                                .font(.tenxBody)
-                                .foregroundStyle(AppColors.textPrimary)
-                        }
+                        FocusChecklistRow(title: focus.title, isCompleted: focus.isCompleted)
                     }
                 }
             } else {
@@ -118,9 +96,7 @@ struct DayFocusDetailView: View {
     }
 
     private var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .full
-        return formatter.string(from: selectedDate)
+        DateFormatters.fullDate.string(from: selectedDate)
     }
 
     private var todayStart: Date {

@@ -3,9 +3,7 @@ import UIKit
 
 extension HomeView {
     var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMM d"
-        return formatter.string(from: Date())
+        DateFormatters.homeHeader.string(from: .now)
     }
 
     var currentFocusIds: [UUID] {
@@ -201,27 +199,19 @@ extension HomeView {
     }
 
     func placeholder(for index: Int) -> String {
-        switch index {
-        case 0: return "Your most important focus..."
-        case 1: return "What else matters today?"
-        default: return "One more thing..."
-        }
+        FocusDrafts.placeholder(for: index)
     }
 
     func rescheduleReminders(for entry: DayEntry) {
-        let defaults = UserDefaults.standard
-        let hour = defaults.object(forKey: UserDefaultsKeys.notificationHour) as? Int ?? AppConstants.defaultNotificationHour
-        let minute = defaults.object(forKey: UserDefaultsKeys.notificationMinute) as? Int ?? AppConstants.defaultNotificationMinute
-        let middayEnabled = defaults.object(forKey: UserDefaultsKeys.middayReminderEnabled) as? Bool ?? AppConstants.defaultMiddayReminderEnabled
-        let eveningEnabled = defaults.object(forKey: UserDefaultsKeys.eveningReminderEnabled) as? Bool ?? AppConstants.defaultEveningReminderEnabled
+        let preferences = NotificationPreferences.current()
 
         Task {
             await NotificationScheduler.shared.scheduleReminders(
                 focuses: entry.sortedFocuses,
-                morningHour: hour,
-                morningMinute: minute,
-                middayEnabled: middayEnabled,
-                eveningEnabled: eveningEnabled
+                morningHour: preferences.morningHour,
+                morningMinute: preferences.morningMinute,
+                middayEnabled: preferences.middayEnabled,
+                eveningEnabled: preferences.eveningEnabled
             )
         }
     }

@@ -22,6 +22,18 @@ final class NotificationScheduler {
         }
     }
 
+    func requestAndScheduleReminders(for drafts: [TenXStore.FocusDraft],
+                                     preferences: NotificationPreferences = .current()) async {
+        let focuses = FocusDrafts.focusModels(from: drafts)
+        let granted = await requestAuthorization()
+        guard granted else { return }
+        await scheduleReminders(focuses: focuses,
+                                morningHour: preferences.morningHour,
+                                morningMinute: preferences.morningMinute,
+                                middayEnabled: preferences.middayEnabled,
+                                eveningEnabled: preferences.eveningEnabled)
+    }
+
     func notificationStatus() async -> UNAuthorizationStatus {
         await withCheckedContinuation { continuation in
             center.getNotificationSettings { settings in

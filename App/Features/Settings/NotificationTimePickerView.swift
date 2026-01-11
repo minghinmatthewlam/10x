@@ -36,9 +36,7 @@ struct NotificationTimePickerView: View {
         components.hour = hour
         components.minute = minute
         let date = Calendar.current.date(from: components) ?? .now
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
+        return DateFormatters.shortTime.string(from: date)
     }
 }
 

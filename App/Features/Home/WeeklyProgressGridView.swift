@@ -77,10 +77,7 @@ struct WeeklyProgressGridView: View {
     }
 
     private func dayLabel(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale.current
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: date)
+        DateFormatters.weekdayShort.string(from: date)
     }
 }
 

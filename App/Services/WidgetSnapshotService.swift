@@ -63,7 +63,7 @@ final class WidgetSnapshotService {
 
     private func makeYearPreview() -> WidgetYearPreview? {
         let currentYear = Calendar.current.component(.year, from: .now)
-        let yearData = YearProgressViewModel(year: currentYear).yearData(for: currentYear, store: store)
+        let yearData = YearProgressCalculator(calendar: Calendar.current).yearData(for: currentYear, store: store)
         let statuses = yearData.days.map { WidgetYearDayStatus(from: $0.status) }
         return WidgetYearPreview(year: currentYear,
                                  totalDays: yearData.summary.totalDays,
