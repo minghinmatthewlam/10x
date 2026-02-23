@@ -6,6 +6,7 @@ import UIKit
 final class NotificationScheduler {
     static let shared = NotificationScheduler()
 
+    private var pendingReschedule: Task<Void, Never>?
     private let center = UNUserNotificationCenter.current()
     private let reminderIdentifiers = [
         "tenx.reminder.morning",
@@ -32,6 +33,23 @@ final class NotificationScheduler {
                                 morningMinute: preferences.morningMinute,
                                 middayEnabled: preferences.middayEnabled,
                                 eveningEnabled: preferences.eveningEnabled)
+    }
+
+    func debouncedScheduleReminders(focuses: [DailyFocus],
+                                     morningHour: Int,
+                                     morningMinute: Int,
+                                     middayEnabled: Bool,
+                                     eveningEnabled: Bool) {
+        pendingReschedule?.cancel()
+        pendingReschedule = Task {
+            try? await Task.sleep(nanoseconds: 300_000_000)
+            guard !Task.isCancelled else { return }
+            await scheduleReminders(focuses: focuses,
+                                    morningHour: morningHour,
+                                    morningMinute: morningMinute,
+                                    middayEnabled: middayEnabled,
+                                    eveningEnabled: eveningEnabled)
+        }
     }
 
     func notificationStatus() async -> UNAuthorizationStatus {

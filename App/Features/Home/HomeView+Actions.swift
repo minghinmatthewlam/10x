@@ -204,16 +204,13 @@ extension HomeView {
 
     func rescheduleReminders(for entry: DayEntry) {
         let preferences = NotificationPreferences.current()
-
-        Task {
-            await NotificationScheduler.shared.scheduleReminders(
-                focuses: entry.sortedFocuses,
-                morningHour: preferences.morningHour,
-                morningMinute: preferences.morningMinute,
-                middayEnabled: preferences.middayEnabled,
-                eveningEnabled: preferences.eveningEnabled
-            )
-        }
+        NotificationScheduler.shared.debouncedScheduleReminders(
+            focuses: entry.sortedFocuses,
+            morningHour: preferences.morningHour,
+            morningMinute: preferences.morningMinute,
+            middayEnabled: preferences.middayEnabled,
+            eveningEnabled: preferences.eveningEnabled
+        )
     }
 
     func handleStreakShare(_ streak: Int) {
