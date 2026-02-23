@@ -151,6 +151,9 @@ final class TenXStore {
 
     func deleteFocus(_ focus: DailyFocus) throws {
         let entry = focus.day
+        guard (entry?.focuses.count ?? 0) > AppConstants.dailyFocusMin else {
+            throw StoreError.validation("Can't delete your only focus.")
+        }
         entry?.focuses.removeAll { $0 === focus }
         context.delete(focus)
 
