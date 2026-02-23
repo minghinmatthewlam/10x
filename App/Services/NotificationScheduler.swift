@@ -73,42 +73,12 @@ final class NotificationScheduler {
                            morningMinute: Int,
                            middayEnabled: Bool,
                            eveningEnabled: Bool) async {
-        let incomplete = focuses.filter { !$0.isCompleted }
-        do {
-            try await center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
-
-            if !incomplete.isEmpty {
-                let content = reminderContent(for: incomplete)
-                try await center.add(
-                    reminderRequest(identifier: "tenx.reminder.morning",
-                                    content: content,
-                                    hour: morningHour,
-                                    minute: morningMinute)
-                )
-
-                if middayEnabled {
-                    try await center.add(
-                        reminderRequest(identifier: "tenx.reminder.midday",
-                                        content: content,
-                                        hour: AppConstants.middayReminderHour,
-                                        minute: AppConstants.middayReminderMinute)
-                    )
-                }
-
-                if eveningEnabled {
-                    try await center.add(
-                        reminderRequest(identifier: "tenx.reminder.evening",
-                                        content: content,
-                                        hour: AppConstants.eveningReminderHour,
-                                        minute: AppConstants.eveningReminderMinute)
-                    )
-                }
-            }
-
-            try await center.add(weeklyReminderRequest())
-        } catch {
-            // Intentionally no-op; settings view surfaces status.
-        }
+        let snapshots = focuses.map { FocusSnapshot(title: $0.title, isCompleted: $0.isCompleted) }
+        await scheduleRemindersFromSnapshots(snapshots,
+                                             morningHour: morningHour,
+                                             morningMinute: morningMinute,
+                                             middayEnabled: middayEnabled,
+                                             eveningEnabled: eveningEnabled)
     }
 
     #if DEBUG
