@@ -1,6 +1,7 @@
 import XCTest
 @testable import TenX
 
+@MainActor
 final class StreakEngineTests: XCTestCase {
     func testPendingTodayDoesNotBreakStreak() {
         let todayKey = DayKey.make()

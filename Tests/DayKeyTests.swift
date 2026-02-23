@@ -1,6 +1,7 @@
 import XCTest
 @testable import TenX
 
+@MainActor
 final class DayKeyTests: XCTestCase {
     func testPreviousDayKey() throws {
         let calendar = Calendar.current
