@@ -8,7 +8,7 @@ final class WidgetSnapshotService {
     private let store: TenXStore
     private let snapshotStore: WidgetSnapshotStore
     private let userDefaults: UserDefaults
-    private static var cachedYearPreview: (dayKey: String, completedCount: Int, preview: WidgetYearPreview)?
+    private static var cachedYearPreview: (dayKey: String, completedCount: Int, totalFocuses: Int, preview: WidgetYearPreview)?
 
     init(store: TenXStore,
          snapshotStore: WidgetSnapshotStore = WidgetSnapshotStore(),
@@ -23,7 +23,8 @@ final class WidgetSnapshotService {
         let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
         let recentEntries = (try? store.fetchRecentDayEntries()) ?? []
         let completedCount = todayEntry?.completedCount ?? 0
-        let yearPreview = makeYearPreview(todayKey: todayKey, completedCount: completedCount)
+        let totalFocuses = todayEntry?.focuses.count ?? 0
+        let yearPreview = makeYearPreview(todayKey: todayKey, completedCount: completedCount, totalFocuses: totalFocuses)
 
         let state: WidgetSnapshot.State
         if !hasCompletedOnboarding {
@@ -63,10 +64,11 @@ final class WidgetSnapshotService {
         }
     }
 
-    private func makeYearPreview(todayKey: String, completedCount: Int) -> WidgetYearPreview? {
+    private func makeYearPreview(todayKey: String, completedCount: Int, totalFocuses: Int) -> WidgetYearPreview? {
         if let cached = Self.cachedYearPreview,
            cached.dayKey == todayKey,
-           cached.completedCount == completedCount {
+           cached.completedCount == completedCount,
+           cached.totalFocuses == totalFocuses {
             return cached.preview
         }
         let currentYear = Calendar.current.component(.year, from: .now)
@@ -78,7 +80,7 @@ final class WidgetSnapshotService {
                                         daysLeft: yearData.summary.daysLeft,
                                         yearCompletionPercent: yearData.summary.yearCompletionPercent,
                                         statuses: statuses)
-        Self.cachedYearPreview = (dayKey: todayKey, completedCount: completedCount, preview: preview)
+        Self.cachedYearPreview = (dayKey: todayKey, completedCount: completedCount, totalFocuses: totalFocuses, preview: preview)
         return preview
     }
 }
