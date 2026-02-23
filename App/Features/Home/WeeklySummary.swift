@@ -6,7 +6,7 @@ struct WeeklySummary {
     let daysWithCompletion: Int
 
     static func make(todayKey: String, entries: [DayEntry]) -> WeeklySummary? {
-        let byKey = Dictionary(uniqueKeysWithValues: entries.map { ($0.dayKey, $0) })
+        let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
         var keys: [String] = []
         var cursor = todayKey
         for _ in 0..<7 {
