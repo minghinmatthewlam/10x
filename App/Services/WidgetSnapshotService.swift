@@ -8,7 +8,7 @@ final class WidgetSnapshotService {
     private let store: TenXStore
     private let snapshotStore: WidgetSnapshotStore
     private let userDefaults: UserDefaults
-    private static var cachedYearPreview: (dayKey: String, preview: WidgetYearPreview)?
+    private static var cachedYearPreview: (dayKey: String, completedCount: Int, preview: WidgetYearPreview)?
 
     init(store: TenXStore,
          snapshotStore: WidgetSnapshotStore = WidgetSnapshotStore(),
@@ -22,7 +22,8 @@ final class WidgetSnapshotService {
         let hasCompletedOnboarding = userDefaults.bool(forKey: UserDefaultsKeys.hasCompletedOnboarding)
         let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
         let recentEntries = (try? store.fetchRecentDayEntries()) ?? []
-        let yearPreview = makeYearPreview(todayKey: todayKey)
+        let completedCount = todayEntry?.completedCount ?? 0
+        let yearPreview = makeYearPreview(todayKey: todayKey, completedCount: completedCount)
 
         let state: WidgetSnapshot.State
         if !hasCompletedOnboarding {
@@ -49,7 +50,7 @@ final class WidgetSnapshotService {
         let snapshot = WidgetSnapshot(state: state,
                                       dayKey: todayKey,
                                       streak: StreakEngine.currentStreak(todayKey: todayKey, entries: recentEntries),
-                                      completedCount: todayEntry?.completedCount ?? 0,
+                                      completedCount: completedCount,
                                       focuses: focuses,
                                       yearPreview: yearPreview,
                                       generatedAt: .now)
@@ -62,8 +63,10 @@ final class WidgetSnapshotService {
         }
     }
 
-    private func makeYearPreview(todayKey: String) -> WidgetYearPreview? {
-        if let cached = Self.cachedYearPreview, cached.dayKey == todayKey {
+    private func makeYearPreview(todayKey: String, completedCount: Int) -> WidgetYearPreview? {
+        if let cached = Self.cachedYearPreview,
+           cached.dayKey == todayKey,
+           cached.completedCount == completedCount {
             return cached.preview
         }
         let currentYear = Calendar.current.component(.year, from: .now)
@@ -75,7 +78,7 @@ final class WidgetSnapshotService {
                                         daysLeft: yearData.summary.daysLeft,
                                         yearCompletionPercent: yearData.summary.yearCompletionPercent,
                                         statuses: statuses)
-        Self.cachedYearPreview = (dayKey: todayKey, preview: preview)
+        Self.cachedYearPreview = (dayKey: todayKey, completedCount: completedCount, preview: preview)
         return preview
     }
 }
