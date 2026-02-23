@@ -5,15 +5,27 @@ struct RootView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var appState: AppState
     @AppStorage(UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
+    @AppStorage(ModelContainerFactory.isRunningInMemoryOnly) private var isMemoryOnly = false
 
     var body: some View {
-        Group {
-            if !hasCompletedOnboarding {
-                OnboardingContainerView {
-                    completeOnboarding()
+        VStack(spacing: 0) {
+            if isMemoryOnly {
+                Text("Data won't persist — storage unavailable")
+                    .font(.caption)
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                    .background(Color.red)
+            }
+
+            Group {
+                if !hasCompletedOnboarding {
+                    OnboardingContainerView {
+                        completeOnboarding()
+                    }
+                } else {
+                    HomeShellView()
                 }
-            } else {
-                HomeShellView()
             }
         }
         .task {

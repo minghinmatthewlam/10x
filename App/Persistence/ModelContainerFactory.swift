@@ -1,8 +1,13 @@
 import Foundation
 import SwiftData
+import os
 import TenXShared
 
 enum ModelContainerFactory {
+    private static let logger = Logger(subsystem: "com.matthewlam.tenx", category: "ModelContainerFactory")
+
+    static let isRunningInMemoryOnly = "tenx.runningInMemoryOnly"
+
     static func make(inMemory: Bool = false) -> ModelContainer {
         let schema = Schema([DayEntry.self, DailyFocus.self])
 
@@ -27,6 +32,7 @@ enum ModelContainerFactory {
                 configurations: [config]
             )
         } catch {
+            logger.error("App Group container failed: \(error.localizedDescription, privacy: .public)")
             do {
                 let fallbackConfig = ModelConfiguration(
                     schema: schema,
@@ -37,6 +43,8 @@ enum ModelContainerFactory {
                     configurations: [fallbackConfig]
                 )
             } catch {
+                logger.critical("Default container failed, falling back to in-memory: \(error.localizedDescription, privacy: .public)")
+                UserDefaults.standard.set(true, forKey: isRunningInMemoryOnly)
                 let memoryConfig = ModelConfiguration(
                     schema: schema,
                     isStoredInMemoryOnly: true
