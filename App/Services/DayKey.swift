@@ -1,23 +1,22 @@
 import Foundation
 
+@MainActor
 enum DayKey {
     private static let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.timeZone = .current
+        formatter.timeZone = .autoupdatingCurrent
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }()
 
     static func make(for date: Date = .now) -> String {
-        formatter.timeZone = .current
-        return formatter.string(from: date)
+        formatter.string(from: date)
     }
 
     static func date(from dayKey: String) -> Date? {
-        formatter.timeZone = .current
-        return formatter.date(from: dayKey)
+        formatter.date(from: dayKey)
     }
 
     static func previous(dayKey: String) -> String {
