@@ -67,13 +67,14 @@ struct YearProgressCalculator {
     }
 
     private func status(for date: Date, entry: DayEntry?, today: Date) -> YearDayStatus {
-        if date > today {
+        let dateDay = calendar.startOfDay(for: date)
+        if dateDay > today {
             return .future
         }
         if let entry {
             return entry.maintainsStreak ? .success : .incomplete
         }
-        if date == today {
+        if calendar.isDate(date, inSameDayAs: today) {
             return .emptyToday
         }
         return .emptyPast
