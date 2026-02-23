@@ -18,6 +18,7 @@ struct RootView: View {
         }
         .task {
             let store = TenXStore(context: modelContext)
+            try? store.repairOrphanedEntries()
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
         }
     }

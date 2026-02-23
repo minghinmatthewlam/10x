@@ -172,6 +172,18 @@ final class TenXStore {
         }
         try context.save()
     }
+
+    func repairOrphanedEntries() throws {
+        let all = try context.fetch(FetchDescriptor<DayEntry>())
+        var repaired = false
+        for entry in all where entry.focuses.isEmpty {
+            context.delete(entry)
+            repaired = true
+        }
+        if repaired {
+            try context.save()
+        }
+    }
 }
 
 enum StoreError: Error, LocalizedError {
