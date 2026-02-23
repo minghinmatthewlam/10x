@@ -27,10 +27,12 @@ enum ModelContainerFactory {
                 groupContainer: groupContainer
             )
 
-            return try ModelContainer(
+            let container = try ModelContainer(
                 for: schema,
                 configurations: [config]
             )
+            UserDefaults.standard.set(false, forKey: isRunningInMemoryOnly)
+            return container
         } catch {
             logger.error("App Group container failed: \(error.localizedDescription, privacy: .public)")
             do {
@@ -38,10 +40,12 @@ enum ModelContainerFactory {
                     schema: schema,
                     isStoredInMemoryOnly: inMemory
                 )
-                return try ModelContainer(
+                let container = try ModelContainer(
                     for: schema,
                     configurations: [fallbackConfig]
                 )
+                UserDefaults.standard.set(false, forKey: isRunningInMemoryOnly)
+                return container
             } catch {
                 logger.critical("Default container failed, falling back to in-memory: \(error.localizedDescription, privacy: .public)")
                 UserDefaults.standard.set(true, forKey: isRunningInMemoryOnly)
