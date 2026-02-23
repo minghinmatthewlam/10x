@@ -40,16 +40,24 @@ final class NotificationScheduler {
                                      morningMinute: Int,
                                      middayEnabled: Bool,
                                      eveningEnabled: Bool) {
+        // Snapshot model data before the debounce yield to avoid
+        // accessing SwiftData objects after they may have been deleted.
+        let focusSnapshots = focuses.map { FocusSnapshot(title: $0.title, isCompleted: $0.isCompleted) }
         pendingReschedule?.cancel()
         pendingReschedule = Task {
             try? await Task.sleep(nanoseconds: 300_000_000)
             guard !Task.isCancelled else { return }
-            await scheduleReminders(focuses: focuses,
-                                    morningHour: morningHour,
-                                    morningMinute: morningMinute,
-                                    middayEnabled: middayEnabled,
-                                    eveningEnabled: eveningEnabled)
+            await scheduleRemindersFromSnapshots(focusSnapshots,
+                                                 morningHour: morningHour,
+                                                 morningMinute: morningMinute,
+                                                 middayEnabled: middayEnabled,
+                                                 eveningEnabled: eveningEnabled)
         }
+    }
+
+    private struct FocusSnapshot {
+        let title: String
+        let isCompleted: Bool
     }
 
     func notificationStatus() async -> UNAuthorizationStatus {
@@ -155,11 +163,52 @@ final class NotificationScheduler {
                                      trigger: trigger)
     }
 
-    private func reminderContent(for focuses: [DailyFocus]) -> UNMutableNotificationContent {
+    private func scheduleRemindersFromSnapshots(_ snapshots: [FocusSnapshot],
+                                                  morningHour: Int,
+                                                  morningMinute: Int,
+                                                  middayEnabled: Bool,
+                                                  eveningEnabled: Bool) async {
+        let incomplete = snapshots.filter { !$0.isCompleted }
+        do {
+            center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
+
+            if !incomplete.isEmpty {
+                let content = reminderContent(forTitles: incomplete.map(\.title))
+                try await center.add(
+                    reminderRequest(identifier: "tenx.reminder.morning",
+                                    content: content,
+                                    hour: morningHour,
+                                    minute: morningMinute)
+                )
+                if middayEnabled {
+                    try await center.add(
+                        reminderRequest(identifier: "tenx.reminder.midday",
+                                        content: content,
+                                        hour: AppConstants.middayReminderHour,
+                                        minute: AppConstants.middayReminderMinute)
+                    )
+                }
+                if eveningEnabled {
+                    try await center.add(
+                        reminderRequest(identifier: "tenx.reminder.evening",
+                                        content: content,
+                                        hour: AppConstants.eveningReminderHour,
+                                        minute: AppConstants.eveningReminderMinute)
+                    )
+                }
+            }
+
+            try await center.add(weeklyReminderRequest())
+        } catch {
+            // Intentionally no-op; settings view surfaces status.
+        }
+    }
+
+    private func reminderContent(forTitles titles: [String]) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = "10x"
-        if let first = focuses.first?.title {
-            let remaining = focuses.count - 1
+        if let first = titles.first {
+            let remaining = titles.count - 1
             if remaining > 0 {
                 content.body = "Focus: \(first) +\(remaining) more"
             } else {
@@ -170,5 +219,9 @@ final class NotificationScheduler {
         }
         content.sound = nil
         return content
+    }
+
+    private func reminderContent(for focuses: [DailyFocus]) -> UNMutableNotificationContent {
+        reminderContent(forTitles: focuses.map(\.title))
     }
 }
