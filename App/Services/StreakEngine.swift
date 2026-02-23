@@ -1,5 +1,6 @@
 import Foundation
 
+@MainActor
 enum StreakEngine {
     static func currentStreak(todayKey: String, entries: [DayEntry]) -> Int {
         let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })

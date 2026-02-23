@@ -13,7 +13,7 @@ struct WeeklyProgressDay: Identifiable {
         return completed >= min(2, total)
     }
 
-    static func makeWeek(todayKey: String, entries: [DayEntry]) -> [WeeklyProgressDay] {
+    @MainActor static func makeWeek(todayKey: String, entries: [DayEntry]) -> [WeeklyProgressDay] {
         let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
         let todayDate = DayKey.date(from: todayKey) ?? Date()
         var calendar = Calendar.current
