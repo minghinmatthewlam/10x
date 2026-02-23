@@ -77,15 +77,19 @@ final class TenXStore {
             throw StoreError.validation("Today is already set.")
         }
 
-        let entry = DayEntry(dayKey: todayKey)
-        context.insert(entry)
-
-        for (index, draft) in validDrafts.enumerated() {
+        // Validate all titles before inserting anything into the context.
+        let trimmedDrafts = try validDrafts.map { draft -> (String, FocusDraft) in
             let trimmed = draft.title.trimmingCharacters(in: .whitespacesAndNewlines)
             guard trimmed.count <= AppConstants.maxFocusTitleLength else {
                 throw StoreError.validation("Focus is too long.")
             }
+            return (trimmed, draft)
+        }
 
+        let entry = DayEntry(dayKey: todayKey)
+        context.insert(entry)
+
+        for (index, (trimmed, draft)) in trimmedDrafts.enumerated() {
             let focus = DailyFocus(title: trimmed,
                                    sortOrder: index,
                                    carriedFromDayKey: draft.carriedFromDayKey,
