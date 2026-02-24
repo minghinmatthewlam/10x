@@ -80,7 +80,9 @@ struct HomeView: View {
             focusOrder = viewModel.todayEntry?.sortedFocuses ?? []
             timeChangeListener = SignificantTimeChangeListener {
                 let store = TenXStore(context: modelContext)
-                reloadData(using: store, todayKey: DayKey.make())
+                let currentDayKey = DayKey.make()
+                reloadData(using: store, todayKey: currentDayKey)
+                WidgetSnapshotService(store: store).refreshSnapshot(todayKey: currentDayKey)
                 if !isReordering {
                     focusOrder = viewModel.todayEntry?.sortedFocuses ?? []
                 }

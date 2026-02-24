@@ -4,17 +4,20 @@ struct FocusInputRow: View {
     @Binding var draft: TenXStore.FocusDraft
     let placeholder: String
     let isFocused: Bool
+    let commitOnBlur: Bool
     let onCommit: (() -> Void)?
     let onRequestBlur: (() -> Void)?
 
     init(draft: Binding<TenXStore.FocusDraft>,
          placeholder: String,
          isFocused: Bool,
+         commitOnBlur: Bool = false,
          onCommit: (() -> Void)? = nil,
          onRequestBlur: (() -> Void)? = nil) {
         _draft = draft
         self.placeholder = placeholder
         self.isFocused = isFocused
+        self.commitOnBlur = commitOnBlur
         self.onCommit = onCommit
         self.onRequestBlur = onRequestBlur
     }
@@ -33,7 +36,7 @@ struct FocusInputRow: View {
                     onRequestBlur?()
                 }
                 .onChange(of: isFocused) { _, focused in
-                    if !focused {
+                    if commitOnBlur && !focused {
                         onCommit?()
                     }
                 }

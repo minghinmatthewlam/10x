@@ -5,7 +5,7 @@
 --swiftversion 5.9
 
 # File options
---exclude .build,DerivedData,Pods,Carthage,TenX.xcodeproj
+--exclude .build,.claude,.swarm,artifacts,DerivedData,Pods,Carthage,TenX.xcodeproj
 
 # Indentation
 --indent 4

@@ -4,6 +4,9 @@
 # Paths to ignore
 excluded:
   - .build
+  - .claude
+  - .swarm
+  - artifacts
   - build
   - TenX.xcodeproj
   - TenXShared/.build
