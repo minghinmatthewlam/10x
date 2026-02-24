@@ -14,7 +14,8 @@ struct WeeklyProgressDay: Identifiable {
     }
 
     @MainActor static func makeWeek(todayKey: String, entries: [DayEntry]) -> [WeeklyProgressDay] {
-        let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
+        let keyedEntries = entries.map { ($0.dayKey, $0) }
+        let byKey = Dictionary(keyedEntries) { first, _ in first }
         let todayDate = DayKey.date(from: todayKey) ?? Date()
         var calendar = Calendar.current
         calendar.firstWeekday = 2

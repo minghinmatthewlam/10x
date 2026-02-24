@@ -18,7 +18,8 @@ struct YearProgressCalculator {
         let startKey = DayKey.make(for: startDate)
         let endKey = DayKey.make(for: endDate)
         let entries = (try? store.fetchEntries(from: startKey, to: endKey)) ?? []
-        let entriesByKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
+        let keyedEntries = entries.map { ($0.dayKey, $0) }
+        let entriesByKey = Dictionary(keyedEntries) { first, _ in first }
 
         let todayStart = calendar.startOfDay(for: today)
         let days: [YearDayDot] = (0..<daysInYear).compactMap { offset in

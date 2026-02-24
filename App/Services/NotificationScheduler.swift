@@ -35,11 +35,13 @@ final class NotificationScheduler {
                                 eveningEnabled: preferences.eveningEnabled)
     }
 
-    func debouncedScheduleReminders(focuses: [DailyFocus],
-                                     morningHour: Int,
-                                     morningMinute: Int,
-                                     middayEnabled: Bool,
-                                     eveningEnabled: Bool) {
+    func debouncedScheduleReminders(
+        focuses: [DailyFocus],
+        morningHour: Int,
+        morningMinute: Int,
+        middayEnabled: Bool,
+        eveningEnabled: Bool
+    ) {
         // Snapshot model data before the debounce yield to avoid
         // accessing SwiftData objects after they may have been deleted.
         let focusSnapshots = focuses.map { FocusSnapshot(title: $0.title, isCompleted: $0.isCompleted) }
@@ -133,11 +135,13 @@ final class NotificationScheduler {
                                      trigger: trigger)
     }
 
-    private func scheduleRemindersFromSnapshots(_ snapshots: [FocusSnapshot],
-                                                  morningHour: Int,
-                                                  morningMinute: Int,
-                                                  middayEnabled: Bool,
-                                                  eveningEnabled: Bool) async {
+    private func scheduleRemindersFromSnapshots(
+        _ snapshots: [FocusSnapshot],
+        morningHour: Int,
+        morningMinute: Int,
+        middayEnabled: Bool,
+        eveningEnabled: Bool
+    ) async {
         let incomplete = snapshots.filter { !$0.isCompleted }
         do {
             center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)

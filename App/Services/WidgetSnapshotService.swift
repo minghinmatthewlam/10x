@@ -2,13 +2,22 @@ import Foundation
 import SwiftData
 import TenXShared
 import WidgetKit
+import os
 
 @MainActor
 final class WidgetSnapshotService {
+    private static let logger = Logger(subsystem: "com.matthewlam.tenx", category: "WidgetSnapshotService")
     private let store: TenXStore
     private let snapshotStore: WidgetSnapshotStore
     private let userDefaults: UserDefaults
-    private static var cachedYearPreview: (dayKey: String, completedCount: Int, totalFocuses: Int, preview: WidgetYearPreview)?
+
+    private struct YearPreviewCacheKey: Equatable {
+        let dayKey: String
+        let completedCount: Int
+        let totalFocuses: Int
+    }
+
+    private static var cachedYearPreview: (key: YearPreviewCacheKey, preview: WidgetYearPreview)?
 
     init(store: TenXStore,
          snapshotStore: WidgetSnapshotStore = WidgetSnapshotStore(),
@@ -60,15 +69,13 @@ final class WidgetSnapshotService {
             try snapshotStore.save(snapshot)
             WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
         } catch {
-            // Widgets can fall back to empty state if write fails.
+            Self.logger.error("Failed to write widget snapshot: \(error.localizedDescription, privacy: .public)")
         }
     }
 
     private func makeYearPreview(todayKey: String, completedCount: Int, totalFocuses: Int) -> WidgetYearPreview? {
-        if let cached = Self.cachedYearPreview,
-           cached.dayKey == todayKey,
-           cached.completedCount == completedCount,
-           cached.totalFocuses == totalFocuses {
+        let cacheKey = YearPreviewCacheKey(dayKey: todayKey, completedCount: completedCount, totalFocuses: totalFocuses)
+        if let cached = Self.cachedYearPreview, cached.key == cacheKey {
             return cached.preview
         }
         let currentYear = Calendar.current.component(.year, from: .now)
@@ -80,7 +87,7 @@ final class WidgetSnapshotService {
                                         daysLeft: yearData.summary.daysLeft,
                                         yearCompletionPercent: yearData.summary.yearCompletionPercent,
                                         statuses: statuses)
-        Self.cachedYearPreview = (dayKey: todayKey, completedCount: completedCount, totalFocuses: totalFocuses, preview: preview)
+        Self.cachedYearPreview = (key: cacheKey, preview: preview)
         return preview
     }
 }

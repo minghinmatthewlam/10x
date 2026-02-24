@@ -3,7 +3,8 @@ import Foundation
 @MainActor
 enum StreakEngine {
     static func currentStreak(todayKey: String, entries: [DayEntry]) -> Int {
-        let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
+        let keyedPairs = entries.map { ($0.dayKey, $0) }
+        let byKey = Dictionary(keyedPairs) { first, _ in first }
 
         let startKey: String = {
             if let today = byKey[todayKey], today.maintainsStreak {
@@ -24,7 +25,8 @@ enum StreakEngine {
     }
 
     static func streakStartDayKey(todayKey: String, entries: [DayEntry]) -> String? {
-        let byKey = Dictionary(entries.map { ($0.dayKey, $0) }, uniquingKeysWith: { first, _ in first })
+        let keyedEntries = entries.map { ($0.dayKey, $0) }
+        let byKey = Dictionary(keyedEntries) { first, _ in first }
         let streak = currentStreak(todayKey: todayKey, entries: entries)
         guard streak > 0 else { return nil }
 
