@@ -58,3 +58,9 @@ coverage/
 # Local build overrides
 local.xcconfig
 *.local.xcconfig
+
+# Local AI worktrees
+.claude/worktrees/
+
+# Release/QA generated artifacts
+artifacts/
