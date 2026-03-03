@@ -193,21 +193,13 @@ final class NotificationScheduler {
         let startOfToday = calendar.startOfDay(for: now)
         for dayOffset in 1...6 {
             guard let futureDate = calendar.date(byAdding: .day, value: dayOffset, to: startOfToday) else { continue }
-            var components = calendar.dateComponents([.year, .month, .day], from: futureDate)
-            components.hour = prefs.morningHour
-            components.minute = prefs.morningMinute
-            components.second = 0
-
-            let content = UNMutableNotificationContent()
-            content.title = "10x"
-            content.body = "Time to set your focuses for today."
-            content.sound = nil
-
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-            let request = UNNotificationRequest(
+            let request = makeRequest(
                 identifier: "tenx.reminder.fallback.\(dayOffset)",
-                content: content,
-                trigger: trigger
+                body: "Time to set your focuses for today.",
+                hour: prefs.morningHour,
+                minute: prefs.morningMinute,
+                now: futureDate,
+                calendar: calendar
             )
             try await center.add(request)
         }
