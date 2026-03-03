@@ -19,6 +19,10 @@ final class WidgetSnapshotService {
 
     private static var cachedYearPreview: (key: YearPreviewCacheKey, preview: WidgetYearPreview)?
 
+    static func bustYearPreviewCache() {
+        cachedYearPreview = nil
+    }
+
     init(store: TenXStore,
          snapshotStore: WidgetSnapshotStore = WidgetSnapshotStore(),
          userDefaults: UserDefaults = .standard) {

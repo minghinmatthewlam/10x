@@ -98,9 +98,7 @@ extension HomeView {
         do {
             try store.toggleCompletion(focus)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
-                rescheduleReminders(for: todayEntry)
-            }
+            rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
         } catch {
@@ -123,9 +121,7 @@ extension HomeView {
         do {
             try store.addFocus(to: entry, title: title, tag: tag)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
-                rescheduleReminders(for: todayEntry)
-            }
+            rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
         } catch {
@@ -138,9 +134,7 @@ extension HomeView {
         do {
             try store.updateFocus(focus, title: title, tag: focus.tag)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
-                rescheduleReminders(for: todayEntry)
-            }
+            rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
         } catch {
             viewModel.errorMessage = error.localizedDescription
@@ -152,9 +146,7 @@ extension HomeView {
         do {
             try store.deleteFocus(focus)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
-                rescheduleReminders(for: todayEntry)
-            }
+            rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
         } catch {
@@ -167,9 +159,7 @@ extension HomeView {
         do {
             try store.updateFocusOrder(focuses)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            if let todayEntry = try? store.fetchDayEntry(dayKey: DayKey.make()) {
-                rescheduleReminders(for: todayEntry)
-            }
+            rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
             Haptics.mediumImpact()
         } catch {
@@ -202,15 +192,22 @@ extension HomeView {
         FocusDrafts.placeholder(for: index)
     }
 
-    func rescheduleReminders(for entry: DayEntry) {
-        let preferences = NotificationPreferences.current()
-        NotificationScheduler.shared.debouncedScheduleReminders(
-            focuses: entry.sortedFocuses,
-            morningHour: preferences.morningHour,
-            morningMinute: preferences.morningMinute,
-            middayEnabled: preferences.middayEnabled,
-            eveningEnabled: preferences.eveningEnabled
-        )
+    func toggleYesterdayFocus(_ focus: DailyFocus) {
+        let store = TenXStore(context: modelContext)
+        do {
+            try store.toggleCompletion(focus)
+            WidgetSnapshotService.bustYearPreviewCache()
+            WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
+            rescheduleReminders(using: store)
+            reloadData(using: store, todayKey: DayKey.make())
+            Haptics.mediumImpact()
+        } catch {
+            viewModel.errorMessage = error.localizedDescription
+        }
+    }
+
+    func rescheduleReminders(using store: TenXStore) {
+        NotificationScheduler.shared.debouncedRescheduleAll(store: store)
     }
 
     func handleStreakShare(_ streak: Int) {

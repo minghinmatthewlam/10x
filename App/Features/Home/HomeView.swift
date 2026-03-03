@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import StoreKit
 import UniformTypeIdentifiers
 
 struct HomeView: View {
@@ -7,6 +8,9 @@ struct HomeView: View {
     @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var theme: ThemeController
     @Environment(\.colorScheme) private var systemScheme
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.requestReview) private var requestReview
+    @AppStorage(UserDefaultsKeys.hasRequestedReview) private var hasRequestedReview = false
     @StateObject var viewModel = HomeViewModel()
     @StateObject var focusDraftsViewModel = HomeFocusDraftsViewModel()
     @StateObject var yearProgressViewModel = YearProgressViewModel()
@@ -19,6 +23,7 @@ struct HomeView: View {
     @State private var focusOrder: [DailyFocus] = []
     @State private var draggedFocus: DailyFocus?
     @State private var isReordering = false
+    @State private var lastRescheduleDate: Date = .distantPast
 
     var body: some View {
         let todayKey = DayKey.make()
@@ -38,6 +43,10 @@ struct HomeView: View {
                 .buttonStyle(.plain)
 
                 entrySection
+
+                if let yesterdayEntry = viewModel.yesterdayEntry {
+                    yesterdaySection(entry: yesterdayEntry)
+                }
 
                 WeeklyProgressGridView(days: viewModel.weeklyProgressDays)
             }
@@ -83,6 +92,7 @@ struct HomeView: View {
                 let currentDayKey = DayKey.make()
                 reloadData(using: store, todayKey: currentDayKey)
                 WidgetSnapshotService(store: store).refreshSnapshot(todayKey: currentDayKey)
+                NotificationScheduler.shared.debouncedRescheduleAll(store: store)
                 if !isReordering {
                     focusOrder = viewModel.todayEntry?.sortedFocuses ?? []
                 }
@@ -97,10 +107,21 @@ struct HomeView: View {
         }
         .onChange(of: viewModel.streak) { _, streak in
             handleStreakShare(streak)
+            if streak >= 3, !hasRequestedReview {
+                hasRequestedReview = true
+                requestReview()
+            }
         }
         .onChange(of: currentFocusIds) { _, _ in
             guard !isReordering else { return }
             focusOrder = viewModel.todayEntry?.sortedFocuses ?? []
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            guard Date.now.timeIntervalSince(lastRescheduleDate) > 60 else { return }
+            let store = TenXStore(context: modelContext)
+            NotificationScheduler.shared.debouncedRescheduleAll(store: store)
+            lastRescheduleDate = .now
         }
         .sheet(item: $shareItem) { item in
             ShareSheet(items: [item.image])
@@ -236,6 +257,67 @@ struct HomeView: View {
         }
         .padding(20)
         .background(AppColors.card)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
+
+    private func yesterdaySection(entry: DayEntry) -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Yesterday")
+                    .font(.tenxTitle)
+                    .foregroundStyle(AppColors.textSecondary)
+
+                Text("Mark what you completed")
+                    .font(.tenxSmall)
+                    .foregroundStyle(AppColors.textSecondary.opacity(0.7))
+            }
+
+            VStack(spacing: 12) {
+                ForEach(entry.sortedFocuses) { focus in
+                    HStack(spacing: 12) {
+                        Button { toggleYesterdayFocus(focus) } label: {
+                            Circle()
+                                .strokeBorder(
+                                    focus.isCompleted ? AppColors.complete : AppColors.textMuted,
+                                    lineWidth: 1.5
+                                )
+                                .background(
+                                    Circle()
+                                        .fill(focus.isCompleted ? AppColors.complete : Color.clear)
+                                )
+                                .frame(width: 24, height: 24)
+                                .overlay {
+                                    if focus.isCompleted {
+                                        Image(systemName: "checkmark")
+                                            .font(.tenxTinyBold)
+                                            .foregroundStyle(AppColors.background)
+                                    }
+                                }
+                        }
+                        .buttonStyle(.plain)
+
+                        Text(focus.title)
+                            .font(.tenxLargeBody)
+                            .foregroundStyle(focus.isCompleted ? AppColors.textSecondary : AppColors.textSecondary.opacity(0.8))
+                            .strikethrough(focus.isCompleted, color: AppColors.textSecondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+
+                        Spacer(minLength: 8)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(AppColors.surface.opacity(0.6))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .strokeBorder(AppColors.textMuted.opacity(0.1), lineWidth: 1)
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                }
+            }
+        }
+        .padding(20)
+        .background(AppColors.card.opacity(0.7))
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
     }
 }
