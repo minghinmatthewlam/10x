@@ -105,9 +105,9 @@ struct HomeView: View {
                 appState.showDailySetup = false
             }
         }
-        .onChange(of: viewModel.streak) { _, streak in
-            handleStreakShare(streak)
-            if streak >= 3, !hasRequestedReview {
+        .onChange(of: viewModel.streak) { oldStreak, newStreak in
+            handleStreakShare(newStreak)
+            if newStreak >= 3, oldStreak < 3, !hasRequestedReview {
                 hasRequestedReview = true
                 requestReview()
             }

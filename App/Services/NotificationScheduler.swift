@@ -7,6 +7,7 @@ final class NotificationScheduler {
     static let shared = NotificationScheduler()
 
     private var pendingReschedule: Task<Void, Never>?
+    private var weeklyRegistered = false
     private let center = UNUserNotificationCenter.current()
     private let reminderIdentifiers = [
         "tenx.reminder.morning",
@@ -101,7 +102,7 @@ final class NotificationScheduler {
 
         do {
             // Morning
-            if let body = morningBody(todayEntry: todayEntry) {
+            if let body = reminderBody(todayEntry: todayEntry, noEntryMessage: "Time to set your focuses for today.") {
                 let request = makeRequest(
                     identifier: "tenx.reminder.morning",
                     body: body,
@@ -114,7 +115,7 @@ final class NotificationScheduler {
             }
 
             // Midday
-            if prefs.middayEnabled, let body = middayBody(todayEntry: todayEntry) {
+            if prefs.middayEnabled, let body = reminderBody(todayEntry: todayEntry, noEntryMessage: "Set your focuses — the day is half over.") {
                 let request = makeRequest(
                     identifier: "tenx.reminder.midday",
                     body: body,
@@ -139,10 +140,10 @@ final class NotificationScheduler {
                 try await center.add(request)
             }
 
-            // Weekly — only re-register if not already pending
-            let pending = await center.pendingNotificationRequests()
-            if !pending.contains(where: { $0.identifier == weeklyIdentifier }) {
+            // Weekly — register once per app session
+            if !weeklyRegistered {
                 try await center.add(weeklyReminderRequest())
+                weeklyRegistered = true
             }
         } catch {
             // Intentionally no-op; settings view surfaces status.
@@ -196,18 +197,8 @@ final class NotificationScheduler {
 
     // MARK: - Content
 
-    private func morningBody(todayEntry: DayEntry?) -> String? {
-        guard let entry = todayEntry else {
-            return "Time to set your focuses for today."
-        }
-        guard !entry.isFullyComplete else { return nil }
-        return incompleteFocusSummary(entry)
-    }
-
-    private func middayBody(todayEntry: DayEntry?) -> String? {
-        guard let entry = todayEntry else {
-            return "Set your focuses — the day is half over."
-        }
+    private func reminderBody(todayEntry: DayEntry?, noEntryMessage: String) -> String? {
+        guard let entry = todayEntry else { return noEntryMessage }
         guard !entry.isFullyComplete else { return nil }
         return incompleteFocusSummary(entry)
     }

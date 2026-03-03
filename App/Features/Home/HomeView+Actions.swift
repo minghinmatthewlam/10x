@@ -93,10 +93,11 @@ extension HomeView {
         }
     }
 
-    func toggleFocus(_ focus: DailyFocus) {
+    func toggleFocus(_ focus: DailyFocus, bustYearCache: Bool = false) {
         let store = TenXStore(context: modelContext)
         do {
             try store.toggleCompletion(focus)
+            if bustYearCache { WidgetSnapshotService.bustYearPreviewCache() }
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
             rescheduleReminders(using: store)
             reloadData(using: store, todayKey: DayKey.make())
@@ -193,17 +194,7 @@ extension HomeView {
     }
 
     func toggleYesterdayFocus(_ focus: DailyFocus) {
-        let store = TenXStore(context: modelContext)
-        do {
-            try store.toggleCompletion(focus)
-            WidgetSnapshotService.bustYearPreviewCache()
-            WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
-            rescheduleReminders(using: store)
-            reloadData(using: store, todayKey: DayKey.make())
-            Haptics.mediumImpact()
-        } catch {
-            viewModel.errorMessage = error.localizedDescription
-        }
+        toggleFocus(focus, bustYearCache: true)
     }
 
     func rescheduleReminders(using store: TenXStore) {

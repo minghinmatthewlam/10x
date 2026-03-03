@@ -15,8 +15,7 @@ final class HomeViewModel: ObservableObject {
         unfinishedDrafts = []
 
         let yesterdayKey = DayKey.previous(dayKey: todayKey)
-        let yesterday = try? store.fetchDayEntry(dayKey: yesterdayKey)
-        yesterdayEntry = (yesterday != nil && !(yesterday!.isFullyComplete)) ? yesterday : nil
+        yesterdayEntry = (try? store.fetchDayEntry(dayKey: yesterdayKey)).flatMap { $0.isFullyComplete ? nil : $0 }
 
         let entries = (try? store.fetchRecentDayEntries()) ?? []
         streak = StreakEngine.currentStreak(todayKey: todayKey, entries: entries)
