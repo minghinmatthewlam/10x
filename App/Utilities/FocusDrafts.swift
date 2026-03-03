@@ -22,10 +22,6 @@ enum FocusDrafts {
         return filled.count >= AppConstants.dailyFocusMin
     }
 
-    static func focusModels(from drafts: [TenXStore.FocusDraft]) -> [DailyFocus] {
-        trimmedTitles(from: drafts).enumerated().map { DailyFocus(title: $0.element, sortOrder: $0.offset) }
-    }
-
     private static func trimmedTitles(from drafts: [TenXStore.FocusDraft]) -> [String] {
         drafts
             .map { $0.title.trimmingCharacters(in: .whitespacesAndNewlines) }

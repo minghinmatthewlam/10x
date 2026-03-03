@@ -15,6 +15,8 @@ final class NotificationScheduler {
     ]
     private let weeklyIdentifier = "tenx.reminder.weekly"
 
+    // MARK: - Public API
+
     func requestAuthorization() async -> Bool {
         do {
             return try await center.requestAuthorization(options: [.alert, .badge])
@@ -23,43 +25,33 @@ final class NotificationScheduler {
         }
     }
 
-    func requestAndScheduleReminders(for drafts: [TenXStore.FocusDraft],
-                                     preferences: NotificationPreferences = .current()) async {
-        let focuses = FocusDrafts.focusModels(from: drafts)
+    func rescheduleAll(store: TenXStore) async {
+        pendingReschedule?.cancel()
+        pendingReschedule = nil
+
         let granted = await requestAuthorization()
         guard granted else { return }
-        await scheduleReminders(focuses: focuses,
-                                morningHour: preferences.morningHour,
-                                morningMinute: preferences.morningMinute,
-                                middayEnabled: preferences.middayEnabled,
-                                eveningEnabled: preferences.eveningEnabled)
+
+        let todayKey = DayKey.make()
+        let todayEntry = try? store.fetchDayEntry(dayKey: todayKey)
+        let entries = (try? store.fetchRecentDayEntries()) ?? []
+        let streak = StreakEngine.currentStreak(todayKey: todayKey, entries: entries)
+        let prefs = NotificationPreferences.current()
+
+        await scheduleReminders(
+            todayEntry: todayEntry,
+            streak: streak,
+            prefs: prefs
+        )
     }
 
-    func debouncedScheduleReminders(
-        focuses: [DailyFocus],
-        morningHour: Int,
-        morningMinute: Int,
-        middayEnabled: Bool,
-        eveningEnabled: Bool
-    ) {
-        // Snapshot model data before the debounce yield to avoid
-        // accessing SwiftData objects after they may have been deleted.
-        let focusSnapshots = focuses.map { FocusSnapshot(title: $0.title, isCompleted: $0.isCompleted) }
+    func debouncedRescheduleAll(store: TenXStore) {
         pendingReschedule?.cancel()
         pendingReschedule = Task {
             try? await Task.sleep(nanoseconds: 300_000_000)
             guard !Task.isCancelled else { return }
-            await scheduleRemindersFromSnapshots(focusSnapshots,
-                                                 morningHour: morningHour,
-                                                 morningMinute: morningMinute,
-                                                 middayEnabled: middayEnabled,
-                                                 eveningEnabled: eveningEnabled)
+            await rescheduleAll(store: store)
         }
-    }
-
-    private struct FocusSnapshot {
-        let title: String
-        let isCompleted: Bool
     }
 
     func notificationStatus() async -> UNAuthorizationStatus {
@@ -68,19 +60,6 @@ final class NotificationScheduler {
                 continuation.resume(returning: settings.authorizationStatus)
             }
         }
-    }
-
-    func scheduleReminders(focuses: [DailyFocus],
-                           morningHour: Int,
-                           morningMinute: Int,
-                           middayEnabled: Bool,
-                           eveningEnabled: Bool) async {
-        let snapshots = focuses.map { FocusSnapshot(title: $0.title, isCompleted: $0.isCompleted) }
-        await scheduleRemindersFromSnapshots(snapshots,
-                                             morningHour: morningHour,
-                                             morningMinute: morningMinute,
-                                             middayEnabled: middayEnabled,
-                                             eveningEnabled: eveningEnabled)
     }
 
     #if DEBUG
@@ -108,14 +87,94 @@ final class NotificationScheduler {
         UIApplication.shared.open(url)
     }
 
-    private func reminderRequest(identifier: String,
-                                 content: UNNotificationContent,
-                                 hour: Int,
-                                 minute: Int) -> UNNotificationRequest {
-        var components = DateComponents()
-        components.hour = hour
-        components.minute = minute
-        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+    // MARK: - Scheduling
+
+    private func scheduleReminders(
+        todayEntry: DayEntry?,
+        streak: Int,
+        prefs: NotificationPreferences
+    ) async {
+        center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
+
+        let now = Date.now
+        let calendar = Calendar.current
+
+        do {
+            // Morning
+            if let body = morningBody(todayEntry: todayEntry) {
+                let request = makeRequest(
+                    identifier: "tenx.reminder.morning",
+                    body: body,
+                    hour: prefs.morningHour,
+                    minute: prefs.morningMinute,
+                    now: now,
+                    calendar: calendar
+                )
+                try await center.add(request)
+            }
+
+            // Midday
+            if prefs.middayEnabled, let body = middayBody(todayEntry: todayEntry) {
+                let request = makeRequest(
+                    identifier: "tenx.reminder.midday",
+                    body: body,
+                    hour: AppConstants.middayReminderHour,
+                    minute: AppConstants.middayReminderMinute,
+                    now: now,
+                    calendar: calendar
+                )
+                try await center.add(request)
+            }
+
+            // Evening
+            if prefs.eveningEnabled, let body = eveningBody(todayEntry: todayEntry, streak: streak) {
+                let request = makeRequest(
+                    identifier: "tenx.reminder.evening",
+                    body: body,
+                    hour: AppConstants.eveningReminderHour,
+                    minute: AppConstants.eveningReminderMinute,
+                    now: now,
+                    calendar: calendar
+                )
+                try await center.add(request)
+            }
+
+            // Weekly — only re-register if not already pending
+            let pending = await center.pendingNotificationRequests()
+            if !pending.contains(where: { $0.identifier == weeklyIdentifier }) {
+                try await center.add(weeklyReminderRequest())
+            }
+        } catch {
+            // Intentionally no-op; settings view surfaces status.
+        }
+    }
+
+    private func makeRequest(
+        identifier: String,
+        body: String,
+        hour: Int,
+        minute: Int,
+        now: Date,
+        calendar: Calendar
+    ) -> UNNotificationRequest {
+        let content = UNMutableNotificationContent()
+        content.title = "10x"
+        content.body = body
+        content.sound = nil
+
+        var target = calendar.dateComponents([.year, .month, .day], from: now)
+        target.hour = hour
+        target.minute = minute
+        target.second = 0
+
+        // If time already passed today, schedule for tomorrow
+        if let targetDate = calendar.date(from: target), targetDate <= now {
+            if let tomorrow = calendar.date(byAdding: .day, value: 1, to: targetDate) {
+                target = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tomorrow)
+            }
+        }
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: target, repeats: false)
         return UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
     }
 
@@ -135,67 +194,52 @@ final class NotificationScheduler {
                                      trigger: trigger)
     }
 
-    private func scheduleRemindersFromSnapshots(
-        _ snapshots: [FocusSnapshot],
-        morningHour: Int,
-        morningMinute: Int,
-        middayEnabled: Bool,
-        eveningEnabled: Bool
-    ) async {
-        let incomplete = snapshots.filter { !$0.isCompleted }
-        do {
-            center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
+    // MARK: - Content
 
-            if !incomplete.isEmpty {
-                let content = reminderContent(forTitles: incomplete.map(\.title))
-                try await center.add(
-                    reminderRequest(identifier: "tenx.reminder.morning",
-                                    content: content,
-                                    hour: morningHour,
-                                    minute: morningMinute)
-                )
-                if middayEnabled {
-                    try await center.add(
-                        reminderRequest(identifier: "tenx.reminder.midday",
-                                        content: content,
-                                        hour: AppConstants.middayReminderHour,
-                                        minute: AppConstants.middayReminderMinute)
-                    )
-                }
-                if eveningEnabled {
-                    try await center.add(
-                        reminderRequest(identifier: "tenx.reminder.evening",
-                                        content: content,
-                                        hour: AppConstants.eveningReminderHour,
-                                        minute: AppConstants.eveningReminderMinute)
-                    )
-                }
-            }
-
-            try await center.add(weeklyReminderRequest())
-        } catch {
-            // Intentionally no-op; settings view surfaces status.
+    private func morningBody(todayEntry: DayEntry?) -> String? {
+        guard let entry = todayEntry else {
+            return "Time to set your focuses for today."
         }
+        guard !entry.isFullyComplete else { return nil }
+        return incompleteFocusSummary(entry)
     }
 
-    private func reminderContent(forTitles titles: [String]) -> UNMutableNotificationContent {
-        let content = UNMutableNotificationContent()
-        content.title = "10x"
-        if let first = titles.first {
-            let remaining = titles.count - 1
-            if remaining > 0 {
-                content.body = "Focus: \(first) +\(remaining) more"
-            } else {
-                content.body = "Focus: \(first)"
-            }
-        } else {
-            content.body = "Check your focuses."
+    private func middayBody(todayEntry: DayEntry?) -> String? {
+        guard let entry = todayEntry else {
+            return "Set your focuses — the day is half over."
         }
-        content.sound = nil
-        return content
+        guard !entry.isFullyComplete else { return nil }
+        return incompleteFocusSummary(entry)
     }
 
-    private func reminderContent(for focuses: [DailyFocus]) -> UNMutableNotificationContent {
-        reminderContent(forTitles: focuses.map(\.title))
+    private func eveningBody(todayEntry: DayEntry?, streak: Int) -> String? {
+        guard let entry = todayEntry else {
+            return "Day's almost over — set your focuses."
+        }
+        guard !entry.isFullyComplete else { return nil }
+        guard !entry.focuses.isEmpty else { return nil }
+
+        let total = entry.focuses.count
+        let completed = entry.completedCount
+        let needed = min(2, total) - completed
+
+        if needed > 0, streak > 0 {
+            return "Complete \(needed) more to keep your \(streak)-day streak!"
+        }
+        if needed > 0 {
+            let noun = needed == 1 ? "focus" : "focuses"
+            return "Complete \(needed) more \(noun) to start a streak."
+        }
+        return "Streak safe — finish your last focus for a perfect day."
+    }
+
+    private func incompleteFocusSummary(_ entry: DayEntry) -> String? {
+        let incomplete = entry.sortedFocuses.filter { !$0.isCompleted }
+        guard let first = incomplete.first else { return nil }
+        let remaining = incomplete.count - 1
+        if remaining > 0 {
+            return "Focus: \(first.title) +\(remaining) more"
+        }
+        return "Focus: \(first.title)"
     }
 }

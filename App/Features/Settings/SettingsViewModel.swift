@@ -14,25 +14,9 @@ final class SettingsViewModel: ObservableObject {
         }
     }
 
-    func requestAndSchedule(store: TenXStore,
-                            todayKey: String,
-                            hour: Int,
-                            minute: Int,
-                            middayEnabled: Bool,
-                            eveningEnabled: Bool) {
+    func requestAndSchedule(store: TenXStore) {
         Task {
-            let granted = await NotificationScheduler.shared.requestAuthorization()
-            if granted {
-                let entry = try? store.fetchDayEntry(dayKey: todayKey)
-                let focuses = entry?.sortedFocuses ?? []
-                await NotificationScheduler.shared.scheduleReminders(
-                    focuses: focuses,
-                    morningHour: hour,
-                    morningMinute: minute,
-                    middayEnabled: middayEnabled,
-                    eveningEnabled: eveningEnabled
-                )
-            }
+            await NotificationScheduler.shared.rescheduleAll(store: store)
             refreshStatus()
         }
     }

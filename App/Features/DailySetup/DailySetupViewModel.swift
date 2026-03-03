@@ -17,7 +17,7 @@ final class DailySetupViewModel: ObservableObject {
         do {
             try store.createDayEntry(todayKey: todayKey, drafts: drafts)
             WidgetSnapshotService(store: store).refreshSnapshot(todayKey: todayKey)
-            scheduleReminderIfNeeded(using: drafts)
+            scheduleReminderIfNeeded(store: store)
             return true
         } catch {
             errorMessage = error.localizedDescription
@@ -25,9 +25,9 @@ final class DailySetupViewModel: ObservableObject {
         }
     }
 
-    private func scheduleReminderIfNeeded(using drafts: [TenXStore.FocusDraft]) {
+    private func scheduleReminderIfNeeded(store: TenXStore) {
         Task {
-            await NotificationScheduler.shared.requestAndScheduleReminders(for: drafts)
+            await NotificationScheduler.shared.rescheduleAll(store: store)
         }
     }
 }

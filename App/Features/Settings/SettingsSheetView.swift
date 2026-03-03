@@ -150,12 +150,7 @@ struct SettingsSheetView: View {
     }
 
     private func scheduleNotifications() {
-        viewModel.requestAndSchedule(store: TenXStore(context: modelContext),
-                                     todayKey: DayKey.make(),
-                                     hour: notificationHour,
-                                     minute: notificationMinute,
-                                     middayEnabled: middayReminderEnabled,
-                                     eveningEnabled: eveningReminderEnabled)
+        viewModel.requestAndSchedule(store: TenXStore(context: modelContext))
     }
 
     private var weeklyReminderText: String {
