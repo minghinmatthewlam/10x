@@ -10,4 +10,5 @@ enum UserDefaultsKeys {
     static let appearanceMode = SharedConstants.appearanceModeKey
     static let theme = SharedConstants.themeKey
     static let lastSharedStreak = "lastSharedStreak"
+    static let hasRequestedReview = "hasRequestedReview"
 }

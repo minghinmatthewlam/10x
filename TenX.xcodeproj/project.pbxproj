@@ -81,6 +81,7 @@
 		D6906D6C76F11F4394049D19 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5379B2BB1D1EA70747A92F6 /* WelcomeView.swift */; };
 		D7C58022DA8D714E1EB90844 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84386E4061182647509A34F7 /* DiagnosticsView.swift */; };
 		D8000794EE45D455D6D43E88 /* WeeklyProgressGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEF7FBD9619E8B7627ECEEB /* WeeklyProgressGridView.swift */; };
+		D9717C1B84E7F2E1F806953F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 0249ED53984B5F1ABA20A90A /* PrivacyInfo.xcprivacy */; };
 		DAE7691B34686E71FC2DC922 /* HomeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E50683C9D834BB93CC3EAD9 /* HomeWidgetView.swift */; };
 		DCDBE73BD7056654EDDF6C48 /* WidgetSnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F14441AFF71AD292BF76C82 /* WidgetSnapshotService.swift */; };
 		DE8ACA66C7889538C54BC466 /* FocusDragPreviewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B524172A34D50A5E16551962 /* FocusDragPreviewRow.swift */; };
@@ -136,6 +137,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0249ED53984B5F1ABA20A90A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		0276AF22821B9093A9B69D24 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		03E4DB0F82EC4A1FFE0BA04C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		04580BDDF026D8EECA933EFC /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 			children = (
 				7184B408622476752E69E770 /* Assets.xcassets */,
 				03E4DB0F82EC4A1FFE0BA04C /* Info.plist */,
+				0249ED53984B5F1ABA20A90A /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				38C57C8F2C4562E1CABB0742 /* Assets.xcassets in Resources */,
+				D9717C1B84E7F2E1F806953F /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,7 +916,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.widgets;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -946,7 +950,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1060,7 +1064,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx.widgets;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -1077,7 +1081,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.matthewlam.tenx;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

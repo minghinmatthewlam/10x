@@ -22,6 +22,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx
         INFOPLIST_FILE: App/Resources/Info.plist
         CODE_SIGN_ENTITLEMENTS: App/TenX.entitlements
+        TARGETED_DEVICE_FAMILY: 1
     dependencies:
       - package: TenXShared
       - target: TenXWidgets
@@ -36,6 +37,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.matthewlam.tenx.widgets
         INFOPLIST_FILE: Widgets/Info.plist
         CODE_SIGN_ENTITLEMENTS: Widgets/TenXWidgets.entitlements
+        TARGETED_DEVICE_FAMILY: 1
     dependencies:
       - package: TenXShared
 
