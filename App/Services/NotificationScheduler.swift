@@ -190,9 +190,9 @@ final class NotificationScheduler {
         now: Date,
         calendar: Calendar
     ) async throws {
-        let startOfTomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: now)!)
+        let startOfToday = calendar.startOfDay(for: now)
         for dayOffset in 1...6 {
-            guard let futureDate = calendar.date(byAdding: .day, value: dayOffset, to: startOfTomorrow) else { continue }
+            guard let futureDate = calendar.date(byAdding: .day, value: dayOffset, to: startOfToday) else { continue }
             var components = calendar.dateComponents([.year, .month, .day], from: futureDate)
             components.hour = prefs.morningHour
             components.minute = prefs.morningMinute
