@@ -14,6 +14,7 @@ final class NotificationScheduler {
         "tenx.reminder.midday",
         "tenx.reminder.evening"
     ]
+    private let fallbackIdentifiers = (1...6).map { "tenx.reminder.fallback.\($0)" }
     private let weeklyIdentifier = "tenx.reminder.weekly"
 
     // MARK: - Public API
@@ -95,13 +96,13 @@ final class NotificationScheduler {
         streak: Int,
         prefs: NotificationPreferences
     ) async {
-        center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers)
+        center.removePendingNotificationRequests(withIdentifiers: reminderIdentifiers + fallbackIdentifiers)
 
         let now = Date.now
         let calendar = Calendar.current
 
         do {
-            // Morning
+            // Morning — personalized for today/tomorrow
             if let body = reminderBody(todayEntry: todayEntry, noEntryMessage: "Time to set your focuses for today.") {
                 let request = makeRequest(
                     identifier: "tenx.reminder.morning",
@@ -140,6 +141,11 @@ final class NotificationScheduler {
                 try await center.add(request)
             }
 
+            // Fallback morning reminders for days 2–7
+            // Generic content ensures notifications continue if the user doesn't open the app.
+            // Replaced with personalized content on next app open.
+            try await scheduleFallbackReminders(prefs: prefs, now: now, calendar: calendar)
+
             // Weekly — register once per app session
             if !weeklyRegistered {
                 try await center.add(weeklyReminderRequest())
@@ -177,6 +183,34 @@ final class NotificationScheduler {
 
         let trigger = UNCalendarNotificationTrigger(dateMatching: target, repeats: false)
         return UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+    }
+
+    private func scheduleFallbackReminders(
+        prefs: NotificationPreferences,
+        now: Date,
+        calendar: Calendar
+    ) async throws {
+        let startOfTomorrow = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: now)!)
+        for dayOffset in 1...6 {
+            guard let futureDate = calendar.date(byAdding: .day, value: dayOffset, to: startOfTomorrow) else { continue }
+            var components = calendar.dateComponents([.year, .month, .day], from: futureDate)
+            components.hour = prefs.morningHour
+            components.minute = prefs.morningMinute
+            components.second = 0
+
+            let content = UNMutableNotificationContent()
+            content.title = "10x"
+            content.body = "Time to set your focuses for today."
+            content.sound = nil
+
+            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+            let request = UNNotificationRequest(
+                identifier: "tenx.reminder.fallback.\(dayOffset)",
+                content: content,
+                trigger: trigger
+            )
+            try await center.add(request)
+        }
     }
 
     private func weeklyReminderRequest() -> UNNotificationRequest {
