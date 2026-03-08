@@ -60,6 +60,8 @@ struct YearProgressView: View {
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Close")
+            .accessibilityHint("Dismisses the year progress view")
 
             Spacer()
 
@@ -79,8 +81,11 @@ struct YearProgressView: View {
                     Image(systemName: "chevron.down")
                         .font(.tenxMicroSemibold)
                         .foregroundStyle(AppColors.textSecondary)
+                        .accessibilityHidden(true)
                 }
             }
+            .accessibilityLabel("Year \(viewModel.selectedYear)")
+            .accessibilityHint("Opens a menu to select a different year")
 
             Spacer()
 
@@ -95,6 +100,8 @@ struct YearProgressView: View {
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Share")
+            .accessibilityHint("Shares the year progress as an image")
         }
     }
 
@@ -148,6 +155,7 @@ struct YearProgressView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(dayAccessibilityLabel(for: day))
+                    .accessibilityHint("Shows focus details for this day")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -303,6 +311,8 @@ private struct YearProgressDetailView: View {
                     .foregroundStyle(AppColors.textSecondary)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Previous day")
+            .accessibilityHint("Shows the previous day's focuses")
             .disabled(!canMoveBackward)
             .opacity(canMoveBackward ? 1 : 0.3)
 
@@ -322,6 +332,8 @@ private struct YearProgressDetailView: View {
                     .foregroundStyle(AppColors.textSecondary)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Next day")
+            .accessibilityHint("Shows the next day's focuses")
             .disabled(!canMoveForward)
             .opacity(canMoveForward ? 1 : 0.3)
         }
