@@ -21,8 +21,11 @@ struct LockWidgetView: View {
                 }
                 .gaugeStyle(.accessoryCircular)
                 .tint(snapshot.completedCount >= total ? palette.complete : palette.accent)
+                .accessibilityLabel("Focus progress")
+                .accessibilityValue("\(snapshot.completedCount) of \(total) completed")
             } else {
                 Image(systemName: "target")
+                    .accessibilityLabel("10x")
             }
         }
         .containerBackground(Color.clear, for: .widget)
