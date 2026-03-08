@@ -19,6 +19,7 @@ struct FocusChecklistRow: View {
                         Image(systemName: "checkmark")
                             .font(.tenxTinyBold)
                             .foregroundStyle(AppColors.background)
+                            .accessibilityHidden(true)
                     }
                 }
 
@@ -26,5 +27,7 @@ struct FocusChecklistRow: View {
                 .font(.tenxBody)
                 .foregroundStyle(AppColors.textPrimary)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(title), \(isCompleted ? "completed" : "not completed")")
     }
 }
