@@ -26,6 +26,7 @@ struct StreakShareCardView: View {
                     Image(systemName: "flame.fill")
                         .font(.tenxIconLarge)
                         .foregroundStyle(streak > 0 ? Color.orange : AppColors.textMuted)
+                        .accessibilityHidden(true)
                 }
 
                 Text("1-3 focuses a day. Complete two to keep it alive.")
@@ -37,5 +38,6 @@ struct StreakShareCardView: View {
         }
         .frame(width: 1200, height: 1200)
         .clipShape(RoundedRectangle(cornerRadius: 80, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 }

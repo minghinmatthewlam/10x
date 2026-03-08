@@ -41,6 +41,7 @@ struct YearProgressShareCardView: View {
         }
         .frame(width: 1200, height: 1200)
         .clipShape(RoundedRectangle(cornerRadius: 80, style: .continuous))
+        .accessibilityElement(children: .combine)
     }
 
     private func metricBlock(title: String, value: String) -> some View {
