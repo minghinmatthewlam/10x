@@ -54,6 +54,8 @@ struct DayFocusDetailView: View {
                         .foregroundStyle(AppColors.textSecondary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Previous day")
+                .accessibilityHint("Shows the previous day's focuses")
                 .opacity(canMoveBackward ? 1 : 0.3)
                 .disabled(!canMoveBackward)
 
@@ -73,6 +75,8 @@ struct DayFocusDetailView: View {
                         .foregroundStyle(AppColors.textSecondary)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Next day")
+                .accessibilityHint("Shows the next day's focuses")
                 .opacity(canMoveForward ? 1 : 0.3)
                 .disabled(!canMoveForward)
             }
@@ -89,6 +93,8 @@ struct DayFocusDetailView: View {
                         .clipShape(Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel("Close")
+                .accessibilityHint("Dismisses the detail view")
 
                 Spacer()
             }

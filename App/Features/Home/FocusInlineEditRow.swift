@@ -39,6 +39,8 @@ struct FocusInlineEditRow: View {
                     }
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(focus.isCompleted ? "\(focus.title), completed" : "\(focus.title), not completed")
+            .accessibilityHint(focus.isCompleted ? "Marks as not completed" : "Marks as completed")
 
             TextField("Focus", text: $title)
                 .font(.tenxLargeBody)

@@ -45,6 +45,7 @@ struct YearProgressPreviewTileView: View {
             Image(systemName: "calendar")
                 .font(.tenxIconMedium)
                 .foregroundStyle(AppColors.textSecondary)
+                .accessibilityHidden(true)
         }
     }
 
@@ -63,6 +64,7 @@ struct YearProgressPreviewTileView: View {
                 Image(systemName: "chevron.right")
                     .font(.tenxMicroSemibold)
                     .foregroundStyle(AppColors.textMuted)
+                    .accessibilityHidden(true)
             }
         }
     }

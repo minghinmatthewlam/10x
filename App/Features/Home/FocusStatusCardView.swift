@@ -30,6 +30,7 @@ struct FocusStatusCardView: View {
                 Image(systemName: "flame.fill")
                     .font(.tenxIconLarge)
                     .foregroundStyle(streak > 0 ? Color.orange : AppColors.textMuted)
+                    .accessibilityHidden(true)
             }
 
             HStack(alignment: .firstTextBaseline, spacing: 12) {
@@ -54,6 +55,7 @@ struct FocusStatusCardView: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Share")
+                .accessibilityHint("Shares your streak as an image")
             }
         }
         .padding(20)
