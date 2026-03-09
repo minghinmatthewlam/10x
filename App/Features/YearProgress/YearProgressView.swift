@@ -155,7 +155,6 @@ struct YearProgressView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(dayAccessibilityLabel(for: day))
-                    .accessibilityHint("Shows focus details for this day")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
