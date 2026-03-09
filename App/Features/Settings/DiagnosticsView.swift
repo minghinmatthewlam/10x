@@ -37,17 +37,20 @@ struct DiagnosticsView: View {
                 Button("Copy diagnostics") {
                     copyDiagnostics()
                 }
+                .accessibilityHint("Copies diagnostic information to clipboard")
                 .listRowBackground(AppColors.surface)
 
                 Button("Force widget refresh") {
                     let store = TenXStore(context: modelContext)
                     WidgetSnapshotService(store: store).refreshSnapshot(todayKey: DayKey.make())
                 }
+                .accessibilityHint("Regenerates the widget snapshot from current data")
                 .listRowBackground(AppColors.surface)
 
                 Button("Reload widget timelines") {
                     WidgetCenter.shared.reloadTimelines(ofKind: SharedConstants.widgetKind)
                 }
+                .accessibilityHint("Tells the system to reload all widget timelines")
                 .listRowBackground(AppColors.surface)
             }
         }

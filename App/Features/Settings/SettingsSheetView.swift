@@ -45,12 +45,14 @@ struct SettingsSheetView: View {
 
                     Toggle("Midday check-in", isOn: $middayReminderEnabled)
                         .font(.tenxBody)
+                        .accessibilityHint(middayReminderEnabled ? "Disables the midday check-in reminder" : "Enables a midday reminder to check your focus progress")
                         .onChange(of: middayReminderEnabled) { _, _ in
                             scheduleNotifications()
                         }
 
                     Toggle("Evening reflection", isOn: $eveningReminderEnabled)
                         .font(.tenxBody)
+                        .accessibilityHint(eveningReminderEnabled ? "Disables the evening reflection reminder" : "Enables an evening reminder to reflect on your day")
                         .onChange(of: eveningReminderEnabled) { _, _ in
                             scheduleNotifications()
                         }
@@ -68,6 +70,7 @@ struct SettingsSheetView: View {
                             NotificationScheduler.shared.openSystemSettings()
                         }
                         .buttonStyle(PrimaryButtonStyle())
+                        .accessibilityHint("Opens the system notification settings for this app")
                     }
 
 #if DEBUG
@@ -75,6 +78,7 @@ struct SettingsSheetView: View {
                         viewModel.scheduleTest()
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .accessibilityHint("Sends a test notification to verify delivery")
 #endif
                 }
 
@@ -87,6 +91,7 @@ struct SettingsSheetView: View {
                         dismiss()
                     }
                     .buttonStyle(PrimaryButtonStyle())
+                    .accessibilityHint("Returns to the onboarding carousel immediately")
 
                     Text("Returns to the onboarding carousel immediately.")
                         .font(.tenxCaption)
@@ -132,6 +137,8 @@ struct SettingsSheetView: View {
                     .clipShape(Circle())
             }
             .buttonStyle(.plain)
+            .accessibilityLabel("Close")
+            .accessibilityHint("Dismisses the settings screen")
         }
     }
 
