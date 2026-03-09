@@ -48,6 +48,7 @@ struct DailySetupView: View {
                     .frame(maxWidth: .infinity)
                     .opacity(viewModel.hasValidFocus ? 1 : 0.4)
                     .disabled(!viewModel.hasValidFocus)
+                    .accessibilityHint("Saves your focuses and starts the day")
                 }
                 .padding(.horizontal, 28)
                 .padding(.top, 32)
@@ -64,6 +65,8 @@ struct DailySetupView: View {
                             .font(.tenxIconButton)
                             .foregroundStyle(AppColors.textSecondary)
                     }
+                    .accessibilityLabel("Close")
+                    .accessibilityHint("Dismisses the daily setup without saving")
                 }
             }
             .toolbarBackground(AppColors.background, for: .navigationBar)
