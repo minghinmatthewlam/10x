@@ -25,6 +25,7 @@ struct NotificationTimePickerView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Morning reminder time")
+        .accessibilityValue(formattedTime)
         .accessibilityHint("Opens a time picker to change the morning reminder time")
         .sheet(isPresented: $isPickerPresented) {
             TimePickerSheet(hour: $hour, minute: $minute)
