@@ -45,6 +45,7 @@ struct OnboardingCarouselView: View {
                                 .font(.tenxDisplay)
                                 .foregroundStyle(AppColors.textPrimary)
                                 .padding(.bottom, 12)
+                                .accessibilityHidden(true)
 
                             Text(step.title)
                                 .font(.tenxTitle)
@@ -73,11 +74,15 @@ struct OnboardingCarouselView: View {
                         if stepIndex < steps.count - 1 {
                             Image(systemName: "chevron.right")
                                 .font(.tenxTinySemibold)
+                                .accessibilityHidden(true)
                         }
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(PrimaryButtonStyle())
+                .accessibilityHint(stepIndex == steps.count - 1
+                    ? "Completes onboarding and opens the app"
+                    : "Advances to the next onboarding step")
                 .padding(.horizontal, 24)
                 .padding(.bottom, 32)
             }
@@ -92,6 +97,7 @@ struct OnboardingCarouselView: View {
                     onComplete()
                 }
                 .buttonStyle(GhostButtonStyle())
+                .accessibilityHint("Skips the remaining onboarding steps")
             }
             .padding(.horizontal, 24)
             .padding(.top, 12)
@@ -104,6 +110,8 @@ struct OnboardingCarouselView: View {
                         .animation(.easeInOut(duration: 0.2), value: stepIndex)
                 }
             }
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("Page \(stepIndex + 1) of \(steps.count)")
         }
         .padding(.bottom, 12)
     }

@@ -33,6 +33,7 @@ struct WelcomeView: View {
                 onBegin()
             }
             .buttonStyle(PrimaryButtonStyle())
+            .accessibilityHint("Starts the onboarding experience")
             .frame(maxWidth: .infinity)
 
             Spacer()
