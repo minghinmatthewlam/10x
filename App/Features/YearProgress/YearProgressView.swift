@@ -168,6 +168,7 @@ struct YearProgressView: View {
             .font(.tenxCaption)
             .foregroundStyle(AppColors.textSecondary)
             .padding(.top, 4)
+            .accessibilityLabel("\(summary.daysLeft) days left, \(String(format: "%.1f", summary.yearCompletionPercent)) percent complete")
     }
 
     private func dayAccessibilityLabel(for day: YearDayDot) -> String {
