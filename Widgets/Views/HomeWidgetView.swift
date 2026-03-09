@@ -83,6 +83,7 @@ struct HomeWidgetView: View {
                 Image(systemName: "flame.fill")
                     .font(WidgetTypography.badge)
                     .foregroundStyle(snapshot.streak > 0 ? palette.accent : palette.textMuted)
+                    .accessibilityHidden(true)
                 Text("\(snapshot.streak)")
                     .font(WidgetTypography.badge)
                     .foregroundStyle(palette.textPrimary)
@@ -91,6 +92,8 @@ struct HomeWidgetView: View {
             .padding(.vertical, 4)
             .background(palette.surface.opacity(0.9))
             .clipShape(Capsule())
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(snapshot.streak) day streak")
         }
     }
     private var defaultURL: URL? {
@@ -181,11 +184,14 @@ private struct FocusListView: View {
                 HStack(spacing: 8) {
                     Image(systemName: focus.isCompleted ? "checkmark.circle.fill" : "circle")
                         .foregroundStyle(focus.isCompleted ? palette.accent : palette.textMuted)
+                        .accessibilityHidden(true)
                     Text(focus.title)
                         .lineLimit(1)
                 }
                 .font(WidgetTypography.body)
                 .foregroundStyle(palette.textPrimary)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel("\(focus.title), \(focus.isCompleted ? "completed" : "not completed")")
             }
         }
     }
@@ -201,6 +207,7 @@ private struct StreakBadgeView: View {
                 Image(systemName: "flame.fill")
                     .font(WidgetTypography.badge)
                     .foregroundStyle(streak > 0 ? palette.accent : palette.textMuted)
+                    .accessibilityHidden(true)
                 Text("\(streak)")
                     .font(WidgetTypography.badge)
                     .foregroundStyle(palette.textPrimary)
@@ -209,6 +216,8 @@ private struct StreakBadgeView: View {
             .padding(.vertical, 4)
             .background(palette.surface.opacity(0.9))
             .clipShape(Capsule())
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(streak) day streak")
         }
         .frame(width: 70, alignment: .topTrailing)
     }
@@ -241,6 +250,7 @@ private struct YearPreviewWidgetView: View {
                     .frame(height: gridHeight)
                     .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .accessibilityHidden(true)
             } else {
                 Text(WidgetCopy.openToSyncYear)
                     .font(WidgetTypography.caption)
@@ -256,6 +266,7 @@ private struct YearPreviewWidgetView: View {
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
                 .lineLimit(1)
+                .accessibilityLabel(footerAccessibilityLabel)
         }
     }
 
@@ -285,6 +296,11 @@ private struct YearPreviewWidgetView: View {
     private var footerText: String {
         guard let preview, preview.totalDays > 0 else { return WidgetCopy.yearProgressFallback }
         return "\(String(format: "%.0f%%", preview.yearCompletionPercent)) • \(preview.daysLeft)d left"
+    }
+
+    private var footerAccessibilityLabel: String {
+        guard let preview, preview.totalDays > 0 else { return WidgetCopy.yearProgressFallback }
+        return "\(preview.daysLeft) days left, \(String(format: "%.0f", preview.yearCompletionPercent)) percent complete"
     }
 
     private var gridHeight: CGFloat {
