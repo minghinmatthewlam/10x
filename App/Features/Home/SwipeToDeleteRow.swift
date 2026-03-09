@@ -24,6 +24,7 @@ struct SwipeToDeleteRow<Content: View>: View {
                 .offset(x: offset)
                 .background(rowSizeReader)
                 .simultaneousGesture(dragGesture)
+                .accessibilityAction(named: "Delete") { action() }
         }
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
     }
@@ -37,6 +38,7 @@ struct SwipeToDeleteRow<Content: View>: View {
                 HStack(spacing: 6) {
                     Image(systemName: "trash")
                         .font(.tenxIconSmall)
+                        .accessibilityHidden(true)
                     if width > 64 {
                         Text("Delete")
                             .font(.tenxTinyBold)

@@ -41,6 +41,7 @@ struct HomeView: View {
                     )
                 }
                 .buttonStyle(.plain)
+                .accessibilityHint("Opens the full year progress view")
 
                 entrySection
 
@@ -81,6 +82,8 @@ struct HomeView: View {
                         .foregroundStyle(AppColors.textSecondary)
                         .frame(width: 32, height: 32)
                 }
+                .accessibilityLabel("Settings")
+                .accessibilityHint("Opens the settings screen")
             }
         }
         .onAppear {
@@ -187,6 +190,7 @@ struct HomeView: View {
                         .clipShape(Capsule())
                     }
                     .buttonStyle(.plain)
+                    .accessibilityHint("Opens today's focus details")
                 }
             }
 
@@ -295,6 +299,8 @@ struct HomeView: View {
                                 }
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(focus.isCompleted ? "\(focus.title), completed" : "\(focus.title), not completed")
+                        .accessibilityHint(focus.isCompleted ? "Marks as not completed" : "Marks as completed")
 
                         Text(focus.title)
                             .font(.tenxLargeBody)

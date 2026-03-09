@@ -32,6 +32,7 @@ struct WeeklyProgressGridView: View {
                                     Image(systemName: "checkmark")
                                         .font(.tenxTinyBold)
                                         .foregroundStyle(Color.white)
+                                        .accessibilityHidden(true)
                                 } else if day.completed > 0 {
                                     Text("\(day.completed)/\(day.total)")
                                         .font(.tenxCaption)
@@ -40,10 +41,13 @@ struct WeeklyProgressGridView: View {
                                     Image(systemName: "xmark")
                                         .font(.tenxTinyBold)
                                         .foregroundStyle(Color.white.opacity(0.7))
+                                        .accessibilityHidden(true)
                                 }
                             }
                         }
                     }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(dayAccessibilityLabel(for: day))
                 }
             }
 
@@ -78,6 +82,18 @@ struct WeeklyProgressGridView: View {
 
     private func dayLabel(for date: Date) -> String {
         DateFormatters.weekdayShort.string(from: date)
+    }
+
+    private func dayAccessibilityLabel(for day: WeeklyProgressDay) -> String {
+        let name = dayLabel(for: day.date)
+        guard day.total > 0 else { return "\(name), no focuses set" }
+        if day.maintainsStreak {
+            return "\(name), all \(day.total) focuses completed"
+        }
+        if day.completed > 0 {
+            return "\(name), \(day.completed) of \(day.total) focuses completed"
+        }
+        return "\(name), no focuses completed"
     }
 }
 
