@@ -19,6 +19,7 @@ struct YearProgressPreviewTileView: View {
                 .frame(height: 96)
                 .background(AppColors.surface)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .accessibilityHidden(true)
 
             footer
         }
@@ -54,6 +55,7 @@ struct YearProgressPreviewTileView: View {
             Text(footerText)
                 .font(.tenxCaption)
                 .foregroundStyle(AppColors.textSecondary)
+                .accessibilityLabel(footerAccessibilityLabel)
 
             Spacer()
 
@@ -72,5 +74,10 @@ struct YearProgressPreviewTileView: View {
     private var footerText: String {
         guard summary.totalDays > 0 else { return "Year data will appear here" }
         return "\(summary.daysLeft)d left • \(String(format: "%.0f%%", summary.yearCompletionPercent))"
+    }
+
+    private var footerAccessibilityLabel: String {
+        guard summary.totalDays > 0 else { return "Year data will appear here" }
+        return "\(summary.daysLeft) days left, \(String(format: "%.0f", summary.yearCompletionPercent)) percent complete"
     }
 }
