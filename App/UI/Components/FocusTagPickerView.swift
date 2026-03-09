@@ -17,6 +17,7 @@ struct FocusTagPickerView: View {
                     .font(.tenxSmall)
                 Image(systemName: "chevron.down")
                     .font(.tenxMicroSemibold)
+                    .accessibilityHidden(true)
             }
             .foregroundStyle(AppColors.textSecondary)
             .padding(.horizontal, 10)
@@ -24,5 +25,7 @@ struct FocusTagPickerView: View {
             .background(AppColors.surface.opacity(0.8))
             .clipShape(Capsule())
         }
+        .accessibilityLabel(tag?.label ?? "Tag, none selected")
+        .accessibilityHint("Opens a menu to select a focus tag")
     }
 }

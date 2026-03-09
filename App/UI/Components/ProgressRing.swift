@@ -12,5 +12,8 @@ struct ProgressRing: View {
                 .stroke(AppColors.accent, style: StrokeStyle(lineWidth: 8, lineCap: .round))
                 .rotationEffect(.degrees(-90))
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Focus progress")
+        .accessibilityValue("\(Int(progress * 100)) percent")
     }
 }
