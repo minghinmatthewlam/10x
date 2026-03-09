@@ -250,6 +250,7 @@ private struct YearPreviewWidgetView: View {
                     .frame(height: gridHeight)
                     .background(palette.surface)
                     .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .accessibilityHidden(true)
             } else {
                 Text(WidgetCopy.openToSyncYear)
                     .font(WidgetTypography.caption)
@@ -265,6 +266,7 @@ private struct YearPreviewWidgetView: View {
                 .font(WidgetTypography.caption)
                 .foregroundStyle(palette.textSecondary)
                 .lineLimit(1)
+                .accessibilityLabel(footerAccessibilityLabel)
         }
     }
 
@@ -294,6 +296,11 @@ private struct YearPreviewWidgetView: View {
     private var footerText: String {
         guard let preview, preview.totalDays > 0 else { return WidgetCopy.yearProgressFallback }
         return "\(String(format: "%.0f%%", preview.yearCompletionPercent)) • \(preview.daysLeft)d left"
+    }
+
+    private var footerAccessibilityLabel: String {
+        guard let preview, preview.totalDays > 0 else { return WidgetCopy.yearProgressFallback }
+        return "\(preview.daysLeft) days left, \(String(format: "%.0f", preview.yearCompletionPercent)) percent complete"
     }
 
     private var gridHeight: CGFloat {
