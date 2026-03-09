@@ -73,7 +73,7 @@ private struct TimePickerSheet: View {
                     dismiss()
                 }
                 .font(.tenxBody)
-                .accessibilityHint("Saves the selected time and closes the picker")
+                .accessibilityHint("Closes the time picker")
             }
             .padding(.horizontal, 20)
 
