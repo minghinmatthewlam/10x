@@ -1,66 +1,54 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
 
-# Xcode
-build/
-DerivedData/
-*.xcuserstate
+.AppleDouble
+.build/
+.claude/worktrees/
+.DS_Store
+.idea/
+.LSOverride
+.swiftlint.cache
+.swiftpm/
+*.gcda
+*.gcno
+*.gcov
+*.local.xcconfig
+*.log
+*.moved-aside
+*.trace
+*.xccheckout
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcscmblueprint
 *.xcuserdata/
 *.xcuserdatad/
-*.moved-aside
-*.xcscmblueprint
-*.xccheckout
+*.xcuserstate
 *.xcworkspace/xcuserdata/
-*.xcodeproj/xcuserdata/
-*.xcodeproj/project.xcworkspace/xcuserdata/
-
-# Swift Package Manager
-.build/
-.swiftpm/
-
-# Instruments
-*.trace
-
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
+# AppCode
 # Carthage
-Carthage/Build/
-
+# CI/Test artifacts
+# Coverage
 # Fastlane
-fastlane/report.xml
+# Instruments
+# Local AI worktrees
+# Local build overrides
+# Logs
+# macOS
+# Playgrounds
+# Release/QA generated artifacts
+# Swift Package Manager
+# SwiftLint/SwiftFormat cache
+# Xcode
+artifacts/
+build/
+Carthage/Build/
+coverage/
+DerivedData/
 fastlane/Preview.html
+fastlane/report.xml
 fastlane/screenshots/**/*.png
 fastlane/test_output
-
-# AppCode
-.idea/
-
-# Coverage
-*.gcno
-*.gcda
-*.gcov
-
-# Logs
-*.log
-
-# CI/Test artifacts
-test-results.xml
 format-output.txt
-coverage/
-
-# SwiftLint/SwiftFormat cache
-.swiftlint.cache
-
-# Local build overrides
 local.xcconfig
-*.local.xcconfig
-
-# Local AI worktrees
-.claude/worktrees/
-
-# Release/QA generated artifacts
-artifacts/
+plans/
+playground.xcworkspace
+test-results.xml
+timeline.xctimeline
